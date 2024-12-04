@@ -8,3 +8,25 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
+1733325009 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+	<iostream>
+	"dominios/Nome.h"
+
+1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
+	"../../include/dominios/avaliacao.h"
+
+1733324669 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.h
+	<string>
+	<iostream>
+
+1733324981 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\nome.cpp
+	"../../include/dominios/Nome.h"
+
+1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\dominios\testeavaliacao.cpp
+
+1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\dominios\testenome.cpp
+
+1733324884 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\nome.h
+	<string>
+	<stdexcept>
+
