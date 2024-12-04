@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1733322608 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\main.cpp
+	<iostream>
+
+1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\src\dominios\nome.cpp
+
+1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testeavaliacao.cpp
+
+1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
+
