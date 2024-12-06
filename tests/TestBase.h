@@ -1,26 +1,32 @@
-#ifndef TESTBASE_H
-#define TESTBASE_H
+#ifndef TEST_BASE_H
+#define TEST_BASE_H
 
 #include <iostream>
-#include <string>
+#include <stdexcept>
 
-/**
- * @class TestBase
- * @brief Classe base abstrata para todos os testes.
- */
 class TestBase {
 protected:
-    std::string descricao;
+    int estado;
+    virtual void setUp() = 0;    
+    virtual void tearDown() = 0; 
+    virtual void rodarTestes() = 0; 
 
 public:
-    TestBase(const std::string& descricao) : descricao(descricao) {}
-    virtual ~TestBase() {}
+    const static int SUCESSO = 0; 
+    const static int FALHA = -1;  
 
-    virtual void executar() = 0;
-
-    void mostrarResultado(bool resultado) {
-        std::cout << descricao << ": " << (resultado ? "PASSOU" : "FALHOU") << std::endl;
+    int run() {
+        setUp();                
+        try {
+            rodarTestes();      
+            estado = SUCESSO;   
+        } catch (std::exception& e) {
+            std::cerr << "Erro: " << e.what() << std::endl;
+            estado = FALHA;     
+        }
+        tearDown();             
+        return estado;          
     }
 };
 
-#endif // TESTBASE_H
+#endif // TEST_BASE_H

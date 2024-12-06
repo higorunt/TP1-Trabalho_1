@@ -1,18 +1,20 @@
 #include <iostream>
-#include "tests/TesteNome.h"
+#include "tests/TesteNome.h" // Inclui o arquivo de testes para o domínio Nome
 
 int main() {
-    // Configurar o locale para UTF-8 (em sistemas Linux/Unix normalmente "pt_BR.UTF-8")
-    // Em Windows, tente "Portuguese_Brazil.1252" ou outra localidade compatível:
-    setlocale(LC_ALL, "");
+    TesteNome testeNome;  // Cria uma instância do teste para o domínio Nome
 
-    std::cout << "Executando testes do Trabalho 1\n";
-    std::cout << "--------------------------------\n";
-
-    executarTesteNome();
-
-    std::cout << "--------------------------------\n";
-    std::cout << "Todos os testes foram executados.\n";
+    // Executa os testes e verifica o resultado
+    switch (testeNome.run()) {
+        case TesteNome::SUCESSO:
+            std::cout << "SUCESSO: Todos os testes do Dominio Nome passaram!" << std::endl;
+            break;
+        case TesteNome::FALHA:
+            std::cout << "FALHA: Alguns testes falharam!" << std::endl;
+            break;
+        default:
+            std::cout << "Erro desconhecido!" << std::endl;
+    }
 
     return 0;
 }

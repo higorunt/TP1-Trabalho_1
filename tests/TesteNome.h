@@ -1,37 +1,23 @@
-#ifndef TESTENOME_H
-#define TESTENOME_H
+#ifndef TESTE_NOME_H
+#define TESTE_NOME_H
 
 #include "TestBase.h"
-#include "../include/dominios/Nome.h"
-#include <vector>
+#include "dominios/Nome.h" // Incluindo o domínio Nome
 
-/**
- * @class TesteNome
- * @brief Classe de teste para o domínio Nome, com saída detalhada.
- */
 class TesteNome : public TestBase {
 private:
-    // Estrutura para armazenar informações de cada teste
-    struct CasoTeste {
-        std::string valor;
-        bool deveSerValido;
-        std::string descricao;
-    };
+    Nome* nome;    // Ponteiro para a unidade de teste
 
-    // Lista de casos de teste
-    std::vector<CasoTeste> casos;
+    void setUp() override;        // Configuração do ambiente de teste
+    void tearDown() override;     // Limpeza do ambiente de teste
+    void rodarTestes() override;  // Execução dos cenários de teste
 
-    // Método auxiliar para rodar um caso de teste
-    bool rodarCasoTeste(const CasoTeste &caso);
+    // Cenários específicos de teste para Nome
+    void testarCenarioValorValido();
+    void testarCenarioValorInvalido();
 
 public:
-    TesteNome();
-    void executar() override;
+    TesteNome() : nome(nullptr) {} // Construtor inicializando o ponteiro como nullptr
 };
 
-/**
- * @brief Função para executar os testes do domínio Nome.
- */
-void executarTesteNome();
-
-#endif // TESTENOME_H
+#endif // TESTE_NOME_H

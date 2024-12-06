@@ -1,23 +1,23 @@
 # Planejamento de viagens
 
-## Visão Geral
-O software a ser desenvolvido é um sistema de gestão de planejamento de viagens que permitirá aos usuários (viajantes) realizarem operações básicas de manipulação de dados, conhecidas pela sigla CRUD (Create, Read, Update, Delete). O sistema tem como objetivo proporcionar uma experiência prática e intuitiva para organizar e gerenciar viagens, destinos, atividades e hospedagens.
+## Vis�o Geral
+O software a ser desenvolvido � um sistema de gest�o de planejamento de viagens que permitir� aos usu�rios (viajantes) realizarem opera��es b�sicas de manipula��o de dados, conhecidas pela sigla CRUD (Create, Read, Update, Delete). O sistema tem como objetivo proporcionar uma experi�ncia pr�tica e intuitiva para organizar e gerenciar viagens, destinos, atividades e hospedagens.
 
 ## Estrutura do Projeto
 TP1-Trabalho/
-│
-├── src/                     # Código-fonte principal
-│   ├── dominios/            # Implementações dos domínios
-│   │   ├── avaliacao.cpp    # Implementação da classe Avaliação
-│   │   └── nome.cpp         # Implementação da classe Nome
-│   └── tests/               # Testes do projeto
-│       └── main.cpp         # Arquivo principal para testes
-│
-├── include/                 # Arquivos de cabeçalho (headers)
-│   └── dominios/            # Definições dos domínios
-│       ├── avaliacao.h      # Cabeçalho da classe Avaliação
-│       └── nome.h           # Cabeçalho da classe Nome
-│
+??? src/                     # C�digo-fonte principal
+?   ??? dominios/            # Implementa��es dos dom�nios
+?   ?   ??? avaliacao.cpp    # Implementa��o da classe Avalia��o
+?   ?   ??? nome.cpp         # Implementa��o da classe Nome
+?   ??? tests/               # Testes do projeto
+?       ??? main.cpp         # Arquivo principal para testes
+?
+??? include/                 # Arquivos de cabe�alho (headers)
+?   ??? dominios/            # Defini��es dos dom�nios
+?       ??? avaliacao.h      # Cabe�alho da classe Avalia��o
+?       ??? nome.h           # Cabe�alho da classe Nome
+
+
 
 
 ## Colaboradores
