@@ -8,9 +8,9 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
-1733325009 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+1733455928 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
 	<iostream>
-	"dominios/Nome.h"
+	"tests/TesteNome.h"
 
 1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
 	"../../include/dominios/avaliacao.h"
@@ -19,14 +19,30 @@
 	<string>
 	<iostream>
 
-1733324981 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\nome.cpp
+1733455271 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\nome.cpp
 	"../../include/dominios/Nome.h"
 
 1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\dominios\testeavaliacao.cpp
 
-1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\dominios\testenome.cpp
+1733451817 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\dominios\testenome.cpp
+	"../../include/dominios/Nome.h"
+	<iostream>
+	<cassert>
 
-1733324884 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\nome.h
+1733455263 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\nome.h
 	<string>
 	<stdexcept>
+
+1733455835 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testenome.h
+	"TestBase.h"
+	"../include/dominios/Nome.h"
+	<vector>
+
+1733455280 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testbase.h
+	<iostream>
+	<string>
+
+1733455841 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testenome.cpp
+	"TesteNome.h"
+	<iostream>
 

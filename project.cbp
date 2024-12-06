@@ -33,13 +33,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/dominios/Nome.h" />
 		<Unit filename="include/dominios/avaliacao.h" />
-		<Unit filename="include/dominios/nome.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/dominios/avaliacao.cpp" />
 		<Unit filename="src/dominios/nome.cpp" />
-		<Unit filename="tests/dominios/TesteAvaliacao.cpp" />
-		<Unit filename="tests/dominios/TesteNome.cpp" />
+		<Unit filename="tests/TestBase.h" />
+		<Unit filename="tests/TesteNome.cpp" />
+		<Unit filename="tests/TesteNome.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

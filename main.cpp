@@ -1,28 +1,18 @@
 #include <iostream>
-#include "dominios/Nome.h"
+#include "tests/TesteNome.h"
 
 int main() {
-    try {
-        Nome nome;
+    // Configurar o locale para UTF-8 (em sistemas Linux/Unix normalmente "pt_BR.UTF-8")
+    // Em Windows, tente "Portuguese_Brazil.1252" ou outra localidade compatível:
+    setlocale(LC_ALL, "");
 
-        // Teste válido
-        nome.setValor("Joao Silva");
-        std::cout << "Teste valido passou: " << nome.getValor() << std::endl;
+    std::cout << "Executando testes do Trabalho 1\n";
+    std::cout << "--------------------------------\n";
 
-        // Teste inválido: vazio
-        nome.setValor("");
-    } catch (const std::invalid_argument& e) {
-        std::cout << "Teste invalido passou: " << e.what() << std::endl;
-    }
+    executarTesteNome();
 
-    try {
-        Nome nome;
-
-        // Teste inválido: mais de 30 caracteres
-        nome.setValor("Este nome é muito longo para ser valido");
-    } catch (const std::invalid_argument& e) {
-        std::cout << "Teste invalido passou: " << e.what() << std::endl;
-    }
+    std::cout << "--------------------------------\n";
+    std::cout << "Todos os testes foram executados.\n";
 
     return 0;
 }
