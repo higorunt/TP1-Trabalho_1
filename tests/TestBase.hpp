@@ -1,5 +1,5 @@
-#ifndef TEST_BASE_H
-#define TEST_BASE_H
+#ifndef TEST_BASE_HPP
+#define TEST_BASE_HPP
 
 #include <iostream>
 #include <stdexcept>

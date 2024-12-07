@@ -1,4 +1,4 @@
-#include "TesteNome.h"
+#include "TesteNome.hpp"
 #include <iostream>
 
 const std::string VALOR_VALIDO = "João";  // Valor válido

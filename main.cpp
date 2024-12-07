@@ -1,6 +1,6 @@
 #include <iostream>
-#include "tests/TesteNome.h"
-#include "tests/TesteSenha.h" // Inclui o arquivo de testes para o domínio Senha
+#include "tests/TesteNome.hpp"
+#include "tests/TesteSenha.hpp" // Inclui o arquivo de testes para o domínio Senha
 
 int main() {
     TesteNome testeNome;

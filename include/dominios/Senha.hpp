@@ -1,5 +1,5 @@
-#ifndef SENHA_H
-#define SENHA_H
+#ifndef SENHA_HPP
+#define SENHA_HPP
 
 #include <string>
 #include <stdexcept>

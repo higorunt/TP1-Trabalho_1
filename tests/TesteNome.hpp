@@ -1,8 +1,8 @@
-#ifndef TESTE_NOME_H
-#define TESTE_NOME_H
+#ifndef TESTE_NOME_HPP
+#define TESTE_NOME_HPP
 
-#include "TestBase.h"
-#include "dominios/Nome.h" // Incluindo o domínio Nome
+#include "TestBase.hpp"
+#include "dominios/Nome.hpp" // Incluindo o domínio Nome
 
 class TesteNome : public TestBase {
 private:

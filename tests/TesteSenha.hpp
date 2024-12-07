@@ -1,8 +1,8 @@
-#ifndef TESTE_SENHA_H
-#define TESTE_SENHA_H
+#ifndef TESTE_SENHA_HPP
+#define TESTE_SENHA_HPP
 
-#include "TestBase.h"
-#include "dominios/Senha.h"
+#include "TestBase.hpp"
+#include "dominios/Senha.hpp"
 
 class TesteSenha : public TestBase {
 private:

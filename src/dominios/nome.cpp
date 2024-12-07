@@ -1,4 +1,4 @@
-#include "../../include/dominios/Nome.h"
+#include "../../include/dominios/Nome.hpp"
 
 void Nome::validar(const std::string& valor) {
     if (valor.empty() || valor.size() > TAMANHO_MAXIMO) {

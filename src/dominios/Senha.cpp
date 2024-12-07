@@ -1,4 +1,4 @@
-#include "../../include/dominios/Senha.h"
+#include "../../include/dominios/Senha.hpp"
 
 bool is_sorted_asc(const std::string& s) {
     for (size_t i = 1; i < s.size(); ++i) {

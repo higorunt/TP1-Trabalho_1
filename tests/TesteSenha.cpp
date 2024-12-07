@@ -1,4 +1,4 @@
-#include "TesteSenha.h"
+#include "TesteSenha.hpp"
 #include <iostream>
 
 const std::string VALOR_VALIDO = "14253"; // Novo valor válido
