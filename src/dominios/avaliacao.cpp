@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "../../include/dominios/avaliacao.hpp"
 
 /**

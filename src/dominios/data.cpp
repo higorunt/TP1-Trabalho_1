@@ -79,4 +79,5 @@ void Data::setValor(int dia, int mes, int ano)
  */
 std::string Data::getValor() const
 {
-    std::ostringstream o
+    std::ostringstream o;
+}

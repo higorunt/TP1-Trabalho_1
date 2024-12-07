@@ -28,8 +28,9 @@ void Codigo::validar(const std::string &valor)
 Codigo::Codigo(const std::string &valor)
 {
     validar(valor);
-    this->valor = valor;
-}
+        this->valor = valor;
+    }
+
 
 /**
  * @brief Define o valor do código após validação.

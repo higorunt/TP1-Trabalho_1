@@ -1,6 +1,12 @@
+#ifndef VIAJANTE_HPP
+#define VIAJANTE_HPP
+
+#include "../dominios/Nome.hpp"
+#include "../dominios/Codigo.hpp"
+#include "../dominios/Senha.hpp"
+
 class Viajante
 {
-
 private:
     Nome nome;
     Codigo codigo;
@@ -19,3 +25,5 @@ public:
     void setSenha(const Senha &senha) { this->senha = senha; }
     Senha getSenha() const { return senha; }
 };
+
+#endif // VIAJANTE_HPP
