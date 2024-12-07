@@ -8,12 +8,13 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
-1733578122 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+1733581406 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
 	<iostream>
 	"tests/TesteNome.hpp"
 	"tests/TesteSenha.hpp"
 
-1733578055 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
+1733610345 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
+	<stdexcept>
 	"../../include/dominios/avaliacao.hpp"
 
 1733324669 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.h
@@ -54,8 +55,8 @@
 	<string>
 	<stdexcept>
 
-1733538347 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\senha.cpp
-	"../../include/dominios/Senha.h"
+1733580782 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\senha.cpp
+	"../../include/dominios/Senha.hpp"
 
 1733577966 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testesenha.cpp
 	"TesteSenha.hpp"
@@ -81,7 +82,48 @@
 	<string>
 	<stdexcept>
 
-1733577737 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.hpp
+1733609947 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.hpp
+	<stdexcept>
+
+1733577737 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\entidades\test.cpp
+
+1733610305 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\codigo.cpp
+	"../../include/dominios/codigo.hpp"
+
+1733609947 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\codigo.hpp
 	<string>
-	<iostream>
+	<stdexcept>
+	<regex>
+
+1733610269 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\data.cpp
+	"../../include/dominios/data.hpp"
+	<sstream>
+
+1733609947 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\data.hpp
+	<string>
+	<stdexcept>
+
+1733609947 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\dinheiro.cpp
+	"../../include/dominios/dinheiro.hpp"
+
+1733609947 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\dinheiro.hpp
+	<stdexcept>
+	<string>
+	<iomanip>
+	<sstream>
+
+1733610456 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\duracao.cpp
+	"../../include/dominios/Duracao.hpp"
+
+1733610449 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\duracao.hpp
+	<string>
+	<stdexcept>
+
+1733614829 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\horario.cpp
+	"../../include/dominios/Horario.hpp"
+
+1733614640 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\horario.hpp
+	<string>
+	<stdexcept>
+	<regex>
 

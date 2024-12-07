@@ -1,16 +1,5 @@
 #include "../../include/dominios/Horario.hpp"
 
-
-class Horario {
-private:
-    std::string horario;
-
-public:
-    void validar(std::string horario);
-    void setValor(std::string horario);
-    std::string getValor() const;
-};
-
 void Horario::validar(std::string horario) {
     if (horario.size() != 5 || horario[2] != ':') {
         throw std::invalid_argument("Horario invalido");
