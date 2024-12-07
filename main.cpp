@@ -1,8 +1,10 @@
 #include <iostream>
-#include "tests/TesteNome.h" // Inclui o arquivo de testes para o domínio Nome
+#include "tests/TesteNome.h"
+#include "tests/TesteSenha.h" // Inclui o arquivo de testes para o domínio Senha
 
 int main() {
-    TesteNome testeNome;  // Cria uma instância do teste para o domínio Nome
+    TesteNome testeNome;
+    TesteSenha testeSenha; // Cria uma instância do teste para o domínio Senha
 
     // Executa os testes e verifica o resultado
     switch (testeNome.run()) {
@@ -10,6 +12,17 @@ int main() {
             std::cout << "SUCESSO: Todos os testes do Dominio Nome passaram!" << std::endl;
             break;
         case TesteNome::FALHA:
+            std::cout << "FALHA: Alguns testes falharam!" << std::endl;
+            break;
+        default:
+            std::cout << "Erro desconhecido!" << std::endl;
+    }
+
+    switch (testeSenha.run()) {
+        case TesteSenha::SUCESSO:
+            std::cout << "SUCESSO: Todos os testes do Dominio Senha passaram!" << std::endl;
+            break;
+        case TesteSenha::FALHA:
             std::cout << "FALHA: Alguns testes falharam!" << std::endl;
             break;
         default:

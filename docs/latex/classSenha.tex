@@ -1,0 +1,140 @@
+\doxysection{Referência à classe Senha}
+\hypertarget{classSenha}{}\label{classSenha}\index{Senha@{Senha}}
+
+
+Classe que representa o dom�nio \doxylink{classSenha}{Senha}.  
+
+
+
+
+{\ttfamily \#include $<$Senha.\+h$>$}
+
+\doxysubsubsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSenha_a520002b1299bf9df549bc62b4f21c84d}{Senha}} (const std\+::string \&valor)
+\begin{DoxyCompactList}\small\item\em Construtor que inicializa e valida a senha. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classSenha_a76fdfa76064ff7ad60dffa7ddb6a9e8f}{set\+Valor}} (const std\+::string \&valor)
+\begin{DoxyCompactList}\small\item\em Define o valor da senha ap�s valida��o. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classSenha_acc03ecddb9a26f8b07fb8bb079f4e055}{get\+Valor}} () const
+\begin{DoxyCompactList}\small\item\em Retorna o valor da senha. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descrição detalhada}
+Classe que representa o dom�nio \doxylink{classSenha}{Senha}. 
+
+Esta classe valida e armazena uma senha de cinco d�gitos. 
+
+Definido na linha \mbox{\hyperlink{Senha_8h_source_l00013}{13}} do ficheiro \mbox{\hyperlink{Senha_8h_source}{Senha.\+h}}.
+
+
+
+\doxysubsection{Documentação dos Construtores \& Destrutor}
+\Hypertarget{classSenha_a520002b1299bf9df549bc62b4f21c84d}\index{Senha@{Senha}!Senha@{Senha}}
+\index{Senha@{Senha}!Senha@{Senha}}
+\doxysubsubsection{\texorpdfstring{Senha()}{Senha()}}
+{\footnotesize\ttfamily \label{classSenha_a520002b1299bf9df549bc62b4f21c84d} 
+Senha\+::\+Senha (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{valor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construtor que inicializa e valida a senha. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & \doxylink{classSenha}{Senha} a ser atribu�da. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se a senha for inv�lida. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definido na linha \mbox{\hyperlink{Senha_8cpp_source_l00042}{42}} do ficheiro \mbox{\hyperlink{Senha_8cpp_source}{Senha.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{classSenha_a76fdfa76064ff7ad60dffa7ddb6a9e8f}{setValor}}(valor);}
+\DoxyCodeLine{00044\ \}}
+
+\end{DoxyCode}
+
+
+Referências \mbox{\hyperlink{Senha_8cpp_source_l00046}{set\+Valor()}}.
+
+Grafo de chamadas desta função\+:
+% FIG 0
+
+
+\doxysubsection{Documentação das funções}
+\Hypertarget{classSenha_acc03ecddb9a26f8b07fb8bb079f4e055}\index{Senha@{Senha}!getValor@{getValor}}
+\index{getValor@{getValor}!Senha@{Senha}}
+\doxysubsubsection{\texorpdfstring{getValor()}{getValor()}}
+{\footnotesize\ttfamily \label{classSenha_acc03ecddb9a26f8b07fb8bb079f4e055} 
+std\+::string Senha\+::get\+Valor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Retorna o valor da senha. 
+
+\begin{DoxyReturn}{Retorna}
+\doxylink{classSenha}{Senha} armazenada. 
+\end{DoxyReturn}
+
+
+Definido na linha \mbox{\hyperlink{Senha_8cpp_source_l00051}{51}} do ficheiro \mbox{\hyperlink{Senha_8cpp_source}{Senha.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{return}\ valor;}
+\DoxyCodeLine{00053\ \}}
+
+\end{DoxyCode}
+\Hypertarget{classSenha_a76fdfa76064ff7ad60dffa7ddb6a9e8f}\index{Senha@{Senha}!setValor@{setValor}}
+\index{setValor@{setValor}!Senha@{Senha}}
+\doxysubsubsection{\texorpdfstring{setValor()}{setValor()}}
+{\footnotesize\ttfamily \label{classSenha_a76fdfa76064ff7ad60dffa7ddb6a9e8f} 
+void Senha\+::set\+Valor (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{valor}{}\end{DoxyParamCaption})}
+
+
+
+Define o valor da senha ap�s valida��o. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em valor} & \doxylink{classSenha}{Senha} a ser atribu�da. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Excepções}
+{\em std\+::invalid\+\_\+argument} & Se a senha for inv�lida. \\
+\hline
+\end{DoxyExceptions}
+
+
+Definido na linha \mbox{\hyperlink{Senha_8cpp_source_l00046}{46}} do ficheiro \mbox{\hyperlink{Senha_8cpp_source}{Senha.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ validar(valor);}
+\DoxyCodeLine{00048\ \ \ \ \ this-\/>valor\ =\ valor;}
+\DoxyCodeLine{00049\ \}}
+
+\end{DoxyCode}
+
+
+Referenciado por \mbox{\hyperlink{Senha_8cpp_source_l00042}{Senha()}}.
+
+Este é o diagrama das funções que utilizam esta função\+:
+% FIG 1
+
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+include/dominios/\mbox{\hyperlink{Senha_8h}{Senha.\+h}}\item 
+src/dominios/\mbox{\hyperlink{Senha_8cpp}{Senha.\+cpp}}\end{DoxyCompactItemize}

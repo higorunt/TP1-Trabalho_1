@@ -1,0 +1,59 @@
+\doxysection{Senha.\+cpp}
+\hypertarget{Senha_8cpp_source}{}\label{Senha_8cpp_source}\index{src/dominios/Senha.cpp@{src/dominios/Senha.cpp}}
+\mbox{\hyperlink{Senha_8cpp}{Ir para a documentaÃ§Ã£o deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Senha_8h}{../../include/dominios/Senha.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00003}\mbox{\hyperlink{Senha_8cpp_a412e6206400d32ad5a067041ca060626}{00003}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{Senha_8cpp_a412e6206400d32ad5a067041ca060626}{is\_sorted\_asc}}(\textcolor{keyword}{const}\ std::string\&\ s)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00004}00004\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 1;\ i\ <\ s.size();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00005}00005\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s[i]\ <\ s[i\ -\/\ 1])\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00006}00006\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00007}00007\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00008}00008\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00010}00010\ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00012}\mbox{\hyperlink{Senha_8cpp_a0e4bda2c07081cd62f9c3f6b31803f22}{00012}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{Senha_8cpp_a0e4bda2c07081cd62f9c3f6b31803f22}{is\_sorted\_desc}}(\textcolor{keyword}{const}\ std::string\&\ s)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 1;\ i\ <\ s.size();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s[i]\ >\ s[i\ -\/\ 1])\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00017}00017\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00019}00019\ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00021}00021\ \textcolor{keywordtype}{void}\ Senha::validar(\textcolor{keyword}{const}\ std::string\&\ valor)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{if}\ (valor.size()\ !=\ TAMANHO)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Erro:\ Senha\ deve\ conter\ exatamente\ 5\ dígitos."{}});}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{char}\ c\ :\ valor)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isdigit(c))\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Erro:\ Senha\ deve\ conter\ apenas\ dígitos."{}});}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ valor.size();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ j\ =\ i\ +\ 1;\ j\ <\ valor.size();\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (valor[i]\ ==\ valor[j])\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Erro:\ Senha\ não pode\ conter\ dígitos\ duplicados."{}});}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{Senha_8cpp_a412e6206400d32ad5a067041ca060626}{is\_sorted\_asc}}(valor)\ ||\ \mbox{\hyperlink{Senha_8cpp_a0e4bda2c07081cd62f9c3f6b31803f22}{is\_sorted\_desc}}(valor))\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Erro:\ Senha\ não pode\ estar\ em\ ordem\ crescente\ ou\ decrescente."{}});}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00042}\mbox{\hyperlink{classSenha_a520002b1299bf9df549bc62b4f21c84d}{00042}}\ \mbox{\hyperlink{classSenha_a520002b1299bf9df549bc62b4f21c84d}{Senha::Senha}}(\textcolor{keyword}{const}\ std::string\&\ valor)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00043}00043\ \ \ \ \ \mbox{\hyperlink{classSenha_a76fdfa76064ff7ad60dffa7ddb6a9e8f}{setValor}}(valor);}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00046}\mbox{\hyperlink{classSenha_a76fdfa76064ff7ad60dffa7ddb6a9e8f}{00046}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSenha_a76fdfa76064ff7ad60dffa7ddb6a9e8f}{Senha::setValor}}(\textcolor{keyword}{const}\ std::string\&\ valor)\ \{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00047}00047\ \ \ \ \ validar(valor);}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00048}00048\ \ \ \ \ this-\/>valor\ =\ valor;}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00049}00049\ \}}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00051}\mbox{\hyperlink{classSenha_acc03ecddb9a26f8b07fb8bb079f4e055}{00051}}\ std::string\ \mbox{\hyperlink{classSenha_acc03ecddb9a26f8b07fb8bb079f4e055}{Senha::getValor}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{return}\ valor;}
+\DoxyCodeLine{\Hypertarget{Senha_8cpp_source_l00053}00053\ \}}
+
+\end{DoxyCode}

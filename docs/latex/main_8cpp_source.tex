@@ -1,0 +1,38 @@
+\doxysection{main.\+cpp}
+\hypertarget{main_8cpp_source}{}\label{main_8cpp_source}\mbox{\hyperlink{main_8cpp}{Ir para a documentaÃ§Ã£o deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{TesteNome_8h}{tests/TesteNome.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{TesteSenha_8h}{tests/TesteSenha.h}}"{}}\ \textcolor{comment}{//\ Inclui\ o\ arquivo\ de\ testes\ para\ o\ domínio\ Senha}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00005}\mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{00005}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00006}00006\ \ \ \ \ \mbox{\hyperlink{classTesteNome}{TesteNome}}\ testeNome;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00007}00007\ \ \ \ \ \mbox{\hyperlink{classTesteSenha}{TesteSenha}}\ testeSenha;\ \textcolor{comment}{//\ Cria\ uma\ instância\ do\ teste\ para\ o\ domínio\ Senha}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{comment}{//\ Executa\ os\ testes\ e\ verifica\ o\ resultado}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keywordflow}{switch}\ (testeNome.\mbox{\hyperlink{classTestBase_a39667f2ca1a9e8d3f5815f06217daaa2}{run}}())\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classTestBase_a1577be7c05f4bd01fca5877466a640bf}{TesteNome::SUCESSO}}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SUCESSO:\ Todos\ os\ testes\ do\ Dominio\ Nome\ passaram!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classTestBase_a566f4952c765bcf11f2fde44fb3a0b18}{TesteNome::FALHA}}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}FALHA:\ Alguns\ testes\ falharam!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Erro\ desconhecido!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00019}00019\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{switch}\ (testeSenha.\mbox{\hyperlink{classTestBase_a39667f2ca1a9e8d3f5815f06217daaa2}{run}}())\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classTestBase_a1577be7c05f4bd01fca5877466a640bf}{TesteSenha::SUCESSO}}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SUCESSO:\ Todos\ os\ testes\ do\ Dominio\ Senha\ passaram!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{classTestBase_a566f4952c765bcf11f2fde44fb3a0b18}{TesteSenha::FALHA}}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}FALHA:\ Alguns\ testes\ falharam!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Erro\ desconhecido!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00030}00030\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00033}00033\ \}}
+
+\end{DoxyCode}
