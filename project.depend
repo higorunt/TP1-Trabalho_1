@@ -8,20 +8,20 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
-1733536305 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+1733578122 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
 	<iostream>
-	"tests/TesteNome.h"
-	"tests/TesteSenha.h"
+	"tests/TesteNome.hpp"
+	"tests/TesteSenha.hpp"
 
-1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
-	"../../include/dominios/avaliacao.h"
+1733578055 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
+	"../../include/dominios/avaliacao.hpp"
 
 1733324669 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.h
 	<string>
 	<iostream>
 
-1733455271 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\nome.cpp
-	"../../include/dominios/Nome.h"
+1733578059 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\nome.cpp
+	"../../include/dominios/Nome.hpp"
 
 1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\dominios\testeavaliacao.cpp
 
@@ -42,8 +42,8 @@
 	<iostream>
 	<stdexcept>
 
-1733525461 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testenome.cpp
-	"TesteNome.h"
+1733577838 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testenome.cpp
+	"TesteNome.hpp"
 	<iostream>
 
 1733536287 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testesenha.h
@@ -57,7 +57,31 @@
 1733538347 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\senha.cpp
 	"../../include/dominios/Senha.h"
 
-1733536269 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testesenha.cpp
-	"TesteSenha.h"
+1733577966 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testesenha.cpp
+	"TesteSenha.hpp"
+	<iostream>
+
+1733577961 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testenome.hpp
+	"TestBase.hpp"
+	"dominios/Nome.hpp"
+
+1733577940 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testbase.hpp
+	<iostream>
+	<stdexcept>
+
+1733577737 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\nome.hpp
+	<string>
+	<stdexcept>
+
+1733578096 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testesenha.hpp
+	"TestBase.hpp"
+	"dominios/Senha.hpp"
+
+1733580772 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\senha.hpp
+	<string>
+	<stdexcept>
+
+1733577737 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.hpp
+	<string>
 	<iostream>
 

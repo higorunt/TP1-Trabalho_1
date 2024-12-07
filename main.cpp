@@ -29,5 +29,7 @@ int main() {
             std::cout << "Erro desconhecido!" << std::endl;
     }
 
+    //Pensar em outra logica para fazer os testes!
+
     return 0;
 }

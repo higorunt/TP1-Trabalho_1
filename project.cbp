@@ -33,14 +33,19 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/dominios/Duracao.hpp" />
+		<Unit filename="include/dominios/Horario.hpp" />
 		<Unit filename="include/dominios/Senha.hpp" />
 		<Unit filename="include/dominios/avaliacao.hpp" />
 		<Unit filename="include/dominios/nome.hpp" />
 		<Unit filename="include/entidades/test.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/dominios/Duracao.cpp" />
+		<Unit filename="src/dominios/Horario.cpp" />
 		<Unit filename="src/dominios/Senha.cpp" />
 		<Unit filename="src/dominios/avaliacao.cpp" />
 		<Unit filename="src/dominios/nome.cpp" />
+		<Unit filename="src/entidades/test.cpp" />
 		<Unit filename="tests/TestBase.hpp" />
 		<Unit filename="tests/TesteNome.cpp" />
 		<Unit filename="tests/TesteNome.hpp" />
