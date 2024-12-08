@@ -11,10 +11,12 @@
  *
  * Esta classe valida e armazena um horário no formato HH:MM.
  */
-class Horario {
+class Horario
+{
 private:
     std::string horario;
     void validar(std::string horario);
+
 public:
     /**
      * @brief Define o valor do horário após validação.

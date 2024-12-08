@@ -4,10 +4,11 @@
 #include "../dominios/Nome.hpp"
 #include "../entidades/Conta.hpp"
 
-class Viajante {
+class Viajante
+{
 private:
-    Nome nome;        ///< Nome do viajante.
-    Conta conta;      ///< Conta associada ao viajante.
+    Nome nome;   ///< Nome do viajante.
+    Conta conta; ///< Conta associada ao viajante.
 
 public:
     /**
