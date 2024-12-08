@@ -41,8 +41,9 @@
 		<Unit filename="include/dominios/data.hpp" />
 		<Unit filename="include/dominios/dinheiro.hpp" />
 		<Unit filename="include/dominios/nome.hpp" />
-		<Unit filename="include/entidades/test.h" />
-		<Unit filename="include/entidades/viajante.hpp" />
+		<Unit filename="include/entidades/Conta.hpp" />
+		<Unit filename="include/entidades/Viajante.hpp" />
+		<Unit filename="include/testes/TestBase.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/dominios/Duracao.cpp" />
 		<Unit filename="src/dominios/Horario.cpp" />
@@ -53,11 +54,10 @@
 		<Unit filename="src/dominios/dinheiro.cpp" />
 		<Unit filename="src/dominios/nome.cpp" />
 		<Unit filename="src/entidades/test.cpp" />
-		<Unit filename="tests/TestBase.hpp" />
+		<Unit filename="src/testes/testConta.cpp" />
+		<Unit filename="src/testes/testNome.cpp" />
 		<Unit filename="tests/TesteNome.cpp" />
-		<Unit filename="tests/TesteNome.hpp" />
 		<Unit filename="tests/TesteSenha.cpp" />
-		<Unit filename="tests/TesteSenha.hpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

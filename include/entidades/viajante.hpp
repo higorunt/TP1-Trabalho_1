@@ -2,28 +2,27 @@
 #define VIAJANTE_HPP
 
 #include "../dominios/Nome.hpp"
-#include "../dominios/Codigo.hpp"
-#include "../dominios/Senha.hpp"
+#include "../entidades/Conta.hpp"
 
-class Viajante
-{
+class Viajante {
 private:
-    Nome nome;
-    Codigo codigo;
-    Senha senha;
+    Nome nome;        ///< Nome do viajante.
+    Conta conta;      ///< Conta associada ao viajante.
 
 public:
-    Viajante(const Nome &nome, const Codigo &codigo, const Senha &senha)
-        : nome(nome), codigo(codigo), senha(senha) {}
+    /**
+     * Construtor para inicializar um viajante.
+     * @param nome Nome do viajante.
+     * @param conta Conta associada ao viajante.
+     */
+    Viajante(const Nome &nome, const Conta &conta) : nome(nome), conta(conta) {}
 
+    // Métodos para acessar e modificar o nome.
     void setNome(const Nome &nome) { this->nome = nome; }
     Nome getNome() const { return nome; }
 
-    void setCodigo(const Codigo &codigo) { this->codigo = codigo; }
-    Codigo getCodigo() const { return codigo; }
-
-    void setSenha(const Senha &senha) { this->senha = senha; }
-    Senha getSenha() const { return senha; }
+    // Métodos para acessar a conta.
+    Conta getConta() const { return conta; }
 };
 
 #endif // VIAJANTE_HPP
