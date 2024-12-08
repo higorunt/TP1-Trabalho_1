@@ -1,26 +1,18 @@
 #include <iostream>
-#include <locale> // Adicionada para reconhecer caracteres especiais
-#include "dominios/Nome.hpp"
-#include "entidades/Conta.hpp"
-#include "entidades/Viajante.hpp"
+#include "include/testes/TesteNome.hpp"
 
 int main() {
     setlocale(LC_ALL, ""); // Ativa suporte a UTF-8 (dependente do sistema)
-    
-    try {
-        Codigo codigo("USR123");
-        Senha senha("14523");
-        Conta conta(codigo, senha);
 
-        Nome nome("João da Silva");
-        Viajante viajante(nome, conta);
+    std::cout << "Iniciando testes de Domínios e Entidades...\n";
 
-        std::cout << "Viajante criado com sucesso!" << std::endl;
-        std::cout << "Nome: " << viajante.getNome().getValor() << std::endl;
-        std::cout << "Código da conta: " << viajante.getConta().getCodigo().getValor() << std::endl;
+    TesteNome testeNome("test_data/dominios/inputs_nome.txt");
+    int resultadoNome = testeNome.run();
 
-    } catch (const std::exception &e) {
-        std::cerr << "Erro: " << e.what() << std::endl;
+    if (resultadoNome == TestBase::FALHA) {
+        std::cout << "Alguns testes falharam no domínio Nome." << std::endl;
+    } else {
+        std::cout << "Todos os testes do domínio Nome passaram com sucesso." << std::endl;
     }
 
     return 0;

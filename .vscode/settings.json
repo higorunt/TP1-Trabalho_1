@@ -105,6 +105,7 @@
     "map": "cpp",
     "numeric": "cpp",
     "random": "cpp",
-    "regex": "cpp"
+    "regex": "cpp",
+    "iomanip": "cpp"
   }
 }

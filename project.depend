@@ -8,11 +8,9 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
-1733674339 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+1733678026 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
 	<iostream>
-	"dominios/Nome.hpp"
-	"entidades/Conta.hpp"
-	"entidades/Viajante.hpp"
+	"include/testes/TesteNome.hpp"
 
 1733610345 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
 	<stdexcept>
@@ -130,9 +128,11 @@
 
 1733674614 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testnome.cpp
 
-1733577940 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\testes\testbase.hpp
+1733677237 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\testes\testbase.hpp
 	<iostream>
 	<stdexcept>
+	<string>
+	<vector>
 
 1733673657 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\testes\testinputloader.hpp
 	<string>
@@ -149,4 +149,14 @@
 	"../entidades/Conta.hpp"
 
 1733675424 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testconta.cpp
+
+1733677790 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testenome.cpp
+	"../../include/testes/TesteNome.hpp"
+	<fstream>
+	<exception>
+
+1733677754 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\testes\testenome.hpp
+	"TestBase.hpp"
+	"../dominios/nome.hpp"
+	<string>
 
