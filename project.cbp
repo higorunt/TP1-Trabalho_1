@@ -41,11 +41,21 @@
 		<Unit filename="include/dominios/data.hpp" />
 		<Unit filename="include/dominios/dinheiro.hpp" />
 		<Unit filename="include/dominios/nome.hpp" />
+		<Unit filename="include/entidades/Atividade.hpp" />
 		<Unit filename="include/entidades/Conta.hpp" />
+		<Unit filename="include/entidades/Destino.hpp" />
+		<Unit filename="include/entidades/Hospedagem.hpp" />
+		<Unit filename="include/entidades/Viagem.hpp" />
 		<Unit filename="include/entidades/Viajante.hpp" />
 		<Unit filename="include/testes/TestBase.hpp" />
-		<Unit filename="include/testes/TesteConta.hpp" />
+		<Unit filename="include/testes/TesteAvaliacao.hpp" />
+		<Unit filename="include/testes/TesteCodigo.hpp" />
+		<Unit filename="include/testes/TesteData.hpp" />
+		<Unit filename="include/testes/TesteDinheiro.hpp" />
+		<Unit filename="include/testes/TesteDuracao.hpp" />
+		<Unit filename="include/testes/TesteHorario.hpp" />
 		<Unit filename="include/testes/TesteNome.hpp" />
+		<Unit filename="include/testes/TesteSenha.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/dominios/Duracao.cpp" />
 		<Unit filename="src/dominios/Horario.cpp" />
@@ -56,8 +66,14 @@
 		<Unit filename="src/dominios/dinheiro.cpp" />
 		<Unit filename="src/dominios/nome.cpp" />
 		<Unit filename="src/entidades/test.cpp" />
-		<Unit filename="src/testes/TesteConta.cpp" />
+		<Unit filename="src/testes/TesteAvaliacao.cpp" />
+		<Unit filename="src/testes/TesteCodigo.cpp" />
+		<Unit filename="src/testes/TesteData.cpp" />
+		<Unit filename="src/testes/TesteDinheiro.cpp" />
+		<Unit filename="src/testes/TesteDuracao.cpp" />
+		<Unit filename="src/testes/TesteHorario.cpp" />
 		<Unit filename="src/testes/TesteNome.cpp" />
+		<Unit filename="src/testes/TesteSenha.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
