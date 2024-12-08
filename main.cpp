@@ -8,9 +8,17 @@
 #include "include/testes/TesteDuracao.hpp"
 #include "include/testes/TesteHorario.hpp"
 
+#include "include/testes/TUConta.hpp"
+
+
 int main() {
     setlocale(LC_ALL, ""); // Ativa suporte a UTF-8 (dependente do sistema)
+    TUConta testeConta;
+
     std::cout << "Iniciando testes...\n";
+
+
+
 
     // Teste do domínio Nome
     TesteNome testeNome("test_data/dominios/inputs_nome.txt");
@@ -70,6 +78,18 @@ int main() {
     if (resultadoHorario == TestBase::FALHA) {
         std::cout << "Alguns testes falharam no domínio Horário.\n";
     }
+
+
+     //Teste da Entidade Conta
+    switch (testeConta.run()) {
+        case TUConta::SUCESSO:
+            std::cout << "SUCESSO - Entidade Conta" << std::endl;
+            break;
+        case TUConta::FALHA:
+            std::cout << "FALHA" << std::endl;
+            break;
+    }
+    return 0;
 
     std::cout << "Testes concluídos.\n";
     return 0;
