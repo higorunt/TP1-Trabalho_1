@@ -3,7 +3,9 @@
 
 #include "../dominios/avaliacao.hpp"
 #include "../dominios/nome.hpp"
-#include "../entidades/codigo.hpp"
+#include "../dominios/codigo.hpp"
+#include "../entidades/Conta.hpp"
+
 
 class Viagem
 {

@@ -4,7 +4,7 @@
 #include "../dominios/avaliacao.hpp"
 #include "../dominios/nome.hpp"
 #include "../dominios/data.hpp"
-#include "../entidades/codigo.hpp"
+#include "../dominios/codigo.hpp"
 
 class Destino
 {

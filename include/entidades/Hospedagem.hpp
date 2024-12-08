@@ -3,8 +3,8 @@
 
 #include "../dominios/avaliacao.hpp"
 #include "../dominios/nome.hpp"
-#include "../entidades/codigo.hpp"
-#include "../entidades/dinheiro.hpp"
+#include "../dominios/codigo.hpp"
+#include "../dominios/dinheiro.hpp"
 
 class Hospedagem
 {

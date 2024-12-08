@@ -7,7 +7,7 @@
 #include "../dominios/horario.hpp"
 #include "../dominios/duracao.hpp"
 #include "../dominios/dinheiro.hpp"
-#include "../entidades/codigo.hpp"
+#include "../dominios/codigo.hpp"
 
 class Atividade
 {
