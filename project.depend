@@ -28,7 +28,7 @@
 	<string>
 	<iostream>
 
-1733578059 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\nome.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\nome.cpp
 	"../../include/dominios/Nome.hpp"
 
 1733324669 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\dominios\testeavaliacao.cpp
@@ -62,7 +62,7 @@
 	<string>
 	<stdexcept>
 
-1733580782 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\senha.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\senha.cpp
 	"../../include/dominios/Senha.hpp"
 
 1733577966 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\tests\testesenha.cpp
@@ -85,7 +85,7 @@
 	"TestBase.hpp"
 	"dominios/Senha.hpp"
 
-1733580772 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\senha.hpp
+1733697724 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\senha.hpp
 	<string>
 	<stdexcept>
 
@@ -94,7 +94,7 @@
 
 1733577737 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\entidades\test.cpp
 
-1733610305 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\codigo.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\codigo.cpp
 	"../../include/dominios/codigo.hpp"
 
 1733609947 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\codigo.hpp
@@ -119,17 +119,17 @@
 	<iomanip>
 	<sstream>
 
-1733610456 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\duracao.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\duracao.cpp
 	"../../include/dominios/Duracao.hpp"
 
-1733610449 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\duracao.hpp
+1733697724 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\duracao.hpp
 	<string>
 	<stdexcept>
 
-1733614829 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\horario.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\horario.cpp
 	"../../include/dominios/Horario.hpp"
 
-1733614640 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\horario.hpp
+1733697724 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\horario.hpp
 	<string>
 	<stdexcept>
 	<regex>
@@ -148,7 +148,7 @@
 	<fstream>
 	<iostream>
 
-1733670342 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\entidades\conta.hpp
+1733697724 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\entidades\conta.hpp
 	"../dominios/Codigo.hpp"
 	"../dominios/Senha.hpp"
 
@@ -158,7 +158,7 @@
 
 1733675424 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testconta.cpp
 
-1733677790 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testenome.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testenome.cpp
 	"../../include/testes/TesteNome.hpp"
 	<fstream>
 	<exception>
@@ -189,12 +189,12 @@
 	"../dominios/senha.hpp"
 	<string>
 
-1733691032 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testecodigo.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testecodigo.cpp
 	"../../include/testes/TesteCodigo.hpp"
 	<fstream>
 	<exception>
 
-1733691128 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testesenha.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testesenha.cpp
 	"../../include/testes/TesteSenha.hpp"
 	<fstream>
 	<exception>
@@ -224,28 +224,28 @@
 	"../dominios/Horario.hpp"
 	<string>
 
-1733691863 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testeavaliacao.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testeavaliacao.cpp
 	"../../include/testes/TesteAvaliacao.hpp"
 	<fstream>
 	<exception>
 
-1733691952 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testedinheiro.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testedinheiro.cpp
 	"../../include/testes/TesteDinheiro.hpp"
 	<fstream>
 	<exception>
 
-1733692022 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testeduracao.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testeduracao.cpp
 	"../../include/testes/TesteDuracao.hpp"
 	<fstream>
 	<exception>
 
-1733692719 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testedata.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testedata.cpp
 	"../../include/testes/TesteData.hpp"
 	<fstream>
 	<sstream>
 	<stdexcept>
 
-1733692710 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testehorario.cpp
+1733697724 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\testehorario.cpp
 	"../../include/testes/TesteHorario.hpp"
 	<fstream>
 	<stdexcept>
