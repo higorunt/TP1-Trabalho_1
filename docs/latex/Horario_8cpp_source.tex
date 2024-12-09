@@ -1,0 +1,32 @@
+\doxysection{Horario.\+cpp}
+\hypertarget{Horario_8cpp_source}{}\label{Horario_8cpp_source}\index{src/dominios/Horario.cpp@{src/dominios/Horario.cpp}}
+\mbox{\hyperlink{Horario_8cpp}{Ir para a documentação deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../../include/dominios/Horario.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00013}00013\ \textcolor{keywordtype}{void}\ Horario::validar(std::string\ horario)}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00014}00014\ \{}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{if}\ (horario.size()\ !=\ 5\ ||\ horario[2]\ !=\ \textcolor{charliteral}{':'})}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00016}00016\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Horario\ invalido"{}});}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{int}\ horas\ =\ std::stoi(horario.substr(0,\ 2));}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{int}\ minutos\ =\ std::stoi(horario.substr(3,\ 2));}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (horas\ <\ 0\ ||\ horas\ >\ 23\ ||\ minutos\ <\ 0\ ||\ minutos\ >\ 59)}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00022}00022\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Horario\ invalido"{}});}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00025}00025\ \}}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00035}00035\ \textcolor{keywordtype}{void}\ Horario::setValor(std::string\ horario)}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00037}00037\ \ \ \ \ validar(horario);}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00038}00038\ \ \ \ \ this-\/>horario\ =\ horario;}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00039}00039\ \}}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00046}00046\ std::string\ Horario::getValor()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00047}00047\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{return}\ horario;}
+\DoxyCodeLine{\Hypertarget{Horario_8cpp_source_l00049}00049\ \}}
+
+\end{DoxyCode}

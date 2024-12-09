@@ -1,52 +1,63 @@
+//221006440
+
+
+
 #ifndef DATA_HPP
 #define DATA_HPP
 
 #include <string>
 #include <stdexcept>
+#include <sstream>
+#include <iomanip>
 
 /**
  * @class Data
- * @brief Classe que representa o domínio Data.
- *
- * Esta classe valida e armazena uma data no formato DD-MM-AA.
+ * @brief Classe que representa uma data.
  */
-class Data
-{
+class Data {
 private:
-    int dia;                                 ///< Dia do mês (0 a 31).
-    int mes;                                 ///< Mês do ano (1 a 12).
-    int ano;                                 ///< Ano (00 a 99).
-    void validar(int dia, int mes, int ano); ///< Método para validar a data.
+    int dia; ///< Dia da data.
+    int mes; ///< Mês da data.
+    int ano; ///< Ano da data.
 
     /**
-     * @brief Verifica se um ano é bissexto.
+     * @brief Valida a data fornecida.
+     * @param dia Dia da data.
+     * @param mes Mês da data.
+     * @param ano Ano da data.
+     * @throw std::invalid_argument Se a data for inválida.
+     */
+    void validar(int dia, int mes, int ano);
+
+    /**
+     * @brief Verifica se o ano é bissexto.
      * @param ano Ano a ser verificado.
-     * @return `true` se o ano for bissexto, caso contrário `false`.
+     * @return true se o ano for bissexto, false caso contrário.
      */
     bool isAnoBissexto(int ano) const;
 
 public:
     /**
-     * @brief Construtor que inicializa e valida a data.
-     * @param dia Dia do mês.
-     * @param mes Mês do ano.
-     * @param ano Ano.
+     * @brief Construtor da classe Data.
+     * @param dia Dia da data.
+     * @param mes Mês da data.
+     * @param ano Ano da data.
      * @throw std::invalid_argument Se a data for inválida.
      */
     Data(int dia, int mes, int ano);
 
     /**
-     * @brief Define o valor da data após validação.
-     * @param dia Dia do mês.
-     * @param mes Mês do ano.
-     * @param ano Ano.
+     * @brief Define o valor da data.
+     * @param dia Dia da data.
+     * @param mes Mês da data.
+     * @param ano Ano da data.
      * @throw std::invalid_argument Se a data for inválida.
      */
     void setValor(int dia, int mes, int ano);
 
     /**
-     * @brief Retorna a data no formato DD-MM-AA.
-     * @return Data formatada como string.
+     * @brief Obtém o valor da data como string.
+     * @return String no formato "dd/mm/aaaa".
      */
     std::string getValor() const;
 };

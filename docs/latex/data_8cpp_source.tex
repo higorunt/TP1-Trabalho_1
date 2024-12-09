@@ -1,0 +1,50 @@
+\doxysection{data.\+cpp}
+\hypertarget{data_8cpp_source}{}\label{data_8cpp_source}\index{src/dominios/data.cpp@{src/dominios/data.cpp}}
+\mbox{\hyperlink{data_8cpp}{Ir para a documentaÃ§Ã£o deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../../include/dominios/Data.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00003}00003\ \textcolor{keywordtype}{bool}\ Data::isAnoBissexto(\textcolor{keywordtype}{int}\ ano)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00004}00004\ \ \ \ \ ano\ +=\ 2000;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00005}00005\ \ \ \ \ \textcolor{keywordflow}{return}\ (ano\ \%\ 4\ ==\ 0\ \&\&\ ano\ \%\ 100\ !=\ 0)\ ||\ (ano\ \%\ 400\ ==\ 0);}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00006}00006\ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00008}00008\ \textcolor{keywordtype}{void}\ Data::validar(\textcolor{keywordtype}{int}\ dia,\ \textcolor{keywordtype}{int}\ mes,\ \textcolor{keywordtype}{int}\ ano)\ \{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (mes\ <\ 1\ ||\ mes\ >\ 12)\ \{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Mes\ inválido.\ Deve\ estar\ entre\ 1\ e\ 12."{}});}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00011}00011\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{int}\ diasPorMes[]\ =\ \{31,\ 28,\ 31,\ 30,\ 31,\ 30,\ 31,\ 31,\ 30,\ 31,\ 30,\ 31\};}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{if}\ (mes\ ==\ 2\ \&\&\ isAnoBissexto(ano))\ \{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ diasPorMes[1]\ =\ 29;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00015}00015\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{keywordflow}{if}\ (dia\ <\ 1\ ||\ dia\ >\ diasPorMes[mes\ -\/\ 1])\ \{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Dia\ inválido\ para\ o\ mês fornecido."{}});}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{if}\ (ano\ <\ 0\ ||\ ano\ >\ 99)\ \{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Ano\ inválido.\ Deve\ estar\ entre\ 00\ e\ 99."{}});}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00022}00022\ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00024}00024\ Data::Data(\textcolor{keywordtype}{int}\ dia,\ \textcolor{keywordtype}{int}\ mes,\ \textcolor{keywordtype}{int}\ ano)\ \{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00025}00025\ \ \ \ \ validar(dia,\ mes,\ ano);}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00026}00026\ \ \ \ \ this-\/>dia\ =\ dia;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00027}00027\ \ \ \ \ this-\/>mes\ =\ mes;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00028}00028\ \ \ \ \ this-\/>ano\ =\ ano;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00029}00029\ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00031}00031\ \textcolor{keywordtype}{void}\ Data::setValor(\textcolor{keywordtype}{int}\ dia,\ \textcolor{keywordtype}{int}\ mes,\ \textcolor{keywordtype}{int}\ ano)\ \{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00032}00032\ \ \ \ \ validar(dia,\ mes,\ ano);}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00033}00033\ \ \ \ \ this-\/>dia\ =\ dia;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00034}00034\ \ \ \ \ this-\/>mes\ =\ mes;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00035}00035\ \ \ \ \ this-\/>ano\ =\ ano;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00036}00036\ \}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00038}00038\ std::string\ Data::getValor()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00039}00039\ \ \ \ \ std::ostringstream\ o;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00040}00040\ \ \ \ \ o\ <<\ std::setw(2)\ <<\ std::setfill(\textcolor{charliteral}{'0'})\ <<\ dia\ <<\ \textcolor{stringliteral}{"{}-\/"{}}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00041}00041\ \ \ \ \ \ \ <<\ std::setw(2)\ <<\ std::setfill(\textcolor{charliteral}{'0'})\ <<\ mes\ <<\ \textcolor{stringliteral}{"{}-\/"{}}}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00042}00042\ \ \ \ \ \ \ <<\ std::setw(2)\ <<\ std::setfill(\textcolor{charliteral}{'0'})\ <<\ ano;}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{return}\ o.str();}
+\DoxyCodeLine{\Hypertarget{data_8cpp_source_l00044}00044\ \}}
+
+\end{DoxyCode}

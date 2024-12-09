@@ -8,6 +8,8 @@
 #include "include/testes/TesteDuracao.hpp"
 #include "include/testes/TesteHorario.hpp"
 #include "include/testes/TUConta.hpp"
+#include "include/testes/TUDestino.hpp"
+#include "include/testes/TUHospedagem.hpp"
 
 using namespace std;
 
@@ -74,12 +76,28 @@ void rodarTestesEntidades() {
     TUConta testeConta;
     int resultadoConta = testeConta.run();
     if (resultadoConta == TUConta::SUCESSO) {
-        cout << "Entidade Conta: SUCESSO ." << endl;
-    }
-    else{
-        cout << "Alguns testes falharam na entidade Conta ." << endl;
+        cout << "Entidade Conta: SUCESSO." << endl;
+    } else {
+        cout << "Alguns testes falharam na entidade Conta." << endl;
     }
 
+    // Teste da entidade Destino
+    TUDestino testeDestino;
+    int resultadoDestino = testeDestino.run();
+    if (resultadoDestino == TUDestino::SUCESSO) {
+        cout << "Entidade Destino: SUCESSO." << endl;
+    } else {
+        cout << "Alguns testes falharam na entidade Destino." << endl;
+    }
+
+    // Teste da entidade Hospedagem
+    TUHospedagem testeHospedagem;
+    int resultadoHospedagem = testeHospedagem.run();
+    if (resultadoHospedagem == TUHospedagem::SUCESSO) {
+        cout << "Entidade Hospedagem: SUCESSO." << endl;
+    } else {
+        cout << "Alguns testes falharam na entidade Hospedagem." << endl;
+    }
 
     // Adicione aqui os testes para outras entidades conforme necessário
 }

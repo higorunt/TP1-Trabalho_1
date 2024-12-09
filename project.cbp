@@ -46,8 +46,10 @@
 		<Unit filename="include/entidades/Destino.hpp" />
 		<Unit filename="include/entidades/Hospedagem.hpp" />
 		<Unit filename="include/entidades/Viagem.hpp" />
-		<Unit filename="include/entidades/Viajante.hpp" />
+		<Unit filename="include/entidades/viajante.hpp" />
 		<Unit filename="include/testes/TUConta.hpp" />
+		<Unit filename="include/testes/TUDestino.hpp" />
+		<Unit filename="include/testes/TUHospedagem.hpp" />
 		<Unit filename="include/testes/TestBase.hpp" />
 		<Unit filename="include/testes/TesteAvaliacao.hpp" />
 		<Unit filename="include/testes/TesteCodigo.hpp" />
@@ -68,6 +70,8 @@
 		<Unit filename="src/dominios/nome.cpp" />
 		<Unit filename="src/entidades/test.cpp" />
 		<Unit filename="src/testes/TUConta.cpp" />
+		<Unit filename="src/testes/TUDestino.cpp" />
+		<Unit filename="src/testes/TUHospedagem.cpp" />
 		<Unit filename="src/testes/TesteAvaliacao.cpp" />
 		<Unit filename="src/testes/TesteCodigo.cpp" />
 		<Unit filename="src/testes/TesteData.cpp" />

@@ -1,0 +1,40 @@
+\doxysection{codigo.\+cpp}
+\hypertarget{codigo_8cpp_source}{}\label{codigo_8cpp_source}\index{src/dominios/codigo.cpp@{src/dominios/codigo.cpp}}
+\mbox{\hyperlink{codigo_8cpp}{Ir para a documentaÃ§Ã£o deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../../include/dominios/codigo.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00008}00008\ \textcolor{keywordtype}{void}\ Codigo::validar(\textcolor{keyword}{const}\ std::string\ \&valor)}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{comment}{//\ Verifica\ se\ o\ código\ tem\ o\ tamanho\ correto.}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordflow}{if}\ (valor.length()\ !=\ TAMANHO)}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Codigo\ invalido:\ deve\ ter\ exatamente\ 6\ caracteres."{}});}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00014}00014\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ Regex\ para\ validar\ que\ o\ código\ é alfanumérico\ (letras\ ou\ dígitos).}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00017}00017\ \ \ \ \ std::regex\ regexAlfanumerico(\textcolor{stringliteral}{"{}\string^[a-\/zA-\/Z0-\/9]\{6\}\$"{}});}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{if}\ (!std::regex\_match(valor,\ regexAlfanumerico))}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00019}00019\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Codigo\ invalido:\ deve\ conter\ apenas\ letras\ e\ numeros."{}});}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00022}00022\ \}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00028}00028\ Codigo::Codigo(\textcolor{keyword}{const}\ std::string\ \&valor)}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00029}00029\ \{}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00030}00030\ \ \ \ \ validar(valor);}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00031}00031\ \ \ \ \ this-\/>valor\ =\ valor;}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00038}00038\ \textcolor{keywordtype}{void}\ Codigo::setValor(\textcolor{keyword}{const}\ std::string\ \&valor)}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00040}00040\ \ \ \ \ validar(valor);}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00041}00041\ \ \ \ \ this-\/>valor\ =\ valor;}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00048}00048\ std::string\ Codigo::getValor()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00049}00049\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{return}\ valor;}
+\DoxyCodeLine{\Hypertarget{codigo_8cpp_source_l00051}00051\ \}}
+
+\end{DoxyCode}

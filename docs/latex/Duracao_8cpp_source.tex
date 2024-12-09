@@ -1,0 +1,32 @@
+\doxysection{Duracao.\+cpp}
+\hypertarget{Duracao_8cpp_source}{}\label{Duracao_8cpp_source}\index{src/dominios/Duracao.cpp@{src/dominios/Duracao.cpp}}
+\mbox{\hyperlink{Duracao_8cpp}{Ir para a documentação deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../../include/dominios/Duracao.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00009}00009\ \textcolor{keywordtype}{void}\ Duracao::validar(\textcolor{keywordtype}{int}\ valor)}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordflow}{if}\ (valor\ <\ 0\ ||\ valor\ >\ 360)}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Duracao\ invalida.\ Deve\ estar\ entre\ 0\ e\ 360."{}});}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00014}00014\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00015}00015\ \}}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00023}00023\ Duracao::Duracao(\textcolor{keywordtype}{int}\ valor)}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00024}00024\ \{}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00025}00025\ \ \ \ \ validar(valor);}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00026}00026\ \ \ \ \ this-\/>valor\ =\ valor;}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00027}00027\ \}}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00034}00034\ \textcolor{keywordtype}{int}\ Duracao::getValor()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00035}00035\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{return}\ valor;}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00037}00037\ \}}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00045}00045\ \textcolor{keywordtype}{void}\ Duracao::setValor(\textcolor{keywordtype}{int}\ valor)}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00046}00046\ \{}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00047}00047\ \ \ \ \ validar(valor);}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00048}00048\ \ \ \ \ this-\/>valor\ =\ valor;}
+\DoxyCodeLine{\Hypertarget{Duracao_8cpp_source_l00049}00049\ \}}
+
+\end{DoxyCode}

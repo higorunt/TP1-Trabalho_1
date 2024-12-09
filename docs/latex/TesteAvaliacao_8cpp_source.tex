@@ -1,0 +1,54 @@
+\doxysection{Teste\+Avaliacao.\+cpp}
+\hypertarget{TesteAvaliacao_8cpp_source}{}\label{TesteAvaliacao_8cpp_source}\index{src/testes/TesteAvaliacao.cpp@{src/testes/TesteAvaliacao.cpp}}
+\mbox{\hyperlink{TesteAvaliacao_8cpp}{Ir para a documentaÃ§Ã£o deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../../include/testes/TesteAvaliacao.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <exception>}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00013}00013\ TesteAvaliacao::TesteAvaliacao(\textcolor{keyword}{const}\ std::string\ \&caminhoArquivo)\ :\ caminhoArquivoTeste(caminhoArquivo)\ \{\}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00021}00021\ \textcolor{keywordtype}{void}\ TesteAvaliacao::setUp()}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00022}00022\ \{}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ Configurações\ adicionais\ antes\ do\ teste\ (opcional)}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00024}00024\ \}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00032}00032\ \textcolor{keywordtype}{void}\ TesteAvaliacao::tearDown()}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00033}00033\ \{}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//\ Limpeza\ de\ recursos\ após os\ testes\ (opcional)}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00046}00046\ \textcolor{keywordtype}{void}\ TesteAvaliacao::rodarTestes()}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Abre\ o\ arquivo\ de\ testes}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00049}00049\ \ \ \ \ std::ifstream\ arquivo(caminhoArquivoTeste);}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (!arquivo.is\_open())}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00051}00051\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Não foi\ possível\ abrir\ o\ arquivo\ de\ testes:\ "{}}\ +\ caminhoArquivoTeste);}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00053}00053\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ Lê cada\ linha\ do\ arquivo}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00056}00056\ \ \ \ \ std::string\ linha;}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(arquivo,\ linha))}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tenta\ criar\ um\ objeto\ Avaliacao\ a\ partir\ da\ linha\ lida}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ Avaliacao\ avaliacao(stoi(linha));\ \textcolor{comment}{//\ Converte\ a\ linha\ para\ inteiro\ e\ cria\ a\ Avaliacao}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Se\ a\ criação\ for\ bem-\/sucedida,\ registra\ o\ teste\ como\ sucesso}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ registrarTesteSucesso();}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::exception\ \&e)}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Se\ ocorrer\ uma\ exceção,\ registra\ o\ teste\ como\ falha}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ O\ erro\ pode\ ser\ uma\ falha\ de\ conversão (stoi)\ ou\ qualquer\ outro\ erro\ inesperado}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ registrarTesteFalha(\textcolor{stringliteral}{"{}Falha\ ao\ validar\ Avaliacao:\ '"{}}\ +\ linha\ +\ \textcolor{stringliteral}{"{}'.\ Erro:\ "{}}\ +\ e.what());}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{comment}{//\ Fecha\ o\ arquivo\ após ler\ todas\ as\ linhas}}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00076}00076\ \ \ \ \ arquivo.close();}
+\DoxyCodeLine{\Hypertarget{TesteAvaliacao_8cpp_source_l00077}00077\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,42 @@
+\doxysection{Teste\+Horario.\+cpp}
+\hypertarget{TesteHorario_8cpp_source}{}\label{TesteHorario_8cpp_source}\index{src/testes/TesteHorario.cpp@{src/testes/TesteHorario.cpp}}
+\mbox{\hyperlink{TesteHorario_8cpp}{Ir para a documentaÃ§Ã£o deste ficheiro.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../../include/testes/TesteHorario.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00012}00012\ TesteHorario::TesteHorario(\textcolor{keyword}{const}\ std::string\ \&caminhoArquivo)\ :\ caminhoArquivoTeste(caminhoArquivo)\ \{\}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00020}00020\ \textcolor{keywordtype}{void}\ TesteHorario::setUp()\ \{\}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00028}00028\ \textcolor{keywordtype}{void}\ TesteHorario::tearDown()\ \{\}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00042}00042\ \textcolor{keywordtype}{void}\ TesteHorario::rodarTestes()}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00044}00044\ \ \ \ \ std::ifstream\ arquivo(caminhoArquivoTeste);}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (!arquivo.is\_open())}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00046}00046\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Não foi\ possível\ abrir\ o\ arquivo\ de\ testes:\ "{}}\ +\ caminhoArquivoTeste);}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00050}00050\ \ \ \ \ std::string\ linha;}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(arquivo,\ linha))}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Tenta\ criar\ um\ objeto\ Horario\ e\ valida\ o\ valor\ de\ hora}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ Horario\ horario;}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ horario.setValor(linha);\ \textcolor{comment}{//\ Define\ o\ horário\ após validação}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ registrarTesteSucesso();}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::exception\ \&e)}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ registrarTesteFalha(\textcolor{stringliteral}{"{}Falha\ ao\ validar\ Horário:\ '"{}}\ +\ linha\ +\ \textcolor{stringliteral}{"{}'.\ Erro:\ "{}}\ +\ e.what());}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00066}00066\ \ \ \ \ arquivo.close();}
+\DoxyCodeLine{\Hypertarget{TesteHorario_8cpp_source_l00067}00067\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,5 @@
+\doxysection{Referência ao ficheiro src/dominios/\+Duracao.cpp}
+\hypertarget{Duracao_8cpp}{}\label{Duracao_8cpp}\index{src/dominios/Duracao.cpp@{src/dominios/Duracao.cpp}}
+{\ttfamily \#include "{}../../include/dominios/\+Duracao.\+hpp"{}}\newline
+Diagrama de dependências de inclusão para Duracao.\+cpp\+:
+% FIG 0
