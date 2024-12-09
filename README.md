@@ -1,38 +1,38 @@
 # Planejamento de Viagens
 
 ## Contexto do Trabalho
-Este projeto faz parte da disciplina de Técnicas de Programação e tem como objetivo aplicar conceitos de programação orientada a objetos (POO) em C++. O trabalho envolve o desenvolvimento de um sistema modular e escalável com classes bem definidas, validação de regras de negócio e testes unitários para cada componente.
+Este projeto faz parte da disciplina de TÃ©cnicas de ProgramaÃ§Ã£o e tem como objetivo aplicar conceitos de programaÃ§Ã£o orientada a objetos (POO) em C++. O trabalho envolve o desenvolvimento de um sistema modular e escalÃ¡vel com classes bem definidas, validaÃ§Ã£o de regras de negÃ³cio e testes unitÃ¡rios para cada componente.
 
-O sistema será construído com base em domínios e entidades, que representam os elementos fundamentais do software. Além disso, serão implementados testes unitários para validar o funcionamento de cada componente.
+O sistema serÃ¡ construÃ­do com base em domÃ­nios e entidades, que representam os elementos fundamentais do software. AlÃ©m disso, serÃ£o implementados testes unitÃ¡rios para validar o funcionamento de cada componente.
 
-## Visão Geral
-O software a ser desenvolvido é um sistema de gestão de planejamento de viagens que permitirá aos usuários (viajantes) realizarem operações básicas de manipulação de dados, conhecidas pela sigla CRUD (Create, Read, Update, Delete). O sistema tem como objetivo proporcionar uma experiência prática e intuitiva para organizar e gerenciar viagens, destinos, atividades e hospedagens.
+## VisÃ£o Geral
+O software a ser desenvolvido Ã© um sistema de gestÃ£o de planejamento de viagens que permitirÃ¡ aos usuÃ¡rios (viajantes) realizarem operaÃ§Ãµes bÃ¡sicas de manipulaÃ§Ã£o de dados, conhecidas pela sigla CRUD (Create, Read, Update, Delete). O sistema tem como objetivo proporcionar uma experiÃªncia prÃ¡tica e intuitiva para organizar e gerenciar viagens, destinos, atividades e hospedagens.
 
 ## Estrutura do Trabalho
-O projeto será composto por dois principais níveis de abstração:
+O projeto serÃ¡ composto por dois principais nÃ­veis de abstraÃ§Ã£o:
 
-- **Domínios**: Representam valores básicos do sistema e encapsulam regras de validação.
-- **Entidades**: São compostas por um ou mais domínios e modelam conceitos mais complexos.
+- **DomÃ­nios**: Representam valores bÃ¡sicos do sistema e encapsulam regras de validaÃ§Ã£o.
+- **Entidades**: SÃ£o compostas por um ou mais domÃ­nios e modelam conceitos mais complexos.
 
-## 1. Domínios
+## 1. DomÃ­nios
 
-Os domínios são responsáveis por encapsular um único valor e garantir que ele esteja sempre válido com base em regras específicas. Eles implementam métodos para atribuir (`setValor`) e recuperar (`getValor`) o valor.
+Os domÃ­nios sÃ£o responsÃ¡veis por encapsular um Ãºnico valor e garantir que ele esteja sempre vÃ¡lido com base em regras especÃ­ficas. Eles implementam mÃ©todos para atribuir (`setValor`) e recuperar (`getValor`) o valor.
 
-Os domínios a serem implementados são:
+Os domÃ­nios a serem implementados sÃ£o:
 
 ### Nome
-Representa o nome de uma pessoa e deve atender aos seguintes critérios:
+Representa o nome de uma pessoa e deve atender aos seguintes critÃ©rios:
 
-- Texto com até 30 caracteres
+- Texto com atÃ© 30 caracteres
 
-### Código
-Representa um identificador único, como um código de usuário. Deve atender aos seguintes critérios:
+### CÃ³digo
+Representa um identificador Ãºnico, como um cÃ³digo de usuÃ¡rio. Deve atender aos seguintes critÃ©rios:
 
-- Formato alfanumérico com exatamente 6 caracteres.
-- Cada caractere pode ser letra (A-Z ou a-z) ou dígito (0-9).
+- Formato alfanumÃ©rico com exatamente 6 caracteres.
+- Cada caractere pode ser letra (A-Z ou a-z) ou dÃ­gito (0-9).
 
-### Avaliação
-Representa uma avaliação numérica. Deve atender aos seguintes critérios:
+### AvaliaÃ§Ã£o
+Representa uma avaliaÃ§Ã£o numÃ©rica. Deve atender aos seguintes critÃ©rios:
 
 - Valor inteiro entre 1 e 5.
 
@@ -41,53 +41,57 @@ Representa uma avaliação numérica. Deve atender aos seguintes critérios:
     - DD: 00 a 31
     - MM: 01 a 12
     - AA: 00 a 99
-- Levar em consideração anos bissextos
+- Levar em consideraÃ§Ã£o anos bissextos
 
 ### Senha
-Representa uma senha. Deve atender aos seguintes critérios:
+Representa uma senha. Deve atender aos seguintes critÃ©rios:
 
-- Cinco dígitos (0-9)
-- Não há dígito duplicado
-- Os cinco dígitos não podem estar em ordem crescente (01234, 12345, 23456 etc.)
-- Os cinco dígitos não podem estar em ordem decrescente (43210, 54321, 65432 etc.)
+- Cinco dÃ­gitos (0-9)
+- NÃ£o hÃ¡ dÃ­gito duplicado
+- Os cinco dÃ­gitos nÃ£o podem estar em ordem crescente (01234, 12345, 23456 etc.)
+- Os cinco dÃ­gitos nÃ£o podem estar em ordem decrescente (43210, 54321, 65432 etc.)
 
 ### Dinheiro
-- Valor monetário entre 0,00 e 200.000,00.
+- Valor monetÃ¡rio entre 0,00 e 200.000,00.
 
-### Duração
+### DuraÃ§Ã£o
 - Tempo em dias, de 0 a 360.
 
-### Horário
+### HorÃ¡rio
 - Formato HH:MM (24h)
 
-Cada classe de domínio deve:
+Cada classe de domÃ­nio deve:
 
-- Contar com métodos `set` e `get`.
-- Validar os valores no método `set`, lançando exceções em caso de dados inválidos.
+- Contar com mÃ©todos `set` e `get`.
+- Validar os valores no mÃ©todo `set`, lanÃ§ando exceÃ§Ãµes em caso de dados invÃ¡lidos.
 
 ## 2. Entidades
-As classes de entidade são:
+As classes de entidade sÃ£o:
 
-- **Viajante**: Representa o usuário do sistema.
-- **Viagem**: Contém informações sobre uma viagem específica.
+- **Viajante**: Representa o usuÃ¡rio do sistema.
+- **Viagem**: ContÃ©m informaÃ§Ãµes sobre uma viagem especÃ­fica.
 - **Destino**: Inclui detalhes de um destino dentro de uma viagem.
 - **Atividade**: Representa uma tarefa ou evento associado a um destino.
 - **Hospedagem**: Detalha locais de estadia associados a um destino.
 
 Cada classe de entidade deve:
 
-- Ter atributos compostos por instâncias das classes de domínio.
-- Permitir acesso a esses atributos por meio de métodos `set` e `get`.
+- Ter atributos compostos por instÃ¢ncias das classes de domÃ­nio.
+- Permitir acesso a esses atributos por meio de mÃ©todos `set` e `get`.
 
 ## Testes
-### Testes de Domínio:
-- Cada teste deve validar valores válidos e inválidos para os domínios.
-- O teste deve garantir que métodos `set` lançam exceções adequadas.
+### Testes de DomÃ­nio:
+- Cada teste deve validar valores vÃ¡lidos e invÃ¡lidos para os domÃ­nios.
+- O teste deve garantir que mÃ©todos `set` lanÃ§am exceÃ§Ãµes adequadas.
 
 ### Testes de Entidade:
-- Devem exercitar todos os métodos públicos das entidades.
-- O comportamento esperado deve ser validado para cada método.
+- Devem exercitar todos os mÃ©todos pÃºblicos das entidades.
+- O comportamento esperado deve ser validado para cada mÃ©todo.
+
+## Estrutura:
+- As pastas 'Entidades', 'DomÃ­nio' e 'Testes' com os arquivos .hpp estÃ£o localizadas na pasta include. JÃ¡ as pastas 'Entidades', 'DomÃ­nio' e 'Testes' com os arquivos .cpp estÃ£o na pasta src.
 
 ## Colaboradores
 - Evelyn Caroline 221006404
 - Higor Roger 22106440
+- JoÃ£o Victor 212007046
