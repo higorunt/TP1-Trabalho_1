@@ -1,7 +1,7 @@
 #ifndef TUCONTA_HPP
 #define TUCONTA_HPP
 
-#include "../dominios/Codigo.hpp"
+#include "../dominios/codigo.hpp"
 #include "../dominios/Senha.hpp"
 #include "../entidades/Conta.hpp"
 

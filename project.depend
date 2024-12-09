@@ -258,3 +258,177 @@
 1733695477 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\testes\tuconta.cpp
 	"../../include/testes/TUConta.hpp"
 
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\main.cpp
+	<iostream>
+	"include/testes/TesteNome.hpp"
+	"include/testes/TesteCodigo.hpp"
+	"include/testes/TesteSenha.hpp"
+	"include/testes/TesteAvaliacao.hpp"
+	"include/testes/TesteData.hpp"
+	"include/testes/TesteDinheiro.hpp"
+	"include/testes/TesteDuracao.hpp"
+	"include/testes/TesteHorario.hpp"
+	"include/testes/TUConta.hpp"
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testenome.hpp
+	"TestBase.hpp"
+	"../dominios/nome.hpp"
+	<string>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testbase.hpp
+	<iostream>
+	<stdexcept>
+	<string>
+	<vector>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\nome.hpp
+	<string>
+	<stdexcept>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testecodigo.hpp
+	"TestBase.hpp"
+	"../dominios/codigo.hpp"
+	<string>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\codigo.hpp
+	<string>
+	<stdexcept>
+	<regex>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testesenha.hpp
+	"TestBase.hpp"
+	"../dominios/senha.hpp"
+	<string>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\senha.hpp
+	<string>
+	<stdexcept>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testeavaliacao.hpp
+	"TestBase.hpp"
+	"../dominios/Avaliacao.hpp"
+	<string>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\avaliacao.hpp
+	<stdexcept>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testedata.hpp
+	"TestBase.hpp"
+	"../dominios/Data.hpp"
+	<string>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\data.hpp
+	<string>
+	<stdexcept>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testedinheiro.hpp
+	"TestBase.hpp"
+	"../dominios/Dinheiro.hpp"
+	<string>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\dinheiro.hpp
+	<stdexcept>
+	<string>
+	<iomanip>
+	<sstream>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testeduracao.hpp
+	"TestBase.hpp"
+	"../dominios/Duracao.hpp"
+	<string>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\duracao.hpp
+	<string>
+	<stdexcept>
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\testehorario.hpp
+	"TestBase.hpp"
+	"../dominios/Horario.hpp"
+	<string>
+
+1733705822 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\dominios\horario.hpp
+	<string>
+	<stdexcept>
+	<regex>
+
+1733704494 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\testes\tuconta.hpp
+	"../dominios/codigo.hpp"
+	"../dominios/Senha.hpp"
+	"../entidades/Conta.hpp"
+
+1733696500 c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\include\entidades\conta.hpp
+	"../dominios/Codigo.hpp"
+	"../dominios/Senha.hpp"
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\avaliacao.cpp
+	<stdexcept>
+	"../../include/dominios/avaliacao.hpp"
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\codigo.cpp
+	"../../include/dominios/codigo.hpp"
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\data.cpp
+	"../../include/dominios/data.hpp"
+	<sstream>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\dinheiro.cpp
+	"../../include/dominios/dinheiro.hpp"
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\duracao.cpp
+	"../../include/dominios/Duracao.hpp"
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\horario.cpp
+	"../../include/dominios/Horario.hpp"
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\nome.cpp
+	"../../include/dominios/Nome.hpp"
+
+1733704256 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\dominios\senha.cpp
+	"../../include/dominios/Senha.hpp"
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\entidades\test.cpp
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testeavaliacao.cpp
+	"../../include/testes/TesteAvaliacao.hpp"
+	<fstream>
+	<exception>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testecodigo.cpp
+	"../../include/testes/TesteCodigo.hpp"
+	<fstream>
+	<exception>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testedata.cpp
+	"../../include/testes/TesteData.hpp"
+	<fstream>
+	<sstream>
+	<stdexcept>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testedinheiro.cpp
+	"../../include/testes/TesteDinheiro.hpp"
+	<fstream>
+	<exception>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testeduracao.cpp
+	"../../include/testes/TesteDuracao.hpp"
+	<fstream>
+	<exception>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testehorario.cpp
+	"../../include/testes/TesteHorario.hpp"
+	<fstream>
+	<stdexcept>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testenome.cpp
+	"../../include/testes/TesteNome.hpp"
+	<fstream>
+	<exception>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\testesenha.cpp
+	"../../include/testes/TesteSenha.hpp"
+	<fstream>
+	<exception>
+
+1733696500 source:c:\users\joão victor\onedrive\Área de trabalho\tp1-trabalho_1\tp1-trabalho_1\src\testes\tuconta.cpp
+	"../../include/testes/TUConta.hpp"
+

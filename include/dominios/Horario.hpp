@@ -21,7 +21,7 @@ public:
      * @param horario Horário a ser atribuído.
      * @throw std::invalid_argument Se o horário for inválido.
      */
-    void setValor(std::string horario);
+    void setValor(std::string& horario);
 
     /**
      * @brief Retorna o valor do horário.
