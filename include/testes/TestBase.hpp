@@ -6,25 +6,46 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief Classe base para testes unitários.
+ */
 class TestBase {
 protected:
-    int estado;
-    int testesExecutados;
-    int testesComSucesso;
-    int testesComFalha;
+    int estado; ///< Estado atual do teste.
+    int testesExecutados; ///< Número de testes executados.
+    int testesComSucesso; ///< Número de testes com sucesso.
+    int testesComFalha; ///< Número de testes com falha.
 
-    std::vector<std::string> mensagensFalha; 
+    std::vector<std::string> mensagensFalha; ///< Mensagens de falha dos testes.
 
+    /**
+     * @brief Configura o ambiente para os testes.
+     */
     virtual void setUp() = 0;    
+
+    /**
+     * @brief Limpa o ambiente após os testes.
+     */
     virtual void tearDown() = 0; 
+
+    /**
+     * @brief Executa os testes.
+     */
     virtual void rodarTestes() = 0; 
 
 public:
-    const static int SUCESSO = 0; 
-    const static int FALHA = -1;  
+    const static int SUCESSO = 0; ///< Constante para indicar sucesso.
+    const static int FALHA = -1; ///< Constante para indicar falha.
 
+    /**
+     * @brief Construtor da classe TestBase.
+     */
     TestBase() : estado(FALHA), testesExecutados(0), testesComSucesso(0), testesComFalha(0) {}
 
+    /**
+     * @brief Executa o conjunto de testes.
+     * @return Estado final dos testes.
+     */
     int run() {
         setUp();                
         try {
@@ -42,17 +63,27 @@ public:
     }
 
 protected:
+    /**
+     * @brief Registra um teste com sucesso.
+     */
     void registrarTesteSucesso() {
         testesExecutados++;
         testesComSucesso++;
     }
 
+    /**
+     * @brief Registra um teste com falha.
+     * @param mensagem Mensagem de falha do teste.
+     */
     void registrarTesteFalha(const std::string &mensagem) {
         testesExecutados++;
         testesComFalha++;
         mensagensFalha.push_back(mensagem);
     }
 
+    /**
+     * @brief Imprime o relatório dos testes.
+     */
     void imprimirRelatorio() {
         std::cout << "-----------------------------------" << std::endl;
         std::cout << "Relatório de Testes" << std::endl;
