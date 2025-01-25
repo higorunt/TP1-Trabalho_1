@@ -91,7 +91,7 @@
 	<string>
 	<stdexcept>
 
-1733609947 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.hpp
+1733712785 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\dominios\avaliacao.hpp
 	<stdexcept>
 
 1733709485 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\entidades\test.cpp
@@ -202,7 +202,7 @@
 	<fstream>
 	<exception>
 
-1733691810 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\testes\testeavaliacao.hpp
+1733712785 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\testes\testeavaliacao.hpp
 	"TestBase.hpp"
 	"../dominios/Avaliacao.hpp"
 	<string>
