@@ -15,8 +15,11 @@
 					<Add option="-g" />
 					<Add directory="include" />
 					<Add directory="C:/msys64/mingw64/include/pdcurses" />
+					<Add directory="C:/msys64/mingw64/include" /> 
 				</Compiler>
 				<Linker>
+				    <Add library="sqlite3" /> <!-- Adiciona SQLite -->
+                	<Add library="C:/msys64/mingw64/lib/libsqlite3.a" />
 					<Add library="C:/msys64/mingw64/lib/libpdcurses.a" />
 					<Add library="C:/msys64/mingw64/lib/libuser32.a" />
 					<Add library="C:/msys64/mingw64/lib/libgdi32.a" />
@@ -98,6 +101,8 @@
 		<Unit filename="src/testes/TesteHorario.cpp" />
 		<Unit filename="src/testes/TesteNome.cpp" />
 		<Unit filename="src/testes/TesteSenha.cpp" />
+		<Unit filename="include/repositories/SQLiteAutenticacaoRepository.hpp" />
+		<Unit filename="src/repositories/SQLiteAutenticacaoRepository.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

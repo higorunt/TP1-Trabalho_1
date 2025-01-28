@@ -5,7 +5,7 @@ Viajante* MockAutenticacaoRepository::buscarPorCodigo(const Codigo& codigo) {
     // Mock: retorna um usuário de teste se o código for "ADM123"
     if (codigo.getValor() == "ADM123") {
         Codigo cod("ADM123");
-        Senha senha("12345");
+        Senha senha("13489");
         Nome nome("Administrador");
         
         Conta* conta = new Conta(cod, senha);
