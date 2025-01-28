@@ -8,19 +8,10 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
-1733712240 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
-	<iostream>
-	"include/testes/TesteNome.hpp"
-	"include/testes/TesteCodigo.hpp"
-	"include/testes/TesteSenha.hpp"
-	"include/testes/TesteAvaliacao.hpp"
-	"include/testes/TesteData.hpp"
-	"include/testes/TesteDinheiro.hpp"
-	"include/testes/TesteDuracao.hpp"
-	"include/testes/TesteHorario.hpp"
-	"include/testes/TUConta.hpp"
-	"include/testes/TUDestino.hpp"
-	"include/testes/TUHospedagem.hpp"
+1738027898 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+	"include/apresentacao/TelaLogin.hpp"
+	"include/services/AutenticacaoService.hpp"
+	"include/repositories/MockAutenticacaoRepository.hpp"
 
 1733610345 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
 	<stdexcept>
@@ -155,7 +146,7 @@
 	"../dominios/Codigo.hpp"
 	"../dominios/Senha.hpp"
 
-1733670791 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\entidades\viajante.hpp
+1733712612 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\entidades\viajante.hpp
 	"../dominios/Nome.hpp"
 	"../entidades/Conta.hpp"
 
@@ -292,4 +283,49 @@
 	"../dominios/nome.hpp"
 	"../dominios/codigo.hpp"
 	"../dominios/dinheiro.hpp"
+
+1738029031 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\apresentacao\telalogin.cpp
+	"../../include/apresentacao/TelaLogin.hpp"
+	<string>
+
+1738027223 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\apresentacao\telalogin.hpp
+	<curses.h>
+	"../interfaces/IAutenticacaoService.hpp"
+
+1738020141 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\interfaces\iautenticacaoservice.hpp
+	"../entidades/Viajante.hpp"
+
+1549107440 c:\codeblocks\pdcurses-3.8\curses.h
+	<stdarg.h>
+	<stddef.h>
+	<stdio.h>
+	<wchar.h>
+	<stdbool.h>
+
+1738020193 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\services\autenticacaoservice.cpp
+	"../../include/services/AutenticacaoService.hpp"
+
+1738020168 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\services\autenticacaoservice.hpp
+	"../interfaces/IAutenticacaoService.hpp"
+	"../interfaces/IAutenticacaoRepository.hpp"
+
+1738019589 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\interfaces\iautenticacaorepository.hpp
+	"../entidades/Viajante.hpp"
+	"../dominios/Codigo.hpp"
+
+1703430357 c:\msys64\mingw64\include\pdcurses\curses.h
+	<stdarg.h>
+	<stddef.h>
+	<stdio.h>
+	<wchar.h>
+	<stdbool.h>
+	<stdint.h>
+
+1738027865 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\repositories\mockautenticacaorepository.hpp
+	"../interfaces/IAutenticacaoRepository.hpp"
+	"../entidades/Viajante.hpp"
+	"../dominios/Nome.hpp"
+
+1738028055 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\repositories\mockautenticacaorepository.cpp
+	"../../include/repositories/MockAutenticacaoRepository.hpp"
 

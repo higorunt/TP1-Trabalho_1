@@ -32,8 +32,8 @@ public:
      * @param codigo Código identificador único da viagem.
      * @param avaliacao Avaliação atribuída à viagem.
      */
-    Viagem(const Nome &nome, const Codigo &codigo, const Avaliacao &avaliacao)
-        : nome(nome), codigo(codigo), avaliacao(avaliacao) {}
+    Viagem(const Nome &nome, const Codigo &codigo, const Avaliacao &avaliacao, const Conta &conta)
+        : nome(nome), codigo(codigo), avaliacao(avaliacao), conta(conta) {}
 
     /**
      * @brief Define o nome da viagem.
