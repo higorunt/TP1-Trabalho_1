@@ -8,10 +8,11 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
-1738029830 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+1738030870 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
 	"include/apresentacao/TelaLogin.hpp"
 	"include/services/AutenticacaoService.hpp"
 	"include/repositories/SQLiteAutenticacaoRepository.hpp"
+	<iostream>
 
 1733610345 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
 	<stdexcept>
