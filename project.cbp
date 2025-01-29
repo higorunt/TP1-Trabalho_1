@@ -15,11 +15,11 @@
 					<Add option="-g" />
 					<Add directory="include" />
 					<Add directory="C:/msys64/mingw64/include/pdcurses" />
-					<Add directory="C:/msys64/mingw64/include" /> 
+					<Add directory="C:/msys64/mingw64/include" />
 				</Compiler>
 				<Linker>
-				    <Add library="sqlite3" /> <!-- Adiciona SQLite -->
-                	<Add library="C:/msys64/mingw64/lib/libsqlite3.a" />
+					<Add library="sqlite3" />
+					<Add library="C:/msys64/mingw64/lib/libsqlite3.a" />
 					<Add library="C:/msys64/mingw64/lib/libpdcurses.a" />
 					<Add library="C:/msys64/mingw64/lib/libuser32.a" />
 					<Add library="C:/msys64/mingw64/lib/libgdi32.a" />
@@ -46,7 +46,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/apresentacao/TelaLogin.hpp" />
 		<Unit filename="include/dominios/Duracao.hpp" />
 		<Unit filename="include/dominios/Horario.hpp" />
 		<Unit filename="include/dominios/Senha.hpp" />
@@ -61,10 +60,12 @@
 		<Unit filename="include/entidades/Hospedagem.hpp" />
 		<Unit filename="include/entidades/Viagem.hpp" />
 		<Unit filename="include/entidades/viajante.hpp" />
-		<Unit filename="include/interfaces/IAutenticacaoRepository.hpp" />
-		<Unit filename="include/interfaces/IAutenticacaoService.hpp" />
-		<Unit filename="include/repositories/MockAutenticacaoRepository.hpp" />
-		<Unit filename="include/services/AutenticacaoService.hpp" />
+		<Unit filename="include/interfaces/IRepositorio.hpp" />
+		<Unit filename="include/repositorios/RepositorioAutenticacao.hpp" />
+		<Unit filename="include/repositorios/RepositorioBase.hpp" />
+		<Unit filename="include/servicos/ServicoAutenticacao.hpp" />
+		<Unit filename="include/telas/TelaAutenticacao.hpp" />
+		<Unit filename="include/telas/TelaBase.hpp" />
 		<Unit filename="include/testes/TUConta.hpp" />
 		<Unit filename="include/testes/TUDestino.hpp" />
 		<Unit filename="include/testes/TUHospedagem.hpp" />
@@ -78,7 +79,6 @@
 		<Unit filename="include/testes/TesteNome.hpp" />
 		<Unit filename="include/testes/TesteSenha.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/apresentacao/TelaLogin.cpp" />
 		<Unit filename="src/dominios/Duracao.cpp" />
 		<Unit filename="src/dominios/Horario.cpp" />
 		<Unit filename="src/dominios/Senha.cpp" />
@@ -87,9 +87,11 @@
 		<Unit filename="src/dominios/data.cpp" />
 		<Unit filename="src/dominios/dinheiro.cpp" />
 		<Unit filename="src/dominios/nome.cpp" />
-		<Unit filename="src/entidades/test.cpp" />
-		<Unit filename="src/repositories/MockAutenticacaoRepository.cpp" />
-		<Unit filename="src/services/AutenticacaoService.cpp" />
+		<Unit filename="src/repositorios/RepositorioAutenticacao.cpp" />
+		<Unit filename="src/repositorios/RepositorioBase.cpp" />
+		<Unit filename="src/servicos/ServicoAutenticacao.cpp" />
+		<Unit filename="src/telas/TelaAutenticacao.cpp" />
+		<Unit filename="src/telas/TelaBase.cpp" />
 		<Unit filename="src/testes/TUConta.cpp" />
 		<Unit filename="src/testes/TUDestino.cpp" />
 		<Unit filename="src/testes/TUHospedagem.cpp" />
@@ -101,8 +103,6 @@
 		<Unit filename="src/testes/TesteHorario.cpp" />
 		<Unit filename="src/testes/TesteNome.cpp" />
 		<Unit filename="src/testes/TesteSenha.cpp" />
-		<Unit filename="include/repositories/SQLiteAutenticacaoRepository.hpp" />
-		<Unit filename="src/repositories/SQLiteAutenticacaoRepository.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
