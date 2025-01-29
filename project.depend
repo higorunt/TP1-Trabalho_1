@@ -8,10 +8,12 @@
 
 1733320949 source:c:\users\evely\documents\codeblocks\tp1-trabalho_1\tests\dominios\testenome.cpp
 
-1738030870 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
-	"include/apresentacao/TelaLogin.hpp"
-	"include/services/AutenticacaoService.hpp"
-	"include/repositories/SQLiteAutenticacaoRepository.hpp"
+1738112497 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\main.cpp
+	"include/telas/TelaBase.hpp"
+	"include/telas/TelaAutenticacao.hpp"
+	"include/servicos/ServicoAutenticacao.hpp"
+	"include/repositorios/RepositorioBase.hpp"
+	"include/repositorios/RepositorioAutenticacao.hpp"
 	<iostream>
 
 1733610345 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\dominios\avaliacao.cpp
@@ -417,4 +419,52 @@
 
 1738030812 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\repositories\sqliteautenticacaorepository.cpp
 	"../../include/repositories/SQLiteAutenticacaoRepository.hpp"
+
+1738111885 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\repositorios\repositorioautenticacao.cpp
+	"../../include/repositorios/RepositorioAutenticacao.hpp"
+	<stdexcept>
+
+1738111373 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\repositorios\repositorioautenticacao.hpp
+	"RepositorioBase.hpp"
+	"../interfaces/IRepositorio.hpp"
+	"../entidades/Viajante.hpp"
+	"../dominios/Codigo.hpp"
+
+1738111329 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\repositorios\repositoriobase.hpp
+	<sqlite3.h>
+	<string>
+
+1738111290 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\interfaces\irepositorio.hpp
+
+1738111596 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\repositorios\repositoriobase.cpp
+	"../../include/repositorios/RepositorioBase.hpp"
+	<stdexcept>
+
+1738112180 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\servicos\servicoautenticacao.cpp
+	"../../include/servicos/ServicoAutenticacao.hpp"
+	<stdexcept>
+	<iostream>
+
+1738111846 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\servicos\servicoautenticacao.hpp
+	"../interfaces/IRepositorio.hpp"
+	"../entidades/Viajante.hpp"
+	"../dominios/Codigo.hpp"
+
+1738113707 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\telas\telaautenticacao.cpp
+	"../../include/telas/TelaAutenticacao.hpp"
+	<string>
+
+1738111394 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\telas\telaautenticacao.hpp
+	"TelaBase.hpp"
+	"../servicos/ServicoAutenticacao.hpp"
+
+1738113566 c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\include\telas\telabase.hpp
+	<pdcurses.h>
+	<string>
+
+1703430357 c:\msys64\mingw64\include\pdcurses.h
+	"pdcurses/curses.h"
+
+1738112215 source:c:\users\higor\desktop\tp1-trabalho\tp1-trabalho_1\src\telas\telabase.cpp
+	"../../include/telas/TelaBase.hpp"
 

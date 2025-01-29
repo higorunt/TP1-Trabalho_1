@@ -1,19 +1,18 @@
-#include "include/apresentacao/TelaLogin.hpp"
-#include "include/services/AutenticacaoService.hpp"
-#include "include/repositories/SQLiteAutenticacaoRepository.hpp"
+// main.cpp
+#include "include/telas/TelaBase.hpp"
+#include "include/telas/TelaAutenticacao.hpp"
+#include "include/servicos/ServicoAutenticacao.hpp"
+#include "include/repositorios/RepositorioBase.hpp"
+#include "include/repositorios/RepositorioAutenticacao.hpp"
 #include <iostream>
 
 int main() {
     try {
-        std::cout << "\n=== Sistema de Planejamento de Viagens ===\n" << std::endl;
-
         // Criar instâncias necessárias
-        SQLiteAutenticacaoRepository* repo = new SQLiteAutenticacaoRepository("viagens.db");
-        IAutenticacaoService* service = new AutenticacaoService(repo);
+        auto* repositorio = new RepositorioAutenticacao("viagens.db");
+        auto* servico = new ServicoAutenticacao(repositorio);
 
-        // Criar um usuário de teste
-        std::cout << "\nConfigurando usuário de teste..." << std::endl;
-
+        // Criar usuário de teste
         try {
             Codigo codigo("ADM123");
             Senha senha("14785");
@@ -21,23 +20,17 @@ int main() {
             Conta conta(codigo, senha);
             Viajante viajante(nome, conta);
 
-            bool salvou = repo->salvar(viajante);
-            if (salvou) {
-                std::cout << "Usuário de teste configurado com sucesso!" << std::endl;
+            if (repositorio->salvar(viajante)) {
+                std::cout << "Usuário de teste criado com sucesso!" << std::endl;
             }
-
-            // Listar viajantes cadastrados
-            repo->listarViajantes();
-
         }
         catch (const std::exception& e) {
-            std::cout << "Erro ao configurar usuário de teste: " << e.what() << std::endl;
+            std::cout << "Nota: " << e.what() << std::endl;
         }
 
-        // Criar e executar tela de login
-        std::cout << "\nIniciando sistema de login..." << std::endl;
-        TelaLogin* telaLogin = new TelaLogin(service);
-        Viajante* viajante = telaLogin->executar();
+        // Criar e executar tela de autenticação
+        auto* telaAutenticacao = new TelaAutenticacao(servico);
+        Viajante* viajante = telaAutenticacao->fazerLogin();
 
         if (viajante) {
             std::cout << "\nBem-vindo, " << viajante->getNome().getValor() << "!" << std::endl;
@@ -45,9 +38,9 @@ int main() {
         }
 
         // Limpar recursos
-        delete telaLogin;
-        delete service;
-        delete repo;
+        delete telaAutenticacao;
+        delete servico;
+        delete repositorio;
 
     }
     catch (const std::exception& e) {
@@ -55,6 +48,5 @@ int main() {
         return 1;
     }
 
-    std::cout << "\nPrograma finalizado.\n" << std::endl;
     return 0;
 }
