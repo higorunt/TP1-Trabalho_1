@@ -1,21 +1,23 @@
 {
   "configurations": [
-    {
-      "name": "windows-gcc-x64",
-      "includePath": [
-        "${workspaceFolder}/**"
-      ],
-      "defines": [
-        "_DEBUG",
-        "UNICODE",
-        "_UNICODE"
-      ],
-      "windowsSdkVersion": "10.0.19041.0",
-      "compilerPath": "C:/MSYS64/mingw32/bin/gcc.exe",
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
-      "intelliSenseMode": "windows-gcc-x64"
-    }
+      {
+          "name": "Win32",
+          "includePath": [
+              "${workspaceFolder}/**",
+              "C:/msys64/mingw64/include",
+              "C:/msys64/mingw64/include/pdcurses"
+          ],
+          "defines": [
+              "_DEBUG",
+              "UNICODE",
+              "_UNICODE"
+          ],
+          "windowsSdkVersion": "10.0.19041.0",
+          "compilerPath": "C:/msys64/mingw64/bin/g++.exe",
+          "cStandard": "c17",
+          "cppStandard": "c++17",
+          "intelliSenseMode": "windows-gcc-x64"
+      }
   ],
   "version": 4
 }

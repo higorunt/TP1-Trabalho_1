@@ -8,6 +8,7 @@
 class TelaAutenticacao : public TelaBase {
 private:
     ServicoAutenticacao* servico;
+    void mostrarErro(const std::string& erro);
 
 public:
     TelaAutenticacao(ServicoAutenticacao* servico);

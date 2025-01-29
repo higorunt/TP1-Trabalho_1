@@ -7,16 +7,30 @@ TelaBase::TelaBase() : janela(nullptr) {
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
-    
-    // Configurar cores
-    init_pair(1, COLOR_WHITE, COLOR_BLUE);
-    init_pair(2, COLOR_RED, COLOR_WHITE);
-    
-    centralizar();
+
+    // Cores
+    init_pair(1, COLOR_WHITE, COLOR_BLUE);  // Tema principal
+    init_pair(2, COLOR_WHITE, COLOR_RED);   // Erro: texto branco, fundo vermelho
+
+    // Configurar janela (1280x720)
+    resize_term(45, 160);
+    refresh();
+
+    int startY = (LINES - 45) / 2;
+    int startX = (COLS - 160) / 2;
+    janela = newwin(45, 160, startY, startX);
+    wbkgd(janela, COLOR_PAIR(1));
+
+    refresh();
+    wrefresh(janela);
 }
 
+// Implementação do destrutor virtual puro
 TelaBase::~TelaBase() {
-    esconder();
+    if (janela) {
+        delwin(janela);
+        janela = nullptr;
+    }
 }
 
 void TelaBase::centralizar() {

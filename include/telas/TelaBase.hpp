@@ -15,7 +15,7 @@ protected:
     void limparLinha(int linha);
     void centralizar();
 
- void desenharCaixaEntrada(int linha, int coluna, int largura) {
+    void desenharCaixaEntrada(int linha, int coluna, int largura) {
         mvwhline(janela, linha, coluna, '_', largura);
     }
     
@@ -50,7 +50,7 @@ protected:
     
 public:
     TelaBase();
-    virtual ~TelaBase();
+    virtual ~TelaBase() = 0; // Destrutor virtual puro
     
     virtual void mostrar() = 0;
     virtual void esconder();
