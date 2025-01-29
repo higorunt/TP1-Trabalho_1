@@ -1,5 +1,26 @@
 # Planejamento de Viagens
 
+## Pré-requisitos de Instalação
+1. Instalar MSYS2 (https://www.msys2.org/)
+2. Abrir o terminal MSYS2 e instalar os seguintes pacotes:
+   ```bash
+   pacman -S mingw-w64-x86_64-gcc
+   pacman -S mingw-w64-x86_64-pdcurses
+   pacman -S mingw-w64-x86_64-sqlite3
+   ```
+3. Adicionar o diretório `C:\msys64\mingw64\bin` ao PATH do sistema
+
+## Compilação e Execução
+Para compilar o projeto:
+```bash
+mingw32-make
+```
+
+Para executar o programa:
+```bash
+mingw32-make run
+```
+
 ## Contexto do Trabalho
 Este projeto faz parte da disciplina de Técnicas de Programação e tem como objetivo aplicar conceitos de programação orientada a objetos (POO) em C++. O trabalho envolve o desenvolvimento de um sistema modular e escalável com classes bem definidas, validação de regras de negócio e testes unitários para cada componente.
 
