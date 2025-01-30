@@ -92,12 +92,21 @@ bool TelaCadastro::processarCadastro() {
         if (servico->cadastrar(viajante)) {
             mostrarAlerta("Conta criada com sucesso!");
             return true;
-        } else {
-            mostrarAlerta("Erro ao criar conta!");
-            return false;
         }
-    } catch (const std::exception& e) {
+        return false;
+    }
+    catch (const std::invalid_argument& e) {
+        // Erros de validação dos domínios
         mostrarAlerta(e.what());
+        return false;
+    }
+    catch (const std::runtime_error& e) {
+        // Erros específicos do cadastro
+        mostrarAlerta(e.what());
+        return false;
+    }
+    catch (const std::exception& e) {
+        mostrarAlerta("Erro no sistema");
         return false;
     }
 }

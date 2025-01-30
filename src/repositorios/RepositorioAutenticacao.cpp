@@ -18,6 +18,28 @@ RepositorioAutenticacao::RepositorioAutenticacao(const std::string& caminho)
     executarSQL(sql);
 }
 
+/**
+ * @brief Busca um Viajante no banco de dados pelo código fornecido
+ * 
+ * @details Este método realiza uma consulta SQL para buscar informações de um viajante
+ * específico na tabela 'viajantes' utilizando o código como critério de busca.
+ * As informações recuperadas são utilizadas para construir e retornar um objeto Viajante.
+ * 
+ * @param codigo Objeto Codigo contendo o código do viajante a ser buscado
+ * 
+ * @return Ponteiro para um objeto Viajante se encontrado, nullptr caso contrário
+ * 
+ * @throws Pode propagar exceções da construção dos objetos Codigo, Nome, Senha,
+ * Conta e Viajante, porém estas são capturadas internamente
+ * 
+ * @note As exceções são capturadas e logadas internamente, não propagando para o chamador
+ * 
+ * @see Viajante
+ * @see Codigo
+ * @see Nome 
+ * @see Senha
+ * @see Conta
+ */
 Viajante* RepositorioAutenticacao::buscar(const Codigo& codigo) {
     const std::string sql = 
         "SELECT codigo, nome, senha FROM viajantes WHERE codigo = ?;";

@@ -1,20 +1,26 @@
 #include "../../include/telas/TelaBase.hpp"
 #include <cstring>
 #include <algorithm>
+#include <map>
+
+using std::map;
+
+// Forward declaration of helper function
+std::string removerAcentos(const std::string& texto);
 
 TelaBase::TelaBase() : janela(nullptr) {
-    // Inicialização do ncurses
+    setlocale(LC_ALL, ""); // Ativa suporte a UTF-8 (dependente do sistema)
     initscr();
     start_color();
-    cbreak();             // Desabilita buffering de linha
-    noecho();            // Não mostra caracteres digitados
-    keypad(stdscr, TRUE); // Habilita teclas especiais (F1, arrows, etc)
-    curs_set(1);         // Mostra o cursor
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
+    curs_set(1);
     
     // Inicializar esquema de cores
     inicializarCores();
     
-    // Configurar tamanho padrão (1280x720 aproximado em caracteres)
+    // Configurar tamanho padrão
     configurarTamanho();
     
     // Ativar suporte a mouse
@@ -22,7 +28,6 @@ TelaBase::TelaBase() : janela(nullptr) {
     
     refresh();
 }
-
 TelaBase::~TelaBase() {
     if (janela != nullptr) {
         delwin(janela);
@@ -62,14 +67,14 @@ void TelaBase::mostrarAlerta(const std::string& mensagem) {
     int altura, largura;
     getmaxyx(janela, altura, largura);
     
-    // Calcular dimensões do alerta
-    int maxMsgWidth = largura - 20;  // Margem de 10 em cada lado
-    int numLinhas = (mensagem.length() + maxMsgWidth - 1) / maxMsgWidth + 2; // +2 para título e instruções
+    // Tratar a mensagem removendo acentos
+    std::string msgTratada = removerAcentos(mensagem);
     
-    int alertaAltura = numLinhas + 4;  // +4 para bordas e espaços
-    int alertaLargura = std::min(std::max(60, static_cast<int>(mensagem.length() + 10)), largura - 10);
+    // Aumentar largura mínima para garantir que a mensagem caiba
+    int alertaLargura = std::max(80, static_cast<int>(msgTratada.length()) + 10);
+    if (alertaLargura > largura - 4) alertaLargura = largura - 4;
     
-    // Centralizar o alerta
+    int alertaAltura = 7;  // Altura fixa para começar
     int alertaY = (altura - alertaAltura) / 2;
     int alertaX = (largura - alertaLargura) / 2;
     
@@ -78,7 +83,9 @@ void TelaBase::mostrarAlerta(const std::string& mensagem) {
                               alertaY + getbegy(janela), 
                               alertaX + getbegx(janela));
     
-    // Configurar cores e borda
+    // Configurar a janela do alerta
+    keypad(alertaWin, TRUE);
+    wattron(alertaWin, A_NORMAL);
     wbkgd(alertaWin, COLOR_PAIR(COR_ERRO));
     box(alertaWin, 0, 0);
     
@@ -86,14 +93,16 @@ void TelaBase::mostrarAlerta(const std::string& mensagem) {
     std::string titulo = "AVISO";
     mvwprintw(alertaWin, 1, (alertaLargura - titulo.length()) / 2, "%s", titulo.c_str());
     
-    // Quebrar e centralizar a mensagem
-    std::string msg = mensagem;
+    // Processar e exibir a mensagem
+    std::string msg = msgTratada;
+    int maxChars = alertaLargura - 4; // -4 para margens
     int linha = 2;
-    while (!msg.empty() && linha < alertaAltura - 2) {
+    
+    while (!msg.empty()) {
         std::string parte;
-        if (msg.length() > maxMsgWidth) {
-            size_t pos = msg.rfind(' ', maxMsgWidth);
-            if (pos == std::string::npos) pos = maxMsgWidth;
+        if (msg.length() > maxChars) {
+            size_t pos = msg.rfind(' ', maxChars);
+            if (pos == std::string::npos) pos = maxChars;
             parte = msg.substr(0, pos);
             msg = msg.substr(pos + 1);
         } else {
@@ -101,20 +110,58 @@ void TelaBase::mostrarAlerta(const std::string& mensagem) {
             msg.clear();
         }
         
-        mvwprintw(alertaWin, linha++, (alertaLargura - parte.length()) / 2, "%s", parte.c_str());
+        // Centralizar cada linha
+        int espacos = (alertaLargura - parte.length()) / 2;
+        mvwprintw(alertaWin, linha++, espacos, "%s", parte.c_str());
+        
+        // Se precisar de mais linhas, redimensionar a janela
+        if (!msg.empty() && linha >= alertaAltura - 2) {
+            alertaAltura++;
+            wresize(alertaWin, alertaAltura, alertaLargura);
+            box(alertaWin, 0, 0);
+        }
     }
     
-    // Instruções
-    mvwprintw(alertaWin, alertaAltura - 2, 2, "Pressione qualquer tecla para continuar...");
+    // Adicionar instrução na última linha centralizada
+    std::string instrucao = "Pressione qualquer tecla para continuar...";
+    mvwprintw(alertaWin, alertaAltura - 2, 
+              (alertaLargura - instrucao.length()) / 2, 
+              "%s", instrucao.c_str());
     
-    // Atualizar e aguardar
+    // Atualizar a janela
     wrefresh(alertaWin);
+    
+    // Aguardar tecla
     wgetch(alertaWin);
     
     // Limpar
     delwin(alertaWin);
     touchwin(janela);
     wrefresh(janela);
+}
+
+std::string removerAcentos(const std::string& texto) {
+    static const std::map<char, char> substituicoes = {
+        {'á', 'a'}, {'à', 'a'}, {'ã', 'a'}, {'â', 'a'},
+        {'é', 'e'}, {'ê', 'e'},
+        {'í', 'i'},
+        {'ó', 'o'}, {'ô', 'o'}, {'õ', 'o'},
+        {'ú', 'u'},
+        {'ç', 'c'},
+        {'Á', 'A'}, {'À', 'A'}, {'Ã', 'A'}, {'Â', 'A'},
+        {'É', 'E'}, {'Ê', 'E'},
+        {'Í', 'I'},
+        {'Ó', 'O'}, {'Ô', 'O'}, {'Õ', 'O'},
+        {'Ú', 'U'},
+        {'Ç', 'C'}
+    };
+
+    std::string resultado;
+    for (char c : texto) {
+        auto it = substituicoes.find(c);
+        resultado += (it != substituicoes.end()) ? it->second : c;
+    }
+    return resultado;
 }
 
 std::string TelaBase::campoTexto(WINDOW* win, int y, int x, int max_len, bool senha) {

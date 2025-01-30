@@ -45,7 +45,13 @@ void TelaAutenticacao::desenharLogo() {
     // Desenhar título
     std::string titulo = "Sistema de Planejamento de Viagens";
     mvwprintw(janela, layout.logoY + 14, (largura - titulo.length()) / 2, "%s", titulo.c_str());
-    
+
+    // Adicionar créditos na parte inferior direita
+    std::string creditos1 = "221006440 - Higor Roger";
+    std::string creditos2 = "221006404 - Evelyn Caroline";
+    mvwprintw(janela, altura - 3, largura - creditos1.length() - 2, "%s", creditos1.c_str());
+    mvwprintw(janela, altura - 2, largura - creditos2.length() - 2, "%s", creditos2.c_str());
+
     wrefresh(janela);
 }
 
@@ -182,19 +188,18 @@ void TelaAutenticacao::mostrar() {
 }
 Viajante* TelaAutenticacao::fazerLogin() {
     mostrar();
+    keypad(janela, TRUE);
     
     while (true) {
-        // Posicionar cursor no campo de código antes de qualquer leitura
         wmove(painelLogin, 1, 11);
         wrefresh(painelLogin);
         
-        int ch = wgetch(painelLogin); // Mudamos de janela para painelLogin
+        int ch = wgetch(janela);
         
         if (ch == KEY_F(1)) {
-            // Em vez de implementar aqui, vamos chamar a TelaCadastro
             TelaCadastro telaCadastro(servico);
             telaCadastro.executar();
-            mostrar(); // Redesenha a tela de login
+            mostrar();
             continue;
         }
         
@@ -202,41 +207,50 @@ Viajante* TelaAutenticacao::fazerLogin() {
             return nullptr;
         }
         
-        // Se não for tecla especial, já é o primeiro caractere do código
-        std::string codigo;
         if (isprint(ch)) {
-            codigo = (char)ch;
+            // Limpar e ler código
+            wmove(painelLogin, 1, 11);
+            whline(painelLogin, ' ', TAM_MAX_CODIGO);
             mvwaddch(painelLogin, 1, 11, ch);
             wrefresh(painelLogin);
-        }
-        
-        // Continua lendo o resto do código
-        std::string restoCodigo = campoTexto(painelLogin, 1, 12, TAM_MAX_CODIGO - 1);
-        if (!restoCodigo.empty()) {
-            codigo += restoCodigo;
-        } else if (codigo.empty()) {
-            continue;
-        }
-        
-        // Ler senha
-        wmove(painelLogin, 3, 11);
-        std::string senha = campoTexto(painelLogin, 3, 11, TAM_MAX_SENHA, true);
-        if (senha.empty()) {
-            continue;
-        }
-        
-        try {
-            Viajante* viajante = servico->autenticar(Codigo(codigo), Senha(senha));
             
-            if (viajante != nullptr) {
-                return viajante;
-            } else {
-                mostrarAlerta("Credenciais inválidas!");
+            std::string codigo = (char)ch + campoTexto(painelLogin, 1, 12, TAM_MAX_CODIGO - 1);
+            if (codigo.empty()) continue;
+            
+            // Limpar e ler senha
+            wmove(painelLogin, 3, 11);
+            whline(painelLogin, ' ', TAM_MAX_SENHA);
+            wrefresh(painelLogin);
+            
+            std::string senha = campoTexto(painelLogin, 3, 11, TAM_MAX_SENHA, true);
+            if (senha.empty()) continue;
+            
+            try {
+                // Tenta criar os objetos primeiro
+                Codigo codigoObj(codigo);
+                Senha senhaObj(senha);
+                
+                // Se passou da validação dos domínios, tenta autenticar
+                try {
+                    Viajante* viajante = servico->autenticar(codigoObj, senhaObj);
+                    return viajante;
+                }
+                catch (const std::runtime_error& e) {
+                    // Erros específicos de autenticação (usuário não existe, senha incorreta)
+                    mostrarAlerta(e.what());
+                    mostrar();
+                }
+            }
+            catch (const std::invalid_argument&) {
+                // Qualquer erro de validação dos domínios é tratado como senha incorreta
+                mostrarAlerta("Senha incorreta");
                 mostrar();
             }
-        } catch (const std::exception& e) {
-            mostrarAlerta(e.what());
-            mostrar();
+            catch (const std::exception&) {
+                // Outros erros inesperados
+                mostrarAlerta("Erro no sistema");
+                mostrar();
+            }
         }
     }
 }
