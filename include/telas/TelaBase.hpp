@@ -1,7 +1,7 @@
 #ifndef TELA_BASE_HPP
 #define TELA_BASE_HPP
 
-#include <curses.h>
+#include <pdcurses.h>
 #include <string>
 
 class TelaBase {

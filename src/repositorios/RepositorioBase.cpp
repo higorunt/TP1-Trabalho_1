@@ -27,16 +27,6 @@ void RepositorioBase::desconectar() {
     }
 }
 
-/**
- * @brief Executa uma instrução SQL no banco de dados SQLite
- * 
- * @param sql String contendo a instrução SQL a ser executada
- * @return true Se a execução for bem sucedida
- * @throw std::runtime_error Se houver erro na execução da instrução SQL
- * 
- * Esta função executa uma instrução SQL no banco de dados SQLite.
- * Em caso de erro na execução, uma exceção é lançada com a mensagem de erro.
- */
 bool RepositorioBase::executarSQL(const std::string& sql) {
     char* errMsg = nullptr;
     int rc = sqlite3_exec(bd, sql.c_str(), nullptr, nullptr, &errMsg);

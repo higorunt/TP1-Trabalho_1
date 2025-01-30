@@ -7,17 +7,6 @@
 #include "../entidades/Viajante.hpp"
 #include "../dominios/Codigo.hpp"
 
-/**
- * @brief Classe responsável pelo gerenciamento de autenticação de viajantes no repositório
- * 
- * Esta classe herda de RepositorioBase e implementa a interface IRepositorio
- * para fornecer operações CRUD (Create, Read, Update, Delete) específicas para Viajantes
- * 
- * @see RepositorioBase
- * @see IRepositorio
- * @see Viajante
- * @see Codigo
- */
 class RepositorioAutenticacao : 
     public RepositorioBase, 
     public IRepositorio<Viajante, Codigo> {
