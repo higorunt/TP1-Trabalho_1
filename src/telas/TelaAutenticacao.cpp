@@ -1,122 +1,256 @@
-// src/telas/TelaAutenticacao.cpp
 #include "../../include/telas/TelaAutenticacao.hpp"
-#include <string>
+#include "../../include/telas/TelaCadastro.hpp"
+#include <cstring>
 
 TelaAutenticacao::TelaAutenticacao(ServicoAutenticacao* srv) 
-    : servico(srv) {}
+    : servico(srv), painelLogin(nullptr) {
+    layout.camposCentralX = 0;
+    layout.camposY = 0;
+}
 
-void TelaAutenticacao::mostrar() {
-    wclear(janela);
-    box(janela, 0, 0);
-    
+TelaAutenticacao::~TelaAutenticacao() {
+    if (painelLogin != nullptr) {
+        delwin(painelLogin);
+        painelLogin = nullptr;
+    }
+}
+
+void TelaAutenticacao::desenharLogo() {
+    const char* logo[] = {
+        "@@@@@@@@@@@@@@@@@@@@@@@% %@@@@@@@@@@@@@@@@@@@@@@@",
+        " =@@@@@@@@@@@@@@@@@@@@@% %@@@@@@@@@@@@@@@@@@@@@- ",
+        "*-  #@@@@@@@@@@@@@@@@@@% %@@@@@@@@@@@@@@@@@@#  -*",
+        "***+  -@@@@@@@@@@@@@@@@% %@@@@@@@@@@@@@@@@:  +***",
+        "******-  =@@@@@@@@@@@@@% %@@@@@@@@@@@@@=  -******",
+        "********+:  =%@@@@@@@@@% %@@@@@@@@@%=  :+********",
+        "************-   -%@@@@@% %@@@@@%-   -************",
+        "***************=.               .=***************",
+        "***********************= =***********************",
+        "***********************= =***********************",
+        "***********************= =***********************",
+        "***********************= =***********************",
+        "***********************= =***********************"
+    };
+
     int altura, largura;
     getmaxyx(janela, altura, largura);
     
-    // Desenhar bordas mais elegantes
-    mvwaddch(janela, 0, 0, ACS_ULCORNER);
-    mvwhline(janela, 0, 1, ACS_HLINE, largura-2);
-    mvwaddch(janela, 0, largura-1, ACS_URCORNER);
-    mvwvline(janela, 1, 0, ACS_VLINE, altura-2);
-    mvwvline(janela, 1, largura-1, ACS_VLINE, altura-2);
-    mvwaddch(janela, altura-1, 0, ACS_LLCORNER);
-    mvwhline(janela, altura-1, 1, ACS_HLINE, largura-2);
-    mvwaddch(janela, altura-1, largura-1, ACS_LRCORNER);
+    // Centralizar logo
+    int logoX = (largura - std::strlen(logo[0])) / 2;
     
-    // Título centralizado
+    for (int i = 0; i < 13; i++) {
+        mvwprintw(janela, layout.logoY + i, logoX, "%s", logo[i]);
+    }
+    
+    // Desenhar título
     std::string titulo = "Sistema de Planejamento de Viagens";
-    int posX = (largura - titulo.length()) / 2;
-    mvwprintw(janela, 2, posX, "%s", titulo.c_str());
-    
-    // Linha decorativa sob o título
-    mvwhline(janela, 3, posX, ACS_HLINE, titulo.length());
-    
-    // Campos de entrada centralizados
-    int colunaCampos = (largura - 30) / 2;
-    
-    // Campo Código - usando caracteres ASCII normais para garantir exibição
-    mvwprintw(janela, 6, colunaCampos, "Codigo:");
-    mvwaddch(janela, 6, colunaCampos + 7, '[');
-    mvwhline(janela, 6, colunaCampos + 8, ' ', 6);
-    mvwaddch(janela, 6, colunaCampos + 14, ']');
-    
-    // Campo Senha
-    mvwprintw(janela, 9, colunaCampos, "Senha: ");
-    mvwaddch(janela, 9, colunaCampos + 7, '[');
-    mvwhline(janela, 9, colunaCampos + 8, ' ', 5);
-    mvwaddch(janela, 9, colunaCampos + 13, ']');
-    
-    // Instruções na parte inferior - garantindo que cabe na tela
-    std::string instrucao = "Pressione Enter apos digitar";
-    mvwprintw(janela, altura-2, (largura - instrucao.length()) / 2, "%s", instrucao.c_str());
-    
+    mvwprintw(janela, layout.logoY + 14, (largura - titulo.length()) / 2, "%s", titulo.c_str());
+
+    // Adicionar créditos na parte inferior direita
+    std::string creditos1 = "221006440 - Higor Roger";
+    std::string creditos2 = "221006404 - Evelyn Caroline";
+    mvwprintw(janela, altura - 3, largura - creditos1.length() - 2, "%s", creditos1.c_str());
+    mvwprintw(janela, altura - 2, largura - creditos2.length() - 2, "%s", creditos2.c_str());
+
     wrefresh(janela);
 }
 
-Viajante* TelaAutenticacao::fazerLogin() {
-    mostrar();
-    
+void TelaAutenticacao::desenharCamposLogin() {
     int altura, largura;
     getmaxyx(janela, altura, largura);
-    int colunaCampos = (largura - 30) / 2;
+    
+    // Calcular posições
+    layout.camposY = altura - layout.altura - 2;
+    layout.camposCentralX = (largura - layout.largura) / 2;
+    
+    // Desenhar instruções ANTES do painel de login
+    std::string instrucao = "F1 = Nova Conta | ESC = Sair";
+    mvwprintw(janela, layout.camposY - 2, (largura - instrucao.length()) / 2, "%s", instrucao.c_str());
+    
+    // Criar painel de login
+    if (painelLogin != nullptr) {
+        delwin(painelLogin);
+    }
+    
+    painelLogin = subwin(janela, layout.altura, layout.largura,
+                        layout.camposY + getbegy(janela),
+                        layout.camposCentralX + getbegx(janela));
+    
+    // Configurar cores e borda
+    wbkgd(painelLogin, COLOR_PAIR(COR_INVERSA));
+    box(painelLogin, 0, 0);
+    
+    mvwprintw(painelLogin, 1, 2, "Codigo: ");
+    mvwaddch(painelLogin, 1, 10, '[');
+    mvwhline(painelLogin, 1, 11, ' ', TAM_MAX_CODIGO);
+    mvwaddch(painelLogin, 1, 11 + TAM_MAX_CODIGO, ']');
+    
+    mvwprintw(painelLogin, 3, 2, "Senha:  ");
+    mvwaddch(painelLogin, 3, 10, '[');
+    mvwhline(painelLogin, 3, 11, ' ', TAM_MAX_SENHA);
+    mvwaddch(painelLogin, 3, 11 + TAM_MAX_SENHA, ']');
+    
+    wrefresh(painelLogin);
+    wrefresh(janela);
+}
+
+void TelaAutenticacao::mostrarModalCadastro() {
+    int altura, largura;
+    getmaxyx(janela, altura, largura);
+    
+    // Dimensões do modal
+    int modalAltura = 12;  // Aumentado para acomodar mais campos
+    int modalLargura = 60; // Aumentado para melhor visualização
+    int modalY = (altura - modalAltura) / 2;
+    int modalX = (largura - modalLargura) / 2;
+    
+    // Criar janela do modal
+    WINDOW* modalCadastro = newwin(modalAltura, modalLargura,
+                                  modalY + getbegy(janela),
+                                  modalX + getbegx(janela));
+                                  
+    // Configurar cores e borda
+    wbkgd(modalCadastro, COLOR_PAIR(COR_INVERSA));
+    box(modalCadastro, 0, 0);
+    
+    // Título
+    std::string titulo = "Criar Nova Conta";
+    mvwprintw(modalCadastro, 1, (modalLargura - titulo.length()) / 2, "%s", titulo.c_str());
+    
+    // Campos
+    mvwprintw(modalCadastro, 3, 2, "Nome:   ");
+    mvwaddch(modalCadastro, 3, 10, '[');
+    mvwhline(modalCadastro, 3, 11, ' ', 20);
+    mvwaddch(modalCadastro, 3, 31, ']');
+    
+    mvwprintw(modalCadastro, 5, 2, "Codigo: ");
+    mvwaddch(modalCadastro, 5, 10, '[');
+    mvwhline(modalCadastro, 5, 11, ' ', TAM_MAX_CODIGO);
+    mvwaddch(modalCadastro, 5, 11 + TAM_MAX_CODIGO, ']');
+    
+    mvwprintw(modalCadastro, 7, 2, "Senha:  ");
+    mvwaddch(modalCadastro, 7, 10, '[');
+    mvwhline(modalCadastro, 7, 11, ' ', TAM_MAX_SENHA);
+    mvwaddch(modalCadastro, 7, 11 + TAM_MAX_SENHA, ']');
+    
+    // Instruções
+    mvwprintw(modalCadastro, modalAltura - 2, 2, "ESC = Cancelar | ENTER = Confirmar");
+    
+    wrefresh(modalCadastro);
+    
+    // Ler dados
+    std::string nomeStr = campoTexto(modalCadastro, 3, 11, 20);
+    if (nomeStr.empty()) {
+        delwin(modalCadastro);
+        mostrar();
+        return;
+    }
+    
+    std::string codigoStr = campoTexto(modalCadastro, 5, 11, TAM_MAX_CODIGO);
+    if (codigoStr.empty()) {
+        delwin(modalCadastro);
+        mostrar();
+        return;
+    }
+    
+    std::string senhaStr = campoTexto(modalCadastro, 7, 11, TAM_MAX_SENHA, true);
+    if (senhaStr.empty()) {
+        delwin(modalCadastro);
+        mostrar();
+        return;
+    }
+    
+    try {
+        Nome nome(nomeStr);
+        Codigo codigo(codigoStr);
+        Senha senha(senhaStr);
+        
+        Conta conta(codigo, senha);
+        Viajante viajante(nome, conta);
+        
+        if (servico->cadastrar(viajante)) {
+            mostrarAlerta("Conta criada com sucesso!");
+        } else {
+            mostrarAlerta("Erro ao criar conta!");
+        }
+    } catch (const std::exception& e) {
+        mostrarAlerta(e.what());
+    }
+    
+    delwin(modalCadastro);
+    mostrar();
+}
+
+void TelaAutenticacao::mostrar() {
+    limparTela();
+    desenharLogo();
+    desenharCamposLogin();
+}
+Viajante* TelaAutenticacao::fazerLogin() {
+    mostrar();
+    keypad(janela, TRUE);
     
     while (true) {
-        // Ler código na posição correta dentro dos colchetes
-        wmove(janela, 6, colunaCampos + 8);
-        std::string codigoStr = lerEntrada(6, colunaCampos + 8, 6, true);
+        wmove(painelLogin, 1, 11);
+        wrefresh(painelLogin);
         
-        // Ler senha com máscara na posição correta
-        wmove(janela, 9, colunaCampos + 8);
-        std::string senhaStr;
-        noecho(); // Desliga o eco dos caracteres
-        for (int i = 0; i < 5; i++) {
-            char c = wgetch(janela);
-            if (c == '\n' || c == KEY_ENTER) break;
-            if (c == KEY_BACKSPACE || c == 127) {
-                if (i > 0) {
-                    i -= 2;
-                    wmove(janela, 9, colunaCampos + 8 + i + 1);
-                    waddch(janela, ' ');
-                    wmove(janela, 9, colunaCampos + 8 + i + 1);
-                    if (!senhaStr.empty()) {
-                        senhaStr.pop_back();
-                    }
+        int ch = wgetch(janela);
+        
+        if (ch == KEY_F(1)) {
+            TelaCadastro telaCadastro(servico);
+            telaCadastro.executar();
+            mostrar();
+            continue;
+        }
+        
+        if (ch == 27) { // ESC
+            return nullptr;
+        }
+        
+        if (isprint(ch)) {
+            // Limpar e ler código
+            wmove(painelLogin, 1, 11);
+            whline(painelLogin, ' ', TAM_MAX_CODIGO);
+            mvwaddch(painelLogin, 1, 11, ch);
+            wrefresh(painelLogin);
+            
+            std::string codigo = (char)ch + campoTexto(painelLogin, 1, 12, TAM_MAX_CODIGO - 1);
+            if (codigo.empty()) continue;
+            
+            // Limpar e ler senha
+            wmove(painelLogin, 3, 11);
+            whline(painelLogin, ' ', TAM_MAX_SENHA);
+            wrefresh(painelLogin);
+            
+            std::string senha = campoTexto(painelLogin, 3, 11, TAM_MAX_SENHA, true);
+            if (senha.empty()) continue;
+            
+            try {
+                // Tenta criar os objetos primeiro
+                Codigo codigoObj(codigo);
+                Senha senhaObj(senha);
+                
+                // Se passou da validação dos domínios, tenta autenticar
+                try {
+                    Viajante* viajante = servico->autenticar(codigoObj, senhaObj);
+                    return viajante;
                 }
-                continue;
+                catch (const std::runtime_error& e) {
+                    // Erros específicos de autenticação (usuário não existe, senha incorreta)
+                    mostrarAlerta(e.what());
+                    mostrar();
+                }
             }
-            senhaStr += c;
-            mvwaddch(janela, 9, colunaCampos + 8 + i, '*');
-            wrefresh(janela);
-        }
-        echo(); // Religa o eco dos caracteres
-        
-        try {
-            Codigo codigo(codigoStr);
-            Senha senha(senhaStr);
-            
-            // Limpar mensagens anteriores
-            for(int i = 12; i < altura-2; i++) {
-                limparLinha(i);
+            catch (const std::invalid_argument&) {
+                // Qualquer erro de validação dos domínios é tratado como senha incorreta
+                mostrarAlerta("Senha incorreta");
+                mostrar();
             }
-            
-            Viajante* viajante = servico->autenticar(codigo, senha);
-            
-            if (!viajante) {
-                std::string erro = "Credenciais inválidas. Tente novamente.";
-                exibirMensagem(erro, 12, (largura - erro.length()) / 2);
-                wrefresh(janela);
-                napms(2000);
-                mostrar(); // Redesenha a tela
-                continue;
+            catch (const std::exception&) {
+                // Outros erros inesperados
+                mostrarAlerta("Erro no sistema");
+                mostrar();
             }
-            
-            return viajante;
-        }
-        catch (const std::invalid_argument& e) {
-            std::string erro = e.what();
-            exibirMensagem(erro, 12, (largura - erro.length()) / 2);
-            wrefresh(janela);
-            napms(2000);
-            mostrar(); // Redesenha a tela
         }
     }
 }

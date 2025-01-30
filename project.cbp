@@ -3,6 +3,7 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="TP1-Trabalho" />
+		<Option makefile="makefile" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -66,6 +67,8 @@
 		<Unit filename="include/servicos/ServicoAutenticacao.hpp" />
 		<Unit filename="include/telas/TelaAutenticacao.hpp" />
 		<Unit filename="include/telas/TelaBase.hpp" />
+		<Unit filename="include/telas/TelaCadastro.hpp" />
+		<Unit filename="include/telas/TelaPrincipal.hpp" />
 		<Unit filename="include/testes/TUConta.hpp" />
 		<Unit filename="include/testes/TUDestino.hpp" />
 		<Unit filename="include/testes/TUHospedagem.hpp" />
@@ -92,6 +95,8 @@
 		<Unit filename="src/servicos/ServicoAutenticacao.cpp" />
 		<Unit filename="src/telas/TelaAutenticacao.cpp" />
 		<Unit filename="src/telas/TelaBase.cpp" />
+		<Unit filename="src/telas/TelaCadastro.cpp" />
+		<Unit filename="src/telas/TelaPrincipal.cpp" />
 		<Unit filename="src/testes/TUConta.cpp" />
 		<Unit filename="src/testes/TUDestino.cpp" />
 		<Unit filename="src/testes/TUHospedagem.cpp" />

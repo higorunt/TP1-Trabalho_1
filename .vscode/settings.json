@@ -57,6 +57,9 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
+    "*.sqlbook": "sql",
+    "*.ndjson": "jsonl",
+    "*.dbclient-js": "javascript",
     "array": "cpp",
     "atomic": "cpp",
     "*.tcc": "cpp",
@@ -106,6 +109,15 @@
     "numeric": "cpp",
     "random": "cpp",
     "regex": "cpp",
-    "iomanip": "cpp"
+    "iomanip": "cpp",
+    "bit": "cpp",
+    "charconv": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "format": "cpp",
+    "numbers": "cpp",
+    "span": "cpp",
+    "text_encoding": "cpp",
+    "variant": "cpp"
   }
 }
