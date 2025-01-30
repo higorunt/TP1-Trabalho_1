@@ -1,139 +1,108 @@
-// src/telas/TelaCadastro.cpp
 #include "../../include/telas/TelaCadastro.hpp"
-#include <string>
 
 TelaCadastro::TelaCadastro(ServicoAutenticacao* srv) 
-    : servico(srv) {}
-
-void TelaCadastro::mostrar() {
-    wclear(janela);
-    box(janela, 0, 0);
-    
-    int altura, largura;
-    getmaxyx(janela, altura, largura);
-    
-    // Desenhar bordas mais elegantes (mesmo estilo da TelaAutenticacao)
-    mvwaddch(janela, 0, 0, ACS_ULCORNER);
-    mvwhline(janela, 0, 1, ACS_HLINE, largura-2);
-    mvwaddch(janela, 0, largura-1, ACS_URCORNER);
-    mvwvline(janela, 1, 0, ACS_VLINE, altura-2);
-    mvwvline(janela, 1, largura-1, ACS_VLINE, altura-2);
-    mvwaddch(janela, altura-1, 0, ACS_LLCORNER);
-    mvwhline(janela, altura-1, 1, ACS_HLINE, largura-2);
-    mvwaddch(janela, altura-1, largura-1, ACS_LRCORNER);
-    
-    // Título
-    std::string titulo = "Cadastro de Nova Conta";
-    int posX = (largura - titulo.length()) / 2;
-    mvwprintw(janela, 2, posX, "%s", titulo.c_str());
-    mvwhline(janela, 3, posX, ACS_HLINE, titulo.length());
-    
-    // Campos de entrada
-    int colunaCampos = (largura - 30) / 2;
-    
-    // Nome
-    mvwprintw(janela, 5, colunaCampos, "Nome:  ");
-    mvwaddch(janela, 5, colunaCampos + 7, '[');
-    mvwhline(janela, 5, colunaCampos + 8, ' ', 20);
-    mvwaddch(janela, 5, colunaCampos + 28, ']');
-    
-    // Código
-    mvwprintw(janela, 7, colunaCampos, "Codigo:");
-    mvwaddch(janela, 7, colunaCampos + 7, '[');
-    mvwhline(janela, 7, colunaCampos + 8, ' ', 6);
-    mvwaddch(janela, 7, colunaCampos + 14, ']');
-    
-    // Senha
-    mvwprintw(janela, 9, colunaCampos, "Senha: ");
-    mvwaddch(janela, 9, colunaCampos + 7, '[');
-    mvwhline(janela, 9, colunaCampos + 8, ' ', 5);
-    mvwaddch(janela, 9, colunaCampos + 13, ']');
-    
-    // Instruções
-    std::string instrucao = "Pressione Enter apos digitar ou ESC para cancelar";
-    mvwprintw(janela, altura-2, (largura - instrucao.length()) / 2, "%s", instrucao.c_str());
-    
-    wrefresh(janela);
+    : servico(srv), modalCadastro(nullptr) {
 }
 
-Viajante* TelaCadastro::executar() {
-    mostrar();
-    
+TelaCadastro::~TelaCadastro() {
+    if (modalCadastro != nullptr) {
+        delwin(modalCadastro);
+        modalCadastro = nullptr;
+    }
+}
+
+void TelaCadastro::desenharModal() {
     int altura, largura;
     getmaxyx(janela, altura, largura);
-    int colunaCampos = (largura - 30) / 2;
     
-    while (true) {
-        // Ler nome
-        wmove(janela, 5, colunaCampos + 8);
-        std::string nomeStr = lerEntrada(5, colunaCampos + 8, 20, true);
-        
-        // Verificar ESC
-        if (nomeStr.empty()) return nullptr;
-        
-        // Ler código
-        wmove(janela, 7, colunaCampos + 8);
-        std::string codigoStr = lerEntrada(7, colunaCampos + 8, 6, true);
-        
-        if (codigoStr.empty()) return nullptr;
-        
-        // Ler senha
-        wmove(janela, 9, colunaCampos + 8);
-        std::string senhaStr;
-        noecho();
-        for (int i = 0; i < 5; i++) {
-            char c = wgetch(janela);
-            if (c == '\n' || c == KEY_ENTER) break;
-            if (c == 27) { // ESC
-                echo();
-                return nullptr;
-            }
-            if (c == KEY_BACKSPACE || c == 127) {
-                if (i > 0) {
-                    i -= 2;
-                    wmove(janela, 9, colunaCampos + 8 + i + 1);
-                    waddch(janela, ' ');
-                    wmove(janela, 9, colunaCampos + 8 + i + 1);
-                    if (!senhaStr.empty()) {
-                        senhaStr.pop_back();
-                    }
-                }
-                continue;
-            }
-            senhaStr += c;
-            mvwaddch(janela, 9, colunaCampos + 8 + i, '*');
-            wrefresh(janela);
-        }
-        echo();
-        
-        try {
-            Nome nome(nomeStr);
-            Codigo codigo(codigoStr);
-            Senha senha(senhaStr);
-            
-            Conta conta(codigo, senha);
-            Viajante viajante(nome, conta);
-            
-            if (servico->cadastrar(viajante)) {
-                std::string sucesso = "Conta criada com sucesso!";
-                exibirMensagem(sucesso, 12, (largura - sucesso.length()) / 2);
-                wrefresh(janela);
-                napms(2000);
-                return servico->autenticar(codigo, senha);
-            } else {
-                std::string erro = "Erro ao criar conta. Tente novamente.";
-                exibirMensagem(erro, 12, (largura - erro.length()) / 2);
-                wrefresh(janela);
-                napms(2000);
-                mostrar();
-            }
-        }
-        catch (const std::invalid_argument& e) {
-            std::string erro = e.what();
-            exibirMensagem(erro, 12, (largura - erro.length()) / 2);
-            wrefresh(janela);
-            napms(2000);
-            mostrar();
-        }
+    // Dimensões do modal
+    int modalAltura = 12;
+    int modalLargura = 60;
+    int modalY = (altura - modalAltura) / 2;
+    int modalX = (largura - modalLargura) / 2;
+    
+    // Criar janela do modal
+    if (modalCadastro != nullptr) {
+        delwin(modalCadastro);
     }
+    
+    modalCadastro = newwin(modalAltura, modalLargura,
+                          modalY + getbegy(janela),
+                          modalX + getbegx(janela));
+                          
+    // Configurar cores e borda
+    wbkgd(modalCadastro, COLOR_PAIR(COR_INVERSA));
+    box(modalCadastro, 0, 0);
+    
+    // Título
+    std::string titulo = "Criar Nova Conta";
+    mvwprintw(modalCadastro, 1, (modalLargura - titulo.length()) / 2, "%s", titulo.c_str());
+    
+    // Campos
+    mvwprintw(modalCadastro, 3, 2, "Nome:   ");
+    mvwaddch(modalCadastro, 3, 10, '[');
+    mvwhline(modalCadastro, 3, 11, ' ', TAM_MAX_NOME);
+    mvwaddch(modalCadastro, 3, 11 + TAM_MAX_NOME, ']');
+    
+    mvwprintw(modalCadastro, 5, 2, "Codigo: ");
+    mvwaddch(modalCadastro, 5, 10, '[');
+    mvwhline(modalCadastro, 5, 11, ' ', TAM_MAX_CODIGO);
+    mvwaddch(modalCadastro, 5, 11 + TAM_MAX_CODIGO, ']');
+    
+    mvwprintw(modalCadastro, 7, 2, "Senha:  ");
+    mvwaddch(modalCadastro, 7, 10, '[');
+    mvwhline(modalCadastro, 7, 11, ' ', TAM_MAX_SENHA);
+    mvwaddch(modalCadastro, 7, 11 + TAM_MAX_SENHA, ']');
+    
+    // Instruções
+    mvwprintw(modalCadastro, modalAltura - 2, 2, "ESC = Cancelar | ENTER = Confirmar");
+    
+    wrefresh(modalCadastro);
+}
+
+void TelaCadastro::mostrar() {
+    limparTela();
+    desenharModal();
+}
+
+bool TelaCadastro::processarCadastro() {
+    // Ler nome
+    wmove(modalCadastro, 3, 11);
+    std::string nomeStr = campoTexto(modalCadastro, 3, 11, TAM_MAX_NOME);
+    if (nomeStr.empty()) return false;
+    
+    // Ler código
+    wmove(modalCadastro, 5, 11);
+    std::string codigoStr = campoTexto(modalCadastro, 5, 11, TAM_MAX_CODIGO);
+    if (codigoStr.empty()) return false;
+    
+    // Ler senha
+    wmove(modalCadastro, 7, 11);
+    std::string senhaStr = campoTexto(modalCadastro, 7, 11, TAM_MAX_SENHA, true);
+    if (senhaStr.empty()) return false;
+    
+    try {
+        Nome nome(nomeStr);
+        Codigo codigo(codigoStr);
+        Senha senha(senhaStr);
+        
+        Conta conta(codigo, senha);
+        Viajante viajante(nome, conta);
+        
+        if (servico->cadastrar(viajante)) {
+            mostrarAlerta("Conta criada com sucesso!");
+            return true;
+        } else {
+            mostrarAlerta("Erro ao criar conta!");
+            return false;
+        }
+    } catch (const std::exception& e) {
+        mostrarAlerta(e.what());
+        return false;
+    }
+}
+
+bool TelaCadastro::executar() {
+    mostrar();
+    return processarCadastro();
 }
