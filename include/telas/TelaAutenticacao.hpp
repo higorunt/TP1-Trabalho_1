@@ -16,7 +16,7 @@ private:
     WINDOW* painelLogin;
     
     struct {
-        int logoY = 5;
+        int logoY = 1;
         int altura = 5;
         int largura = 40;
         int camposCentralX;

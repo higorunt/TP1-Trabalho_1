@@ -46,11 +46,7 @@ void TelaAutenticacao::desenharLogo() {
     std::string titulo = "Sistema de Planejamento de Viagens";
     mvwprintw(janela, layout.logoY + 14, (largura - titulo.length()) / 2, "%s", titulo.c_str());
 
-    // Adicionar créditos na parte inferior direita
-    std::string creditos1 = "221006440 - Higor Roger";
-    std::string creditos2 = "221006404 - Evelyn Caroline";
-    mvwprintw(janela, altura - 3, largura - creditos1.length() - 2, "%s", creditos1.c_str());
-    mvwprintw(janela, altura - 2, largura - creditos2.length() - 2, "%s", creditos2.c_str());
+
 
     wrefresh(janela);
 }

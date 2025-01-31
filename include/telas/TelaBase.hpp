@@ -33,7 +33,7 @@ public:
 
     // Configurações da tela
     void inicializarCores();
-    void configurarTamanho(int altura = 45, int largura = 160);
+    void configurarTamanho(int altura = 30, int largura = 80);
 };
 
 #endif
