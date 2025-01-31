@@ -20,23 +20,22 @@ Viajante* ServicoAutenticacao::autenticar(const Codigo& codigo, const Senha& sen
         Viajante* viajante = repositorio->buscar(codigo);
         
         if (!viajante) {
-            std::cout << "Viajante não encontrado." << std::endl;
-            return nullptr;
+            throw std::runtime_error("Usuario nao encontrado");
         }
         
         // Verificar senha
-        if (viajante->getConta().getSenha().getValor() == senha.getValor()) {
-            std::cout << "Autenticação bem-sucedida." << std::endl;
-            return viajante;
+        if (viajante->getConta().getSenha().getValor() != senha.getValor()) {
+            std::string mensagem = "Senha incorreta";
+            delete viajante;  // Libera a memória antes de lançar a exceção
+            throw std::runtime_error(mensagem);
         }
         
-        std::cout << "Senha incorreta." << std::endl;
-        delete viajante;
-        return nullptr;
+        // Se chegou aqui, a autenticação foi bem-sucedida
+        return viajante;
     }
     catch (const std::exception& e) {
         std::cerr << "Erro durante autenticação: " << e.what() << std::endl;
-        return nullptr;
+        throw; // Relança a exceção para ser tratada na TelaAutenticacao
     }
 }
 

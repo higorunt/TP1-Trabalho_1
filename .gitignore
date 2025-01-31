@@ -1,0 +1,56 @@
+# Diretorios de build
+bin/
+obj/
+
+# Arquivos de banco de dados SQLite
+*.db
+*.db-journal
+
+# Arquivos objeto e executáveis
+*.o
+*.exe
+*.out
+*.app
+
+# Arquivos de dependência
+*.d
+
+# Arquivos temporários
+*.tmp
+*~
+.*.swp
+.*.swo
+
+# Arquivos de IDE/Editor
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.idea/
+*.iml
+*.iws
+*.sublime-workspace
+*.sublime-project
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de log
+*.log
+
+# Arquivos específicos do MinGW/MSYS2
+*.dll
+*.a
+*.lib
+
+# Arquivos de backup
+*.bak
+*.backup
+*#
+.#*
+
+# Arquivos de dependência específicos do projeto
+viagens.db

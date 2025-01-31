@@ -226,30 +226,25 @@ Viajante* TelaAutenticacao::fazerLogin() {
             if (senha.empty()) continue;
             
             try {
-                // Tenta criar os objetos primeiro
                 Codigo codigoObj(codigo);
                 Senha senhaObj(senha);
                 
-                // Se passou da validação dos domínios, tenta autenticar
                 try {
                     Viajante* viajante = servico->autenticar(codigoObj, senhaObj);
-                    return viajante;
+                    if (viajante) {
+                        return viajante;
+                    }
                 }
                 catch (const std::runtime_error& e) {
-                    // Erros específicos de autenticação (usuário não existe, senha incorreta)
                     mostrarAlerta(e.what());
                     mostrar();
+                    continue;  // Continua o loop após mostrar o erro
                 }
             }
-            catch (const std::invalid_argument&) {
-                // Qualquer erro de validação dos domínios é tratado como senha incorreta
-                mostrarAlerta("Senha incorreta");
+            catch (const std::exception& e) {
+                mostrarAlerta(e.what());
                 mostrar();
-            }
-            catch (const std::exception&) {
-                // Outros erros inesperados
-                mostrarAlerta("Erro no sistema");
-                mostrar();
+                continue;  // Continua o loop após mostrar o erro
             }
         }
     }

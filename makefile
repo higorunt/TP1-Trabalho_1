@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -fexceptions -g
+CXXFLAGS = -Wall -fexceptions -g -O0
 INCLUDES = -Iinclude -IC:/msys64/mingw64/include/pdcurses -IC:/msys64/mingw64/include
 LDFLAGS = -LC:/msys64/mingw64/lib
 LIBS = -lsqlite3 -lpdcurses -luser32 -lgdi32 -lkernel32 -lcomdlg32 -lwinmm
