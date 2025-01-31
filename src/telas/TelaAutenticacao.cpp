@@ -1,6 +1,7 @@
 #include "../../include/telas/TelaAutenticacao.hpp"
 #include "../../include/telas/TelaCadastro.hpp"
 #include <cstring>
+#include <iostream>
 
 TelaAutenticacao::TelaAutenticacao(ServicoAutenticacao* srv) 
     : servico(srv), painelLogin(nullptr) {
@@ -63,14 +64,19 @@ void TelaAutenticacao::desenharCamposLogin() {
     std::string instrucao = "F1 = Nova Conta | ESC = Sair";
     mvwprintw(janela, layout.camposY - 2, (largura - instrucao.length()) / 2, "%s", instrucao.c_str());
     
-    // Criar painel de login
+    // Criar painel de login usando derwin (coordenadas relativas à janela pai)
     if (painelLogin != nullptr) {
         delwin(painelLogin);
     }
     
-    painelLogin = subwin(janela, layout.altura, layout.largura,
-                        layout.camposY + getbegy(janela),
-                        layout.camposCentralX + getbegx(janela));
+    painelLogin = derwin(janela, layout.altura, layout.largura,
+                         layout.camposY, layout.camposCentralX);
+    
+    if (painelLogin == nullptr) {
+        endwin();
+        std::cerr << "Erro ao criar painel de login. Verifique as dimensões e posições." << std::endl;
+        exit(1);
+    }
     
     // Configurar cores e borda
     wbkgd(painelLogin, COLOR_PAIR(COR_INVERSA));
@@ -89,7 +95,6 @@ void TelaAutenticacao::desenharCamposLogin() {
     wrefresh(painelLogin);
     wrefresh(janela);
 }
-
 void TelaAutenticacao::mostrarModalCadastro() {
     int altura, largura;
     getmaxyx(janela, altura, largura);
@@ -210,7 +215,7 @@ Viajante* TelaAutenticacao::fazerLogin() {
             mvwaddch(painelLogin, 1, 11, ch);
             wrefresh(painelLogin);
             
-            std::string codigo = (char)ch + campoTexto(painelLogin, 1, 12, TAM_MAX_CODIGO - 1);
+            std::string codigo = std::string(1, ch) + campoTexto(painelLogin, 1, 12, TAM_MAX_CODIGO - 1);
             if (codigo.empty()) continue;
             
             // Limpar e ler senha
