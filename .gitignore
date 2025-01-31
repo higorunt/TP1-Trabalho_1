@@ -19,9 +19,6 @@ Release/
 
 # IDE specific files
 .vscode/
-*.layout
-*.depend
-*.cbp
 *.workspace
 *.code-workspace
 
