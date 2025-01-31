@@ -1,56 +1,52 @@
-# Diretorios de build
+# Build directories
 bin/
 obj/
+Debug/
+Release/
 
-# Arquivos de banco de dados SQLite
+# Database files
 *.db
 *.db-journal
 
-# Arquivos objeto e executáveis
+# Compiled files
 *.o
 *.exe
 *.out
 *.app
+*.dll
+*.so
+*.dylib
 
-# Arquivos de dependência
-*.d
-
-# Arquivos temporários
-*.tmp
-*~
-.*.swp
-.*.swo
-
-# Arquivos de IDE/Editor
+# IDE specific files
 .vscode/
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-.idea/
-*.iml
-*.iws
-*.sublime-workspace
-*.sublime-project
+*.layout
+*.depend
+*.cbp
+*.workspace
+*.code-workspace
 
-# Arquivos de sistema
+# Documentation generated files
+docs/html/
+docs/latex/
+
+# Temporary files
+*~
+*.swp
+*.swo
 .DS_Store
 Thumbs.db
 
-# Arquivos de log
-*.log
+# Code::Blocks specific
+*.depend
+*.layout
 
-# Arquivos específicos do MinGW/MSYS2
-*.dll
-*.a
-*.lib
+# Debug files
+*.pdb
+*.ilk
+*.exp
 
-# Arquivos de backup
-*.bak
-*.backup
-*#
-.#*
+# Test data (if you want to ignore it)
+test_data/
 
-# Arquivos de dependência específicos do projeto
-viagens.db
+# Generated documentation
+Doxyfile.bak
