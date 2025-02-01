@@ -8,25 +8,26 @@
 #include <vector>
 #include <memory>
 
-class ServicoViagem {
+class ServicoViagem
+{
 private:
-    RepositorioViagem* repositorioViagem;
-    RepositorioDestino* repositorioDestino;
+    RepositorioViagem *repositorioViagem;
+    RepositorioDestino *repositorioDestino;
 
 public:
-    ServicoViagem(RepositorioViagem* repViagem, RepositorioDestino* repDestino)
+    ServicoViagem(RepositorioViagem *repViagem, RepositorioDestino *repDestino)
         : repositorioViagem(repViagem), repositorioDestino(repDestino) {}
 
-    bool criarViagem(const Viagem& viagem);
-    Viagem* buscarViagem(const Codigo& codigo);
-    bool atualizarViagem(const Viagem& viagem);
-    bool excluirViagem(const Codigo& codigo);
-    
-    double calcularCustoViagem(const Codigo& codigoViagem);
-    std::vector<Viagem> listarViagensPorViajante(const Codigo& codigoViajante);
-    std::vector<Destino> listarDestinosPorViagem(const Codigo& codigoViagem);
-    
-    bool possuiDestinos(const Codigo& codigoViagem);
+    bool criarViagem(const Viagem &viagem);
+    Viagem *buscarViagem(const Codigo &codigo);
+    bool atualizarViagem(const Viagem &viagem);
+    bool excluirViagem(const Codigo &codigo);
+
+    double calcularCustoViagem(const Codigo &codigoViagem);
+    std::vector<Viagem> listarViagensPorViajante(const Codigo &codigoViajante);
+    std::vector<Destino> listarDestinosPorViagem(const Codigo &codigoViagem);
+
+    bool possuiDestinos(const Codigo &codigoViagem);
 };
 
 #endif

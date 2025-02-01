@@ -1,36 +1,23 @@
-// include/repositorios/RepositorioDestino.hpp
 #ifndef REPOSITORIO_DESTINO_HPP
 #define REPOSITORIO_DESTINO_HPP
 
-#include "RepositorioBase.hpp"
 #include "../entidades/Destino.hpp"
+#include "RepositorioBase.hpp"
 #include <vector>
 
-class RepositorioDestino : public RepositorioBase {
+class RepositorioDestino : public RepositorioBase
+{
 public:
-    RepositorioDestino(const std::string& caminho);
-    
-    bool salvar(const Destino& destino);
-    Destino* buscar(const Codigo& codigo);
-    bool atualizar(const Destino& destino);
-    bool deletar(const Codigo& codigo);
-    std::vector<Destino> listarPorViagem(const Codigo& codigoViagem);
+    RepositorioDestino(const std::string &caminhoBD);
+
+    bool criarDestino(const Destino &destino);
+    Destino *lerDestino(const Codigo &codigo);
+    bool atualizarDestino(const Destino &destino);
+    bool excluirDestino(const Codigo &codigo);
+    std::vector<Destino> listarDestinos(const Codigo &viagemCodigo);
 
 private:
-    void criarTabela() {
-        const char* sql = R"(
-            CREATE TABLE IF NOT EXISTS destinos (
-                codigo TEXT PRIMARY KEY,
-                nome TEXT NOT NULL,
-                avaliacao INTEGER,
-                data_inicio TEXT NOT NULL,
-                data_fim TEXT NOT NULL,
-                codigo_viagem TEXT NOT NULL,
-                FOREIGN KEY (codigo_viagem) REFERENCES viagens(codigo)
-            );
-        )";
-        executarSQL(sql);
-    }
+    Destino mapearParaEntidade(sqlite3_stmt *stmt);
 };
 
-#endif
+#endif // REPOSITORIO_DESTINO_HPP
