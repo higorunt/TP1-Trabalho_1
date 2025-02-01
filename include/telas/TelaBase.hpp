@@ -24,6 +24,7 @@ protected:
     void exibirMensagem(const std::string& msg, int linha, int coluna);
     std::string mostrarInput(const std::string& prompt);  // Nova função
     std::string lerEntrada(int linha, int coluna, int maxChars, bool echo = true);
+    std::string lerInput(const std::string& prompt, int y, int x);
 
 public:
     TelaBase();

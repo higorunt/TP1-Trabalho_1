@@ -53,7 +53,7 @@ std::vector<Viagem> ServicoViagem::listarViagensPorViajante(const Codigo& codigo
     try {
         return repositorioViagem->listarPorViajante(codigoViajante);
     } catch (const std::exception& e) {
-        throw std::runtime_error("Erro ao listar viagens: " + std::string(e.what()));
+        throw std::runtime_error("Erro ao listar Viagens: " + std::string(e.what()));
     }
 }
 

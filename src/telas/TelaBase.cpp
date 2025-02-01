@@ -296,7 +296,35 @@ void TelaBase::esconder() {
         janela = nullptr;
     }
 }
-
+// Função auxiliar para ler input com suporte a ESC
+std::string TelaBase::lerInput(const std::string& prompt, int y, int x) {
+    mvwprintw(janela, y, x, "%s", prompt.c_str());
+    wrefresh(janela);
+    
+    std::string input;
+    int ch;
+    while ((ch = wgetch(janela)) != '\n') {
+        if (ch == 27) { // ESC
+            return "";
+        }
+        // Tratamento do backspace (diferentes códigos possíveis)
+        if (ch == KEY_BACKSPACE || ch == 127 || ch == '\b' || ch == 8) {
+            if (!input.empty()) {
+                input.pop_back();
+                int curr_y, curr_x;
+                getyx(janela, curr_y, curr_x);
+                mvwaddch(janela, curr_y, curr_x - 1, ' '); // Apaga o caractere
+                wmove(janela, curr_y, curr_x - 1); // Move o cursor para trás
+                wrefresh(janela);
+            }
+        } else if (isprint(ch)) {
+            input += ch;
+            waddch(janela, ch);
+            wrefresh(janela);
+        }
+    }
+    return input;
+}
 std::string TelaBase::mostrarInput(const std::string& prompt) {
     // Obter dimensões da janela
     int altura, largura;

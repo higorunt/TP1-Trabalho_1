@@ -1,7 +1,8 @@
-// src/telas/TelaViagem.cpp
 #include "../../include/telas/TelaViagem.hpp"
 #include <iomanip>
 #include <sstream>
+
+
 
 void TelaViagem::mostrar() {
     limparTela();
@@ -39,10 +40,8 @@ void TelaViagem::desenharMenu() {
     wbkgd(painelViagem, COLOR_PAIR(COR_PRINCIPAL));
     box(painelViagem, 0, 0);
     
-    // Título do menu
     mvwprintw(painelViagem, 1, (layout.largura - 16) / 2, "Gerenciar Viagens");
     
-    // Opções do menu
     const char* opcoes[] = {
         "1. Criar nova viagem",
         "2. Listar minhas viagens",
@@ -56,7 +55,6 @@ void TelaViagem::desenharMenu() {
         mvwprintw(painelViagem, i + 3, 3, "%s", opcoes[i]);
     }
     
-    // Instruções
     mvwprintw(painelViagem, layout.altura - 2, 2, "Digite o numero da opcao desejada");
     
     wrefresh(painelViagem);
@@ -83,165 +81,229 @@ void TelaViagem::processarOpcao(int opcao) {
     }
 }
 
-// src/telas/TelaViagem.cpp
 void TelaViagem::criarViagem() {
-    // Limpar a tela atual
-    wclear(janela);
-    box(janela, 0, 0);
-    mvwprintw(janela, 1, 2, "=== Criar Nova Viagem ===");
+    int altura, largura;
+    getmaxyx(janela, altura, largura);
+    keypad(janela, TRUE);
+    noecho();
+    
+    while (true) {
+        limparTela();
+        box(janela, 0, 0);
+        mvwprintw(janela, 1, 2, "=== Criar Nova Viagem ===");
+        mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+        wrefresh(janela);
 
-    // Solicitar nome
-    std::string nome = mostrarInput("Nome da viagem: ");
-    if (nome.empty()) return;
+        std::string nome = lerInput("Nome da viagem: ", 3, 2);
+        if (nome.empty()) return;
 
-    // Solicitar código
-    std::string codigo = mostrarInput("Codigo da viagem (XXX): ");
-    if (codigo.empty()) return;
+        std::string codigoBase = viajante->getConta().getCodigo().getValor();
+        time_t now = time(0);
+        std::string timestamp = std::to_string(now % 1000);
+        while (timestamp.length() < 3) timestamp = "0" + timestamp;
+        std::string codigoViagem = codigoBase.substr(0, 3) + timestamp;
 
-    // Solicitar avaliação
-    std::string avalStr = mostrarInput("Avaliacao (1-5): ");
-    if (avalStr.empty()) return;
+        werase(janela);
+        box(janela, 0, 0);
+        mvwprintw(janela, 1, 2, "=== Criar Nova Viagem ===");
+        mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+        wrefresh(janela);
 
-    try {
-        int avaliacao = std::stoi(avalStr);
-        Nome nomeViagem(nome);
-        Codigo codigoViagem(codigo);
-        Avaliacao avaliacaoViagem(avaliacao);
+        std::string avalStr = lerInput("Avaliacao (1-5): ", 3, 2);
+        if (avalStr.empty()) return;
 
-        Viagem novaViagem(nomeViagem, codigoViagem, avaliacaoViagem, viajante->getConta());
-        
-        if (servico->criarViagem(novaViagem)) {
-            mostrarAlerta("Viagem criada com sucesso!");
-        } else {
-            mostrarAlerta("Erro ao criar viagem.");
+        try {
+            int avaliacao = std::stoi(avalStr);
+            Nome nomeViagem(nome);
+            Codigo codViagem(codigoViagem);
+            Avaliacao avaliacaoViagem(avaliacao);
+
+            Viagem novaViagem(nomeViagem, codViagem, avaliacaoViagem, viajante->getConta());
+            
+            if (servico->criarViagem(novaViagem)) {
+                mostrarAlerta("Viagem criada com sucesso!");
+                return;
+            } else {
+                mostrarAlerta("Erro ao criar viagem.");
+            }
+        } catch (const std::invalid_argument& e) {
+            mostrarAlerta(e.what());
         }
-    } catch (const std::invalid_argument& e) {
-        mostrarAlerta(e.what());
     }
 }
 
 void TelaViagem::listarViagens() {
-    wclear(janela);
+    limparTela();
     box(janela, 0, 0);
     mvwprintw(janela, 1, 2, "=== Minhas Viagens ===");
+    wrefresh(janela);
 
     try {
-        std::vector<Viagem> viagens = servico->listarViagensPorViajante(viajante->getConta().getCodigo());
-        
+        Codigo codigoViajante = viajante->getConta().getCodigo();
+        std::vector<Viagem> viagens = servico->listarViagensPorViajante(codigoViajante);
+
         if (viagens.empty()) {
             mostrarAlerta("Nenhuma viagem encontrada.");
             return;
         }
 
-        int linha = 3;
+        int linha = 4;
         for (const auto& viagem : viagens) {
-            std::string codigoStr = "Codigo: " + viagem.getCodigo().getValor();
-            std::string nomeStr = "Nome: " + viagem.getNome().getValor();
-            std::string avalStr = "Avaliacao: " + std::to_string(viagem.getAvaliacao().getValor());
+            std::string infoStr = "Viagem: " + viagem.getNome().getValor() + 
+                                " | Codigo: " + viagem.getCodigo().getValor() +
+                                " | Avaliacao: " + std::to_string(viagem.getAvaliacao().getValor());
             
-            mvwprintw(janela, linha, 2, "%s", codigoStr.c_str());
-            mvwprintw(janela, linha + 1, 2, "%s", nomeStr.c_str());
-            mvwprintw(janela, linha + 2, 2, "%s", avalStr.c_str());
-            linha += 4;
+            mvwprintw(janela, linha++, 2, "%s", infoStr.c_str());
         }
 
+        mvwprintw(janela, linha + 1, 2, "Pressione qualquer tecla para continuar...");
         wrefresh(janela);
-        wgetch(janela); // Aguardar tecla para continuar
+        wgetch(janela);
     } catch (const std::exception& e) {
         mostrarAlerta(e.what());
     }
 }
 
 void TelaViagem::editarViagem() {
-    wclear(janela);
-    box(janela, 0, 0);
-    mvwprintw(janela, 1, 2, "=== Editar Viagem ===");
+    int altura, largura;
+    getmaxyx(janela, altura, largura);
+    keypad(janela, TRUE);
+    noecho();
+    
+    while (true) {
+        limparTela();
+        box(janela, 0, 0);
+        mvwprintw(janela, 1, 2, "=== Editar Viagem ===");
+        mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+        wrefresh(janela);
 
-    std::string codigo = mostrarInput("Digite o codigo da viagem: ");
-    if (codigo.empty()) return;
+        std::string codigo = lerInput("Digite o codigo da viagem: ", 3, 2);
+        if (codigo.empty()) return;
 
-    try {
-        Codigo codigoViagem(codigo);
-        Viagem* viagem = servico->buscarViagem(codigoViagem);
-        
-        if (!viagem) {
-            mostrarAlerta("Viagem nao encontrada.");
-            return;
-        }
-
-        // Solicitar novos dados
-        std::string novoNome = mostrarInput("Novo nome (" + viagem->getNome().getValor() + "): ");
-        if (novoNome.empty()) novoNome = viagem->getNome().getValor();
-
-        std::string novaAvalStr = mostrarInput("Nova avaliacao (" + 
-            std::to_string(viagem->getAvaliacao().getValor()) + "): ");
-        
         try {
-            Nome nome(novoNome);
-            Avaliacao avaliacao(novaAvalStr.empty() ? 
-                              viagem->getAvaliacao().getValor() : 
-                              std::stoi(novaAvalStr));
-
-            Viagem viagemAtualizada = *viagem;
-            viagemAtualizada.setNome(nome);
-            viagemAtualizada.setAvaliacao(avaliacao);
-
-            if (servico->atualizarViagem(viagemAtualizada)) {
-                mostrarAlerta("Viagem atualizada com sucesso!");
-            } else {
-                mostrarAlerta("Erro ao atualizar viagem.");
+            Codigo codigoViagem(codigo);
+            Viagem* viagem = servico->buscarViagem(codigoViagem);
+            
+            if (!viagem) {
+                mostrarAlerta("Viagem nao encontrada.");
+                continue;
             }
-        } catch (const std::invalid_argument& e) {
+
+            werase(janela);
+            box(janela, 0, 0);
+            mvwprintw(janela, 1, 2, "=== Editar Viagem ===");
+            mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+            wrefresh(janela);
+
+            std::string prompt = "Novo nome (" + viagem->getNome().getValor() + "): ";
+            std::string novoNome = lerInput(prompt, 3, 2);
+            if (novoNome.empty()) novoNome = viagem->getNome().getValor();
+
+            werase(janela);
+            box(janela, 0, 0);
+            mvwprintw(janela, 1, 2, "=== Editar Viagem ===");
+            mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+            wrefresh(janela);
+
+            prompt = "Nova avaliacao (" + std::to_string(viagem->getAvaliacao().getValor()) + "): ";
+            std::string novaAvalStr = lerInput(prompt, 3, 2);
+            if (novaAvalStr.empty()) novaAvalStr = std::to_string(viagem->getAvaliacao().getValor());
+
+            try {
+                Nome nome(novoNome);
+                Avaliacao avaliacao(std::stoi(novaAvalStr));
+
+                Viagem viagemAtualizada = *viagem;
+                viagemAtualizada.setNome(nome);
+                viagemAtualizada.setAvaliacao(avaliacao);
+
+                if (servico->atualizarViagem(viagemAtualizada)) {
+                    mostrarAlerta("Viagem atualizada com sucesso!");
+                    delete viagem;
+                    return;
+                } else {
+                    mostrarAlerta("Erro ao atualizar viagem.");
+                }
+            } catch (const std::invalid_argument& e) {
+                mostrarAlerta(e.what());
+            }
+
+            delete viagem;
+        } catch (const std::exception& e) {
             mostrarAlerta(e.what());
         }
-
-        delete viagem;
-    } catch (const std::exception& e) {
-        mostrarAlerta(e.what());
     }
 }
 
 void TelaViagem::excluirViagem() {
-    wclear(janela);
-    box(janela, 0, 0);
-    mvwprintw(janela, 1, 2, "=== Excluir Viagem ===");
+    int altura, largura;
+    getmaxyx(janela, altura, largura);
+    keypad(janela, TRUE);
+    noecho();
+    
+    while (true) {
+        limparTela();
+        box(janela, 0, 0);
+        mvwprintw(janela, 1, 2, "=== Excluir Viagem ===");
+        mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+        wrefresh(janela);
 
-    std::string codigo = mostrarInput("Digite o codigo da viagem: ");
-    if (codigo.empty()) return;
+        std::string codigo = lerInput("Digite o codigo da viagem: ", 3, 2);
+        if (codigo.empty()) return;
 
-    try {
-        Codigo codigoViagem(codigo);
-        
-        // Confirmar exclusão
-        std::string confirma = mostrarInput("Tem certeza? (S/N): ");
-        if (confirma == "S" || confirma == "s") {
-            if (servico->excluirViagem(codigoViagem)) {
-                mostrarAlerta("Viagem excluida com sucesso!");
-            } else {
-                mostrarAlerta("Erro ao excluir viagem.");
+        try {
+            Codigo codigoViagem(codigo);
+            
+            werase(janela);
+            box(janela, 0, 0);
+            mvwprintw(janela, 1, 2, "=== Excluir Viagem ===");
+            mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+            wrefresh(janela);
+
+            std::string confirma = lerInput("Tem certeza? (S/N): ", 3, 2);
+            if (confirma.empty()) return;
+
+            if (confirma == "S" || confirma == "s") {
+                if (servico->excluirViagem(codigoViagem)) {
+                    mostrarAlerta("Viagem excluida com sucesso!");
+                    return;
+                } else {
+                    mostrarAlerta("Erro ao excluir viagem.");
+                }
             }
+            return;
+        } catch (const std::exception& e) {
+            mostrarAlerta(e.what());
         }
-    } catch (const std::exception& e) {
-        mostrarAlerta(e.what());
     }
 }
 
 void TelaViagem::calcularCustoViagem() {
-    wclear(janela);
-    box(janela, 0, 0);
-    mvwprintw(janela, 1, 2, "=== Calcular Custo da Viagem ===");
+    int altura, largura;
+    getmaxyx(janela, altura, largura);
+    keypad(janela, TRUE);
+    noecho();
+    
+    while (true) {
+        limparTela();
+        box(janela, 0, 0);
+        mvwprintw(janela, 1, 2, "=== Calcular Custo da Viagem ===");
+        mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+        wrefresh(janela);
 
-    std::string codigo = mostrarInput("Digite o codigo da viagem: ");
-    if (codigo.empty()) return;
+        std::string codigo = lerInput("Digite o codigo da viagem: ", 3, 2);
+        if (codigo.empty()) return;
 
-    try {
-        Codigo codigoViagem(codigo);
-        double custoTotal = servico->calcularCustoViagem(codigoViagem);
-        
-        std::stringstream ss;
-        ss << "Custo total: R$ " << std::fixed << std::setprecision(2) << custoTotal;
-        mostrarAlerta(ss.str());
-    } catch (const std::exception& e) {
-        mostrarAlerta(e.what());
+        try {
+            Codigo codigoViagem(codigo);
+            double custoTotal = servico->calcularCustoViagem(codigoViagem);
+            
+            std::stringstream ss;
+            ss << "Custo total: R$ " << std::fixed << std::setprecision(2) << custoTotal;
+            mostrarAlerta(ss.str());
+            return;
+        } catch (const std::exception& e) {
+            mostrarAlerta(e.what());
+        }
     }
 }
