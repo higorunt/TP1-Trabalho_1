@@ -22,6 +22,10 @@ private:
     Data dataInicio;     ///< Data de início do destino.
     Data dataFim;        ///< Data de término do destino.
 
+    std::vector<Codigo> atividadesCodigos;
+    std::vector<Codigo> hospedagensCodigos;
+    Codigo codigoViagem{"000"};  // Referência à viagem inicializada com valor padrão
+
 public:
     /**
      * @brief Construtor da classe Destino.
@@ -107,6 +111,20 @@ public:
      * @return Data de término do destino.
      */
     Data getDataFim() const { return dataFim; }
+
+    // Métodos para validação de datas de atividades
+    bool validarDataAtividade(const Data& dataAtividade) const {
+        // Verificar se a data está dentro do intervalo
+        // Precisaríamos implementar operadores de comparação na classe Data
+        return true; // Implementação temporária
+    }
+
+    // Métodos para gerenciamento de atividades e hospedagens
+    void adicionarAtividade(const Codigo& codigoAtividade);
+    void removerAtividade(const Codigo& codigoAtividade);
+    bool possuiAtividadesOuHospedagens() const {
+        return !atividadesCodigos.empty() || !hospedagensCodigos.empty();
+    }
 };
 
 #endif // DESTINO_HPP

@@ -8,6 +8,7 @@
 #include "../dominios/nome.hpp"
 #include "../dominios/codigo.hpp"
 #include "../entidades/Conta.hpp"
+#include "../dominios/dinheiro.hpp"
 
 /**
  * @brief Classe que representa uma Viagem.
@@ -21,6 +22,8 @@ private:
     Codigo codigo;       ///< Código identificador único da viagem.
     Avaliacao avaliacao; ///< Avaliação atribuída à viagem.
     Conta conta;         ///< Conta associada à viagem.
+    Dinheiro custoTotal;  // Para facilitar o cálculo do custo total
+    std::vector<Codigo> destinosCodigos; // Para rastrear destinos associados
 
 public:
     /**
@@ -33,7 +36,7 @@ public:
      * @param avaliacao Avaliação atribuída à viagem.
      */
     Viagem(const Nome &nome, const Codigo &codigo, const Avaliacao &avaliacao, const Conta &conta)
-        : nome(nome), codigo(codigo), avaliacao(avaliacao), conta(conta) {}
+        : nome(nome), codigo(codigo), avaliacao(avaliacao), conta(conta), custoTotal(0) {}
 
     /**
      * @brief Define o nome da viagem.
@@ -90,6 +93,27 @@ public:
      * @return Conta associada à viagem.
      */
     Conta getConta() const { return conta; }
+
+    /**
+     * @brief Adiciona um destino à viagem.
+     *
+     * @param codigoDestino Código do destino a ser adicionado.
+     */
+    void adicionarDestino(const Codigo& codigoDestino);
+
+    /**
+     * @brief Remove um destino da viagem.
+     *
+     * @param codigoDestino Código do destino a ser removido.
+     */
+    void removerDestino(const Codigo& codigoDestino);
+
+    /**
+     * @brief Verifica se a viagem possui destinos.
+     *
+     * @return true se a viagem tem destinos associados, false caso contrário.
+     */
+    bool possuiDestinos() const { return !destinosCodigos.empty(); }
 };
 
 #endif // VIAGEM_HPP

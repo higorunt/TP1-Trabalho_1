@@ -60,6 +60,16 @@ public:
      * @return String no formato "dd/mm/aaaa".
      */
     std::string getValor() const;
+    // Adicionar operadores de comparação
+    bool operator<(const Data& outra) const;
+    bool operator>(const Data& outra) const;
+    bool operator<=(const Data& outra) const;
+    bool operator>=(const Data& outra) const;
+    bool operator==(const Data& outra) const;
+
+    // Método para comparar datas
+    bool estaDentroDoIntervalo(const Data& inicio, const Data& fim) const;
+
 };
 
 #endif // DATA_HPP
