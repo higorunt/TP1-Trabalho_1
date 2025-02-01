@@ -163,7 +163,6 @@ std::string removerAcentos(const std::string& texto) {
     }
     return resultado;
 }
-
 std::string TelaBase::campoTexto(WINDOW* win, int y, int x, int max_len, bool senha) {
     std::string texto;
     int ch;
@@ -174,6 +173,16 @@ std::string TelaBase::campoTexto(WINDOW* win, int y, int x, int max_len, bool se
     
     while (true) {
         ch = wgetch(win);
+
+        // Verifica se houve erro na leitura
+        if (ch == ERR) {
+            continue;
+        }
+        
+        // Se for uma tecla de seta (ou outra tecla especial que você queira ignorar), pula-a
+        if (ch == KEY_UP || ch == KEY_DOWN || ch == KEY_LEFT || ch == KEY_RIGHT) {
+            continue;
+        }
         
         if (ch == 27) { // ESC
             texto.clear();
@@ -195,8 +204,9 @@ std::string TelaBase::campoTexto(WINDOW* win, int y, int x, int max_len, bool se
             continue;
         }
         
-        if (texto.length() < max_len && isprint(ch)) {
-            texto += ch;
+        // Em vez de isprint, verificamos se ch está no intervalo de caracteres imprimíveis
+        if (texto.length() < max_len && ch >= 32 && ch <= 126) {
+            texto += static_cast<char>(ch);
             mvwaddch(win, y, x + pos, senha ? '*' : ch);
             pos++;
             wrefresh(win);

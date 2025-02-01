@@ -192,11 +192,13 @@ Viajante* TelaAutenticacao::fazerLogin() {
     keypad(janela, TRUE);
     
     while (true) {
-        wmove(painelLogin, 1, 11);
-        wrefresh(painelLogin);
-        
         int ch = wgetch(janela);
+
+        // Se ocorrer erro na leitura, ignora
+        if (ch == ERR)
+            continue;
         
+        // Se for tecla de função F1, entra no cadastro
         if (ch == KEY_F(1)) {
             TelaCadastro telaCadastro(servico);
             telaCadastro.executar();
@@ -204,49 +206,54 @@ Viajante* TelaAutenticacao::fazerLogin() {
             continue;
         }
         
+        // Se for ESC, retorna
         if (ch == 27) { // ESC
             return nullptr;
         }
         
-        if (isprint(ch)) {
-            // Limpar e ler código
-            wmove(painelLogin, 1, 11);
-            whline(painelLogin, ' ', TAM_MAX_CODIGO);
-            mvwaddch(painelLogin, 1, 11, ch);
-            wrefresh(painelLogin);
-            
-            std::string codigo = std::string(1, ch) + campoTexto(painelLogin, 1, 12, TAM_MAX_CODIGO - 1);
-            if (codigo.empty()) continue;
-            
-            // Limpar e ler senha
-            wmove(painelLogin, 3, 11);
-            whline(painelLogin, ' ', TAM_MAX_SENHA);
-            wrefresh(painelLogin);
-            
-            std::string senha = campoTexto(painelLogin, 3, 11, TAM_MAX_SENHA, true);
-            if (senha.empty()) continue;
+        // Se for uma tecla especial que não seja imprimível, simplesmente ignora
+        if (ch < 32 || ch > 126) {
+            continue;
+        }
+        
+        // Agora, para caracteres imprimíveis:
+        // Limpar e ler código
+        wmove(painelLogin, 1, 11);
+        whline(painelLogin, ' ', TAM_MAX_CODIGO);
+        mvwaddch(painelLogin, 1, 11, ch);
+        wrefresh(painelLogin);
+        
+        std::string codigo = std::string(1, ch) + campoTexto(painelLogin, 1, 12, TAM_MAX_CODIGO - 1);
+        if (codigo.empty()) continue;
+        
+        // Limpar e ler senha
+        wmove(painelLogin, 3, 11);
+        whline(painelLogin, ' ', TAM_MAX_SENHA);
+        wrefresh(painelLogin);
+        
+        std::string senha = campoTexto(painelLogin, 3, 11, TAM_MAX_SENHA, true);
+        if (senha.empty()) continue;
+        
+        try {
+            Codigo codigoObj(codigo);
+            Senha senhaObj(senha);
             
             try {
-                Codigo codigoObj(codigo);
-                Senha senhaObj(senha);
-                
-                try {
-                    Viajante* viajante = servico->autenticar(codigoObj, senhaObj);
-                    if (viajante) {
-                        return viajante;
-                    }
-                }
-                catch (const std::runtime_error& e) {
-                    mostrarAlerta(e.what());
-                    mostrar();
-                    continue;  // Continua o loop após mostrar o erro
+                Viajante* viajante = servico->autenticar(codigoObj, senhaObj);
+                if (viajante) {
+                    return viajante;
                 }
             }
-            catch (const std::exception& e) {
+            catch (const std::runtime_error& e) {
                 mostrarAlerta(e.what());
                 mostrar();
                 continue;  // Continua o loop após mostrar o erro
             }
+        }
+        catch (const std::exception& e) {
+            mostrarAlerta(e.what());
+            mostrar();
+            continue;  // Continua o loop após mostrar o erro
         }
     }
 }
