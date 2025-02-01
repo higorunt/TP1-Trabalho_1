@@ -296,3 +296,41 @@ void TelaBase::esconder() {
         janela = nullptr;
     }
 }
+
+std::string TelaBase::mostrarInput(const std::string& prompt) {
+    // Obter dimensões da janela
+    int altura, largura;
+    getmaxyx(janela, altura, largura);
+    
+    // Criar janela para input
+    int inputHeight = 5;
+    int inputWidth = 40;
+    int startY = (altura - inputHeight) / 2;
+    int startX = (largura - inputWidth) / 2;
+    
+    WINDOW* inputWin = subwin(janela, inputHeight, inputWidth, startY, startX);
+    box(inputWin, 0, 0);
+    
+    // Mostrar prompt
+    mvwprintw(inputWin, 1, 2, "%s", prompt.c_str());
+    
+    // Criar campo para entrada
+    char buffer[100] = {0};
+    echo(); // Habilitar eco de caracteres
+    curs_set(1); // Mostrar cursor
+    
+    // Posicionar cursor e ler entrada
+    wmove(inputWin, 2, 2);
+    wgetnstr(inputWin, buffer, sizeof(buffer) - 1);
+    
+    // Restaurar configurações
+    noecho();
+    curs_set(0);
+    
+    // Limpar janela de input
+    delwin(inputWin);
+    touchwin(janela);
+    wrefresh(janela);
+    
+    return std::string(buffer);
+}

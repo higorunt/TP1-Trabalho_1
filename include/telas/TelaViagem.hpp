@@ -1,31 +1,52 @@
+// include/telas/TelaViagem.hpp
 #ifndef TELA_VIAGEM_HPP
 #define TELA_VIAGEM_HPP
 
 #include "TelaBase.hpp"
 #include "../servicos/ServicoViagem.hpp"
 #include "../entidades/Viajante.hpp"
+#include <PDcurses.h>
 #include <vector>
 
 class TelaViagem : public TelaBase {
 private:
     ServicoViagem* servico;
     Viajante* viajante;
+    WINDOW* painelViagem;
 
-    void mostrarFormularioCriar();
-    void mostrarFormularioEditar(const Viagem& viagem);
-    void mostrarDetalhesViagem(const Viagem& viagem);
-    void mostrarListaViagens(const std::vector<Viagem>& viagens);
+    struct {
+        int menuY = 5;
+        int altura = 20;
+        int largura = 60;
+        int centralX;
+        int centralY;
+    } layout;
 
-public:
-    TelaViagem(ServicoViagem* srv, Viajante* vjt) : servico(srv), viajante(vjt) {}
-    
-    void mostrar() override;
-    void mostrarMenuViagens();
+    void desenharMenu();
+    void processarOpcao(int opcao);
     void criarViagem();
     void listarViagens();
     void editarViagem();
     void excluirViagem();
     void calcularCustoViagem();
+    void mostrarDetalhesViagem(const Viagem& viagem);
+    void mostrarFormularioEditar(const Viagem& viagem);
+
+public:
+    TelaViagem(ServicoViagem* srv, Viajante* vjt) 
+        : servico(srv), viajante(vjt), painelViagem(nullptr) {
+        layout.centralX = 0;
+        layout.centralY = 0;
+    }
+
+    ~TelaViagem() {
+        if (painelViagem != nullptr) {
+            delwin(painelViagem);
+            painelViagem = nullptr;
+        }
+    }
+
+    void mostrar() override;
 };
 
 #endif

@@ -24,7 +24,6 @@ private:
 
     std::vector<Codigo> atividadesCodigos;
     std::vector<Codigo> hospedagensCodigos;
-    Codigo codigoViagem{"000"};  // Referência à viagem inicializada com valor padrão
 
 public:
     /**
@@ -125,6 +124,8 @@ public:
     bool possuiAtividadesOuHospedagens() const {
         return !atividadesCodigos.empty() || !hospedagensCodigos.empty();
     }
+    Codigo codigoViagem{"000"};  // Referência à viagem inicializada com valor padrão
+
 };
 
 #endif // DESTINO_HPP

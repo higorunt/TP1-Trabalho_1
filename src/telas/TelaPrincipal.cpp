@@ -1,9 +1,10 @@
-// src/telas/TelaPrincipal.cpp
 #include "../../include/telas/TelaPrincipal.hpp"
 
-TelaPrincipal::TelaPrincipal(Viajante* v) : viajante(v), painelMenu(nullptr) {
+TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv) 
+    : viajante(v), servicoViagem(sv), painelMenu(nullptr) {
     layout.centralX = 0;
     layout.centralY = 0;
+    telaViagem = new TelaViagem(servicoViagem, viajante);
 }
 
 TelaPrincipal::~TelaPrincipal() {
@@ -11,6 +12,7 @@ TelaPrincipal::~TelaPrincipal() {
         delwin(painelMenu);
         painelMenu = nullptr;
     }
+    delete telaViagem;
 }
 
 void TelaPrincipal::mostrar() {
@@ -26,7 +28,6 @@ void TelaPrincipal::mostrar() {
     desenharMenu();
 }
 
-// src/telas/TelaPrincipal.cpp
 void TelaPrincipal::desenharMenu() {
     int altura, largura;
     getmaxyx(janela, altura, largura);
@@ -77,44 +78,74 @@ void TelaPrincipal::desenharMenu() {
 void TelaPrincipal::processarOpcao(int opcao) {
     switch (opcao) {
         case 1:
-            mostrarAlerta("Menu Gerenciar Viagens - Em desenvolvimento");
-            // TODO: Submenu com: Criar, Ler, Atualizar e Excluir Viagem
+            telaViagem->mostrar();  // Usar a TelaViagem para gerenciar viagens
             break;
         case 2:
             mostrarAlerta("Menu Gerenciar Destinos - Em desenvolvimento");
-            // TODO: Submenu com: Criar, Ler, Atualizar e Excluir Destino
             break;
         case 3:
             mostrarAlerta("Menu Gerenciar Atividades - Em desenvolvimento");
-            // TODO: Submenu com: Criar, Ler, Atualizar e Excluir Atividade
             break;
         case 4:
             mostrarAlerta("Menu Gerenciar Hospedagens - Em desenvolvimento");
-            // TODO: Submenu com: Criar, Ler, Atualizar e Excluir Hospedagem
             break;
-        case 5:
-            mostrarAlerta("Consulta de Custo - Em desenvolvimento");
-            // TODO: Implementar consulta de custo de viagem
+        case 5: {
+            // Usar o ServicoViagem para consultar custo
+            try {
+                std::string codigoStr = mostrarInput("Digite o código da viagem:");
+                if (!codigoStr.empty()) {
+                    Codigo codigo(codigoStr);
+                    double custo = servicoViagem->calcularCustoViagem(codigo);
+                    std::string msg = "Custo total da viagem: R$ " + std::to_string(custo);
+                    mostrarAlerta(msg);
+                }
+            } catch (const std::exception& e) {
+                mostrarAlerta(e.what());
+            }
             break;
-        case 6:
-            mostrarAlerta("Minhas Viagens - Em desenvolvimento");
-            // TODO: Listar viagens do viajante atual
+        }
+        case 6: {
+            // Usar o ServicoViagem para listar viagens
+            try {
+                std::vector<Viagem> viagens = servicoViagem->listarViagensPorViajante(viajante->getConta().getCodigo());
+                if (viagens.empty()) {
+                    mostrarAlerta("Nenhuma viagem encontrada.");
+                } else {
+                    // TODO: Implementar uma forma de mostrar a lista de viagens
+                    mostrarAlerta("Função em desenvolvimento");
+                }
+            } catch (const std::exception& e) {
+                mostrarAlerta(e.what());
+            }
             break;
-        case 7:
-            mostrarAlerta("Destinos da Viagem - Em desenvolvimento");
-            // TODO: Listar destinos de uma viagem selecionada
+        }
+        case 7: {
+            // Usar o ServicoViagem para listar destinos
+            try {
+                std::string codigoStr = mostrarInput("Digite o código da viagem:");
+                if (!codigoStr.empty()) {
+                    Codigo codigo(codigoStr);
+                    std::vector<Destino> destinos = servicoViagem->listarDestinosPorViagem(codigo);
+                    if (destinos.empty()) {
+                        mostrarAlerta("Nenhum destino encontrado para esta viagem.");
+                    } else {
+                        // TODO: Implementar uma forma de mostrar a lista de destinos
+                        mostrarAlerta("Função em desenvolvimento");
+                    }
+                }
+            } catch (const std::exception& e) {
+                mostrarAlerta(e.what());
+            }
             break;
+        }
         case 8:
             mostrarAlerta("Atividades do Destino - Em desenvolvimento");
-            // TODO: Listar atividades de um destino selecionado
             break;
         case 9:
             mostrarAlerta("Hospedagens do Destino - Em desenvolvimento");
-            // TODO: Listar hospedagens de um destino selecionado
             break;
     }
 }
-
 
 void TelaPrincipal::executar() {
     mostrar();
@@ -124,7 +155,7 @@ void TelaPrincipal::executar() {
         
         if (ch == '0') break;
         
-        if (ch >= '1' && ch <= '5') {
+        if (ch >= '1' && ch <= '9') {
             processarOpcao(ch - '0');
             mostrar();
         }

@@ -22,6 +22,7 @@ protected:
     void limparTela();
     void limparLinha(int linha);
     void exibirMensagem(const std::string& msg, int linha, int coluna);
+    std::string mostrarInput(const std::string& prompt);  // Nova função
     std::string lerEntrada(int linha, int coluna, int maxChars, bool echo = true);
 
 public:
