@@ -2,7 +2,7 @@
 #define REPOSITORIO_VIAGEM_HPP
 
 #include "../entidades/Viagem.hpp"
-#include "..\..\include\repositorios\RepositorioBase.hpp"
+#include "RepositorioBase.hpp"
 #include <vector>
 
 class RepositorioViagem : public RepositorioBase

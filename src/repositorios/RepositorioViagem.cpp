@@ -1,4 +1,4 @@
-#include "..\..\include\repositorios\RepositorioViagem.hpp"
+#include "RepositorioViagem.hpp"
 #include <stdexcept>
 
 RepositorioViagem::RepositorioViagem(const std::string &caminhoBD)

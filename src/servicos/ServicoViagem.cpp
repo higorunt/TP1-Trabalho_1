@@ -1,4 +1,4 @@
-#include "../../include/servicos/ServicoViagem.hpp"
+#include "ServicoViagem.hpp"
 
 ServicoViagem::ServicoViagem(const std::string &caminhoBD)
     : repositorio(caminhoBD) {}
