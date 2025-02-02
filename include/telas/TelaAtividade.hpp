@@ -1,10 +1,10 @@
 #ifndef TELA_ATIVIDADE_HPP
 #define TELA_ATIVIDADE_HPP
 
-#include <curses.h>
+#include "TelaBase.hpp"
 #include <string>
 #include <vector>
-#include "servicos/ServicoAtividade.hpp"
+#include "../servicos/ServicoAtividade.hpp"
 
 class TelaAtividade
 {

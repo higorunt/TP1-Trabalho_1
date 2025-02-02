@@ -9,6 +9,8 @@
 #include "include/repositorios/RepositorioAutenticacao.hpp"
 #include "include/repositorios/RepositorioViagem.hpp"
 #include "include/repositorios/RepositorioDestino.hpp"
+#include "include/servicos/ServicoAtividade.hpp"
+#include "include/repositorios/RepositorioAtividade.hpp"
 #include <iostream>
 #include <memory>
 
@@ -19,17 +21,19 @@ int main() {
         std::unique_ptr<RepositorioAutenticacao> repAuth(new RepositorioAutenticacao("viagens.db"));
         std::unique_ptr<RepositorioViagem> repViagem(new RepositorioViagem("viagens.db"));
         std::unique_ptr<RepositorioDestino> repDestino(new RepositorioDestino("viagens.db"));
+        std::unique_ptr<RepositorioAtividade> repAtividade(new RepositorioAtividade("viagens.db"));
 
         std::unique_ptr<ServicoAutenticacao> servicoAuth(new ServicoAutenticacao(repAuth.get()));
         std::unique_ptr<ServicoViagem> servicoViagem(new ServicoViagem(repViagem.get(), repDestino.get()));
         std::unique_ptr<ServicoDestino> servicoDestino(new ServicoDestino(repDestino.get()));
+        std::unique_ptr<ServicoAtividade> servicoAtividade(new ServicoAtividade(repAtividade.get()));
         
         std::unique_ptr<TelaAutenticacao> telaAutenticacao(new TelaAutenticacao(servicoAuth.get()));
 
         std::unique_ptr<Viajante> viajante(telaAutenticacao->fazerLogin());
 
         if (viajante) {
-            std::unique_ptr<TelaPrincipal> telaPrincipal(new TelaPrincipal(viajante.get(), servicoViagem.get(), servicoDestino.get()));
+            std::unique_ptr<TelaPrincipal> telaPrincipal(new TelaPrincipal(viajante.get(), servicoViagem.get(), servicoDestino.get(), servicoAtividade.get()));
             telaPrincipal->executar();
         }
 

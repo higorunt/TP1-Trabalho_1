@@ -2,15 +2,15 @@
 #define SERVICO_ATIVIDADE_HPP
 
 #include <string>
-#include "repositorios/RepositorioAtividade.hpp"
+#include "../repositorios/RepositorioAtividade.hpp"
 
 class ServicoAtividade
 {
 private:
-    RepositorioAtividade repositorio;
+    RepositorioAtividade* repositorio;
 
 public:
-    explicit ServicoAtividade(const std::string &caminhoBD);
+    explicit ServicoAtividade(RepositorioAtividade* repositorio);
     bool criarAtividade(const Atividade &atividade);
     Atividade *lerAtividade(const Codigo &codigo);
     bool atualizarAtividade(const Atividade &atividade);

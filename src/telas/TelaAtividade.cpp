@@ -1,4 +1,3 @@
-#include <curses.h>
 #include "telas/TelaAtividade.hpp"
 
 TelaAtividade::TelaAtividade(ServicoAtividade *srv)

@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
-#include "entidades/Atividade.hpp"
-#include "dominios/Codigo.hpp"
-#include "dominios/Dinheiro.hpp"
+#include "../entidades/Atividade.hpp"
+#include "../dominios/Codigo.hpp"
+#include "../dominios/Dinheiro.hpp"
 
 class RepositorioAtividade
 {
