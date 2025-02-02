@@ -5,10 +5,12 @@
 #include "TelaViagem.hpp"
 #include "TelaDestino.hpp"  // Inclusão da tela de destinos
 #include "TelaAtividade.hpp"
+#include "TelaHospedagem.hpp"
 #include "../entidades/Viajante.hpp"
 #include "../servicos/ServicoViagem.hpp"
 #include "../servicos/ServicoDestino.hpp"
 #include "../servicos/ServicoAtividade.hpp"
+#include "../servicos/ServicoHospedagem.hpp"
 
 class TelaPrincipal : public TelaBase {
 private:
@@ -16,9 +18,11 @@ private:
     ServicoViagem* servicoViagem;
     ServicoDestino* servicoDestino;
     ServicoAtividade* servicoAtividade;
+    ServicoHospedagem* servicoHospedagem;
     TelaViagem* telaViagem;
     TelaDestino* telaDestino;
     TelaAtividade* telaAtividade;
+    TelaHospedagem* telaHospedagem;
     WINDOW* painelMenu;
     
     struct {
@@ -36,7 +40,8 @@ public:
     TelaPrincipal(Viajante* viajante, 
                   ServicoViagem* servicoViagem, 
                   ServicoDestino* servicoDestino,
-                  ServicoAtividade* servicoAtividade);
+                  ServicoAtividade* servicoAtividade,
+                  ServicoHospedagem* servicoHospedagem);
     ~TelaPrincipal();
 
     void mostrar() override;

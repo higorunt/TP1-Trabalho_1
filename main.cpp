@@ -7,10 +7,12 @@
 #include "include/servicos/ServicoViagem.hpp"
 #include "include/servicos/ServicoDestino.hpp"
 #include "include/servicos/ServicoAtividade.hpp"
+#include "include/servicos/ServicoHospedagem.hpp"
 #include "include/repositorios/RepositorioAutenticacao.hpp"
 #include "include/repositorios/RepositorioViagem.hpp"
 #include "include/repositorios/RepositorioDestino.hpp"
 #include "include/repositorios/RepositorioAtividade.hpp"
+#include "include/repositorios/RepositorioHospedagem.hpp"
 #include <iostream>
 #include <memory>
 
@@ -22,11 +24,13 @@ int main() {
         std::unique_ptr<RepositorioViagem> repViagem(new RepositorioViagem("viagens.db"));
         std::unique_ptr<RepositorioDestino> repDestino(new RepositorioDestino("viagens.db"));
         std::unique_ptr<RepositorioAtividade> repAtividade(new RepositorioAtividade("viagens.db"));
+        std::unique_ptr<RepositorioHospedagem> repHospedagem(new RepositorioHospedagem("viagens.db"));
 
         std::unique_ptr<ServicoAutenticacao> servicoAuth(new ServicoAutenticacao(repAuth.get()));
         std::unique_ptr<ServicoViagem> servicoViagem(new ServicoViagem(repViagem.get(), repDestino.get()));
         std::unique_ptr<ServicoDestino> servicoDestino(new ServicoDestino(repDestino.get()));
         std::unique_ptr<ServicoAtividade> servicoAtividade(new ServicoAtividade(repAtividade.get()));
+        std::unique_ptr<ServicoHospedagem> servicoHospedagem(new ServicoHospedagem(repHospedagem.get()));
         
         std::unique_ptr<TelaAutenticacao> telaAutenticacao(new TelaAutenticacao(servicoAuth.get()));
 
@@ -38,7 +42,8 @@ int main() {
                     viajante.get(), 
                     servicoViagem.get(), 
                     servicoDestino.get(),
-                    servicoAtividade.get()
+                    servicoAtividade.get(),    // <-- Quarto argumento
+                    servicoHospedagem.get()    // <-- Quinto argumento (faltava este)
                 )
             );
             telaPrincipal->executar();

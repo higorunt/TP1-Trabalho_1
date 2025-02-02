@@ -21,6 +21,7 @@ private:
     Codigo codigo;       ///< Código identificador único da hospedagem.
     Avaliacao avaliacao; ///< Avaliação atribuída à hospedagem.
     Dinheiro diaria;     ///< Valor da diária da hospedagem.
+    Codigo codigoDestino; ///< Código do destino associado à hospedagem.
 
 public:
     /**
@@ -32,9 +33,12 @@ public:
      * @param codigo Código identificador único da hospedagem.
      * @param avaliacao Avaliação atribuída à hospedagem.
      * @param diaria Valor da diária da hospedagem.
+     * @param codigoDestino Código do destino associado à hospedagem.
      */
-    Hospedagem(const Nome &nome, const Codigo &codigo, const Avaliacao &avaliacao, const Dinheiro &diaria)
-        : nome(nome), codigo(codigo), avaliacao(avaliacao), diaria(diaria) {}
+    Hospedagem(const Nome &nome, const Codigo &codigo, const Avaliacao &avaliacao, 
+               const Dinheiro &diaria, const Codigo &codigoDestino)
+        : nome(nome), codigo(codigo), avaliacao(avaliacao), 
+          diaria(diaria), codigoDestino(codigoDestino) {}
 
     /**
      * @brief Define o nome da hospedagem.
@@ -91,6 +95,20 @@ public:
      * @return Valor da diária da hospedagem.
      */
     Dinheiro getDiaria() const { return diaria; }
+
+    /**
+     * @brief Define o código do destino associado à hospedagem.
+     *
+     * @param codigo Código do destino.
+     */
+    void setCodigoDestino(const Codigo &codigo) { this->codigoDestino = codigo; }
+
+    /**
+     * @brief Retorna o código do destino associado à hospedagem.
+     *
+     * @return Código do destino.
+     */
+    Codigo getCodigoDestino() const { return codigoDestino; }
 };
 
 #endif // HOSPEDAGEM_HPP

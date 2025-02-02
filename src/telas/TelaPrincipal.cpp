@@ -3,14 +3,17 @@
 #include <cstdlib>
 #include <iostream>
 
-TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv, ServicoDestino* sd, ServicoAtividade* sa)
-    : viajante(v), servicoViagem(sv), servicoDestino(sd), servicoAtividade(sa), painelMenu(nullptr)
+TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv, ServicoDestino* sd, 
+                             ServicoAtividade* sa, ServicoHospedagem* sh)
+    : viajante(v), servicoViagem(sv), servicoDestino(sd), 
+      servicoAtividade(sa), servicoHospedagem(sh), painelMenu(nullptr)
 {
     layout.centralX = 0;
     layout.centralY = 0;
     telaViagem = new TelaViagem(servicoViagem, viajante);
     telaDestino = new TelaDestino(servicoDestino, servicoViagem, viajante);
     telaAtividade = new TelaAtividade(servicoAtividade, servicoDestino, viajante);
+    telaHospedagem = new TelaHospedagem(servicoHospedagem, servicoDestino, viajante);
 }
 
 TelaPrincipal::~TelaPrincipal() {
@@ -21,6 +24,7 @@ TelaPrincipal::~TelaPrincipal() {
     delete telaViagem;
     delete telaDestino;
     delete telaAtividade;
+    delete telaHospedagem;
 }
 
 void TelaPrincipal::mostrar() {
@@ -87,10 +91,10 @@ void TelaPrincipal::processarOpcao(int opcao) {
             telaDestino->executar();
             break;
         case 3:
-            telaAtividade->mostrar();  // Substituir o alert por chamada real
+            telaAtividade->mostrar();
             break;
         case 4:
-            mostrarAlerta("Menu Gerenciar Hospedagens - Em desenvolvimento");
+            telaHospedagem->mostrar();
             break;
         case 5: {
             try {
