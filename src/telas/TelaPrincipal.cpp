@@ -1,163 +1,136 @@
 #include "../../include/telas/TelaPrincipal.hpp"
 
-TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv) 
-    : viajante(v), servicoViagem(sv), painelMenu(nullptr) {
-    layout.centralX = 0;
-    layout.centralY = 0;
-    telaViagem = new TelaViagem(servicoViagem, viajante);
+TelaPrincipal::TelaPrincipal(Viajante *v,
+                             ServicoViagem *sv,
+                             ServicoDestino *sd,
+                             ServicoAtividade *sa,
+                             ServicoHospedagem *sh,
+                             ServicoViajante *svt,
+                             ServicoConta *sc)
+    : viajante(v),
+      servicoViagem(sv),
+      servicoDestino(sd),
+      servicoAtividade(sa),
+      servicoHospedagem(sh),
+      servicoViajante(svt),
+      servicoConta(sc),
+      telaViagem(nullptr),
+      telaDestino(nullptr),
+      telaAtividade(nullptr),
+      telaHospedagem(nullptr),
+      telaViajante(nullptr),
+      telaConta(nullptr),
+      painelMenu(nullptr)
+{
+    // Inicializa as telas
+    telaViagem = new TelaViagem(servicoViagem);
+    telaDestino = new TelaDestino(servicoDestino);
+    telaAtividade = new TelaAtividade(servicoAtividade);
+    telaHospedagem = new TelaHospedagem(servicoHospedagem);
+    telaViajante = new TelaViajante(servicoViajante);
+    telaConta = new TelaConta(servicoConta);
 }
 
-TelaPrincipal::~TelaPrincipal() {
-    if (painelMenu != nullptr) {
+TelaPrincipal::~TelaPrincipal()
+{
+    if (painelMenu != nullptr)
+    {
         delwin(painelMenu);
         painelMenu = nullptr;
     }
-    delete telaViagem;
+
+    // Libera a memória das telas
+    if (telaViagem != nullptr)
+        delete telaViagem;
+    if (telaDestino != nullptr)
+        delete telaDestino;
+    if (telaAtividade != nullptr)
+        delete telaAtividade;
+    if (telaHospedagem != nullptr)
+        delete telaHospedagem;
+    if (telaViajante != nullptr)
+        delete telaViajante;
+    if (telaConta != nullptr)
+        delete telaConta;
 }
 
-void TelaPrincipal::mostrar() {
-    limparTela();
-    
+void TelaPrincipal::desenharMenu()
+{
     int altura, largura;
     getmaxyx(janela, altura, largura);
-    
-    // Desenhar cabeçalho
-    std::string bemVindo = "Bem-vindo, " + viajante->getNome().getValor();
-    mvwprintw(janela, 2, (largura - bemVindo.length()) / 2, "%s", bemVindo.c_str());
-    
+
+    layout.centralX = (largura - layout.largura) / 2;
+    layout.centralY = (altura - layout.altura) / 2;
+
+    if (painelMenu != nullptr)
+    {
+        delwin(painelMenu);
+    }
+
+    painelMenu = newwin(layout.altura, layout.largura, layout.centralY, layout.centralX);
+    wbkgd(painelMenu, COLOR_PAIR(COR_INVERSA));
+    box(painelMenu, 0, 0);
+
+    std::string titulo = "Menu Principal";
+    mvwprintw(painelMenu, 1, (layout.largura - titulo.length()) / 2, "%s", titulo.c_str());
+
+    mvwprintw(painelMenu, layout.menuY, 2, "1. Gerenciar Viagens");
+    mvwprintw(painelMenu, layout.menuY + 2, 2, "2. Gerenciar Destinos");
+    mvwprintw(painelMenu, layout.menuY + 4, 2, "3. Gerenciar Atividades");
+    mvwprintw(painelMenu, layout.menuY + 6, 2, "4. Gerenciar Hospedagens");
+    mvwprintw(painelMenu, layout.menuY + 8, 2, "5. Gerenciar Viajante");
+    mvwprintw(painelMenu, layout.menuY + 10, 2, "6. Gerenciar Conta");
+    mvwprintw(painelMenu, layout.menuY + 12, 2, "0. Sair");
+
+    mvwprintw(painelMenu, layout.altura - 2, 2, "Escolha uma opção: ");
+
+    wrefresh(painelMenu);
+}
+
+void TelaPrincipal::processarOpcao(int opcao)
+{
+    switch (opcao)
+    {
+    case 1:
+        telaViagem->executar();
+        break;
+    case 2:
+        telaDestino->executar();
+        break;
+    case 3:
+        telaAtividade->executar();
+        break;
+    case 4:
+        telaHospedagem->executar();
+        break;
+    case 5:
+        telaViajante->executar();
+        break;
+    case 6:
+        telaConta->executar();
+        break;
+    case 0:
+        mostrarAlerta("Saindo do sistema...");
+        break;
+    default:
+        mostrarAlerta("Opção inválida!");
+        break;
+    }
+}
+
+void TelaPrincipal::mostrar()
+{
+    limparTela();
     desenharMenu();
 }
 
-void TelaPrincipal::desenharMenu() {
-    int altura, largura;
-    getmaxyx(janela, altura, largura);
-    
-    // Calcular posições
-    layout.centralY = (altura - layout.altura) / 2;
-    layout.centralX = (largura - layout.largura) / 2;
-    
-    if (painelMenu != nullptr) {
-        delwin(painelMenu);
-    }
-    
-    painelMenu = subwin(janela, layout.altura, layout.largura,
-                       layout.centralY + getbegy(janela),
-                       layout.centralX + getbegx(janela));
-    
-    wbkgd(painelMenu, COLOR_PAIR(COR_PRINCIPAL));
-    box(painelMenu, 0, 0);
-    
-    // Título do menu
-    mvwprintw(painelMenu, 1, (layout.largura - 15) / 2, "Menu de Viagens");
-    
-    // Opções do menu
-    const char* opcoes[] = {
-        "1. Gerenciar Viagens",
-        "2. Gerenciar Destinos",
-        "3. Gerenciar Atividades",
-        "4. Gerenciar Hospedagens",
-        "5. Consultar Custo de Viagem",
-        "6. Listar Minhas Viagens",
-        "7. Listar Destinos da Viagem",
-        "8. Listar Atividades do Destino",
-        "9. Listar Hospedagens do Destino",
-        "0. Sair"
-    };
-    
-    for (int i = 0; i < 10; i++) {
-        mvwprintw(painelMenu, i + 3, 3, "%s", opcoes[i]);
-    }
-    
-    // Instruções
-    mvwprintw(painelMenu, layout.altura - 2, 2, "Digite o numero da opcao desejada");
-    
-    wrefresh(painelMenu);
-    wrefresh(janela);
-}
-
-void TelaPrincipal::processarOpcao(int opcao) {
-    switch (opcao) {
-        case 1:
-            telaViagem->mostrar();  // Usar a TelaViagem para gerenciar viagens
-            break;
-        case 2:
-            mostrarAlerta("Menu Gerenciar Destinos - Em desenvolvimento");
-            break;
-        case 3:
-            mostrarAlerta("Menu Gerenciar Atividades - Em desenvolvimento");
-            break;
-        case 4:
-            mostrarAlerta("Menu Gerenciar Hospedagens - Em desenvolvimento");
-            break;
-        case 5: {
-            // Usar o ServicoViagem para consultar custo
-            try {
-                std::string codigoStr = mostrarInput("Digite o código da viagem:");
-                if (!codigoStr.empty()) {
-                    Codigo codigo(codigoStr);
-                    double custo = servicoViagem->calcularCustoViagem(codigo);
-                    std::string msg = "Custo total da viagem: R$ " + std::to_string(custo);
-                    mostrarAlerta(msg);
-                }
-            } catch (const std::exception& e) {
-                mostrarAlerta(e.what());
-            }
-            break;
-        }
-        case 6: {
-            // Usar o ServicoViagem para listar viagens
-            try {
-                std::vector<Viagem> viagens = servicoViagem->listarViagensPorViajante(viajante->getConta().getCodigo());
-                if (viagens.empty()) {
-                    mostrarAlerta("Nenhuma viagem encontrada.");
-                } else {
-                    // TODO: Implementar uma forma de mostrar a lista de viagens
-                    mostrarAlerta("Função em desenvolvimento");
-                }
-            } catch (const std::exception& e) {
-                mostrarAlerta(e.what());
-            }
-            break;
-        }
-        case 7: {
-            // Usar o ServicoViagem para listar destinos
-            try {
-                std::string codigoStr = mostrarInput("Digite o código da viagem:");
-                if (!codigoStr.empty()) {
-                    Codigo codigo(codigoStr);
-                    std::vector<Destino> destinos = servicoViagem->listarDestinosPorViagem(codigo);
-                    if (destinos.empty()) {
-                        mostrarAlerta("Nenhum destino encontrado para esta viagem.");
-                    } else {
-                        // TODO: Implementar uma forma de mostrar a lista de destinos
-                        mostrarAlerta("Função em desenvolvimento");
-                    }
-                }
-            } catch (const std::exception& e) {
-                mostrarAlerta(e.what());
-            }
-            break;
-        }
-        case 8:
-            mostrarAlerta("Atividades do Destino - Em desenvolvimento");
-            break;
-        case 9:
-            mostrarAlerta("Hospedagens do Destino - Em desenvolvimento");
-            break;
-    }
-}
-
-void TelaPrincipal::executar() {
-    mostrar();
-    
-    while (true) {
-        int ch = wgetch(janela);
-        
-        if (ch == '0') break;
-        
-        if (ch >= '1' && ch <= '9') {
-            processarOpcao(ch - '0');
-            mostrar();
-        }
+void TelaPrincipal::executar()
+{
+    int opcao = -1;
+    while (opcao != 0)
+    {
+        mostrar();
+        opcao = campoInteiro(painelMenu, layout.altura - 2, 20, 1);
+        processarOpcao(opcao);
     }
 }
