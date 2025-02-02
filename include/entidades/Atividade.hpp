@@ -26,6 +26,7 @@ private:
     Horario horario;     ///< Horário da atividade.
     Duracao duracao;     ///< Duração da atividade em minutos.
     Dinheiro preco;      ///< Preço da atividade.
+    Codigo codigoDestino; ///< Novo atributo
 
 public:
     /**
@@ -40,10 +41,14 @@ public:
      * @param horario Horário da atividade.
      * @param duracao Duração da atividade.
      * @param preco Preço da atividade.
+     * @param codigoDestino Código do destino da atividade.
      */
     Atividade(const Nome &nome, const Codigo &codigo, const Avaliacao &avaliacao,
-              const Data &data, const Horario &horario, const Duracao &duracao, const Dinheiro &preco)
-        : nome(nome), codigo(codigo), avaliacao(avaliacao), data(data), horario(horario), duracao(duracao), preco(preco) {}
+              const Data &data, const Horario &horario, const Duracao &duracao, 
+              const Dinheiro &preco, const Codigo &codigoDestino)
+        : nome(nome), codigo(codigo), avaliacao(avaliacao), 
+          data(data), horario(horario), duracao(duracao), 
+          preco(preco), codigoDestino(codigoDestino) {}
 
     /**
      * @brief Define o nome da atividade.
@@ -142,6 +147,20 @@ public:
      * @return Preço da atividade.
      */
     Dinheiro getPreco() const { return preco; }
+
+    /**
+     * @brief Define o código do destino da atividade.
+     *
+     * @param codigo Código do destino da atividade.
+     */
+    void setCodigoDestino(const Codigo &codigo) { this->codigoDestino = codigo; }
+
+    /**
+     * @brief Retorna o código do destino da atividade.
+     *
+     * @return Código do destino da atividade.
+     */
+    Codigo getCodigoDestino() const { return codigoDestino; }
 };
 
 #endif
