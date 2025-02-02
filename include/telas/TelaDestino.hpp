@@ -2,11 +2,6 @@
 #define TELA_DESTINO_HPP
 
 #include "../servicos/ServicoDestino.hpp"
-#ifdef _WIN32
-#include <ncurses.h>
-#else
-#include <ncurses.h>
-#endif
 #include "../dominios/Codigo.hpp"
 #include "../dominios/Nome.hpp"
 #include "../dominios/Data.hpp"
