@@ -1,15 +1,18 @@
-// include/repositorios/RepositorioDestino.hpp
 #ifndef REPOSITORIO_DESTINO_HPP
 #define REPOSITORIO_DESTINO_HPP
 
-#include "RepositorioBase.hpp"
-#include "../entidades/Destino.hpp"
+#include "../../include/entidades/Destino.hpp"
+#include "../../include/repositorios/RepositorioBase.hpp"
 #include <vector>
+#include <string>
 
+/**
+ * @brief Repositório para operações CRUD com Destino.
+ */
 class RepositorioDestino : public RepositorioBase {
 public:
-    RepositorioDestino(const std::string& caminho);
-    
+    RepositorioDestino(const std::string& caminhoBD);
+
     bool salvar(const Destino& destino);
     Destino* buscar(const Codigo& codigo);
     bool atualizar(const Destino& destino);
@@ -22,15 +25,17 @@ private:
             CREATE TABLE IF NOT EXISTS destinos (
                 codigo TEXT PRIMARY KEY,
                 nome TEXT NOT NULL,
-                avaliacao INTEGER,
                 data_inicio TEXT NOT NULL,
                 data_fim TEXT NOT NULL,
+                avaliacao INTEGER NOT NULL,
                 codigo_viagem TEXT NOT NULL,
                 FOREIGN KEY (codigo_viagem) REFERENCES viagens(codigo)
             );
         )";
         executarSQL(sql);
     }
+
+    Destino mapearParaEntidade(sqlite3_stmt* stmt);
 };
 
-#endif
+#endif // REPOSITORIO_DESTINO_HPP

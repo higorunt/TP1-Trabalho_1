@@ -1,10 +1,14 @@
 #include "../../include/telas/TelaPrincipal.hpp"
+#include <cstring>
+#include <cstdlib>
+#include <iostream>
 
-TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv) 
-    : viajante(v), servicoViagem(sv), painelMenu(nullptr) {
+TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv, ServicoDestino* sd) 
+    : viajante(v), servicoViagem(sv), servicoDestino(sd), painelMenu(nullptr) {
     layout.centralX = 0;
     layout.centralY = 0;
     telaViagem = new TelaViagem(servicoViagem, viajante);
+    telaDestino = new TelaDestino(servicoDestino, servicoViagem, viajante);
 }
 
 TelaPrincipal::~TelaPrincipal() {
@@ -13,6 +17,7 @@ TelaPrincipal::~TelaPrincipal() {
         painelMenu = nullptr;
     }
     delete telaViagem;
+    delete telaDestino;
 }
 
 void TelaPrincipal::mostrar() {
@@ -21,7 +26,6 @@ void TelaPrincipal::mostrar() {
     int altura, largura;
     getmaxyx(janela, altura, largura);
     
-    // Desenhar cabeçalho
     std::string bemVindo = "Bem-vindo, " + viajante->getNome().getValor();
     mvwprintw(janela, 2, (largura - bemVindo.length()) / 2, "%s", bemVindo.c_str());
     
@@ -32,7 +36,6 @@ void TelaPrincipal::desenharMenu() {
     int altura, largura;
     getmaxyx(janela, altura, largura);
     
-    // Calcular posições
     layout.centralY = (altura - layout.altura) / 2;
     layout.centralX = (largura - layout.largura) / 2;
     
@@ -41,16 +44,14 @@ void TelaPrincipal::desenharMenu() {
     }
     
     painelMenu = subwin(janela, layout.altura, layout.largura,
-                       layout.centralY + getbegy(janela),
-                       layout.centralX + getbegx(janela));
+                        layout.centralY + getbegy(janela),
+                        layout.centralX + getbegx(janela));
     
     wbkgd(painelMenu, COLOR_PAIR(COR_PRINCIPAL));
     box(painelMenu, 0, 0);
     
-    // Título do menu
-    mvwprintw(painelMenu, 1, (layout.largura - 15) / 2, "Menu de Viagens");
+    mvwprintw(painelMenu, 1, (layout.largura - 18) / 2, "Menu Principal");
     
-    // Opções do menu
     const char* opcoes[] = {
         "1. Gerenciar Viagens",
         "2. Gerenciar Destinos",
@@ -68,7 +69,6 @@ void TelaPrincipal::desenharMenu() {
         mvwprintw(painelMenu, i + 3, 3, "%s", opcoes[i]);
     }
     
-    // Instruções
     mvwprintw(painelMenu, layout.altura - 2, 2, "Digite o numero da opcao desejada");
     
     wrefresh(painelMenu);
@@ -78,10 +78,12 @@ void TelaPrincipal::desenharMenu() {
 void TelaPrincipal::processarOpcao(int opcao) {
     switch (opcao) {
         case 1:
-            telaViagem->mostrar();  // Usar a TelaViagem para gerenciar viagens
+            telaViagem->mostrar();  // Gerenciar Viagens
             break;
         case 2:
-            mostrarAlerta("Menu Gerenciar Destinos - Em desenvolvimento");
+            if (telaDestino->executar()) {
+                mostrarAlerta("Operacao de destino concluida com sucesso!");
+            }
             break;
         case 3:
             mostrarAlerta("Menu Gerenciar Atividades - Em desenvolvimento");
@@ -90,9 +92,8 @@ void TelaPrincipal::processarOpcao(int opcao) {
             mostrarAlerta("Menu Gerenciar Hospedagens - Em desenvolvimento");
             break;
         case 5: {
-            // Usar o ServicoViagem para consultar custo
             try {
-                std::string codigoStr = mostrarInput("Digite o código da viagem:");
+                std::string codigoStr = mostrarInput("Digite o codigo da viagem:");
                 if (!codigoStr.empty()) {
                     Codigo codigo(codigoStr);
                     double custo = servicoViagem->calcularCustoViagem(codigo);
@@ -105,14 +106,13 @@ void TelaPrincipal::processarOpcao(int opcao) {
             break;
         }
         case 6: {
-            // Usar o ServicoViagem para listar viagens
             try {
                 std::vector<Viagem> viagens = servicoViagem->listarViagensPorViajante(viajante->getConta().getCodigo());
                 if (viagens.empty()) {
                     mostrarAlerta("Nenhuma viagem encontrada.");
                 } else {
-                    // TODO: Implementar uma forma de mostrar a lista de viagens
-                    mostrarAlerta("Função em desenvolvimento");
+                    // TODO: Implementar forma de exibir a lista de viagens
+                    mostrarAlerta("Funcao em desenvolvimento");
                 }
             } catch (const std::exception& e) {
                 mostrarAlerta(e.what());
@@ -120,18 +120,12 @@ void TelaPrincipal::processarOpcao(int opcao) {
             break;
         }
         case 7: {
-            // Usar o ServicoViagem para listar destinos
             try {
-                std::string codigoStr = mostrarInput("Digite o código da viagem:");
+                std::string codigoStr = mostrarInput("Digite o codigo da viagem:");
                 if (!codigoStr.empty()) {
                     Codigo codigo(codigoStr);
-                    std::vector<Destino> destinos = servicoViagem->listarDestinosPorViagem(codigo);
-                    if (destinos.empty()) {
-                        mostrarAlerta("Nenhum destino encontrado para esta viagem.");
-                    } else {
-                        // TODO: Implementar uma forma de mostrar a lista de destinos
-                        mostrarAlerta("Função em desenvolvimento");
-                    }
+                    // TODO: Implementar listagem de destinos
+                    mostrarAlerta("Funcao em desenvolvimento");
                 }
             } catch (const std::exception& e) {
                 mostrarAlerta(e.what());
@@ -143,6 +137,8 @@ void TelaPrincipal::processarOpcao(int opcao) {
             break;
         case 9:
             mostrarAlerta("Hospedagens do Destino - Em desenvolvimento");
+            break;
+        default:
             break;
     }
 }

@@ -1,17 +1,20 @@
-// include/telas/TelaPrincipal.hpp
 #ifndef TELA_PRINCIPAL_HPP
 #define TELA_PRINCIPAL_HPP
 
 #include "TelaBase.hpp"
 #include "TelaViagem.hpp"
+#include "TelaDestino.hpp"  // Inclusão da nova tela de destinos
 #include "../entidades/Viajante.hpp"
 #include "../servicos/ServicoViagem.hpp"
+#include "../servicos/ServicoDestino.hpp"
 
 class TelaPrincipal : public TelaBase {
 private:
     Viajante* viajante;
     ServicoViagem* servicoViagem;
+    ServicoDestino* servicoDestino;
     TelaViagem* telaViagem;
+    TelaDestino* telaDestino;
     WINDOW* painelMenu;
     
     struct {
@@ -26,7 +29,7 @@ private:
     void processarOpcao(int opcao);
 
 public:
-    TelaPrincipal(Viajante* viajante, ServicoViagem* servicoViagem);
+    TelaPrincipal(Viajante* viajante, ServicoViagem* servicoViagem, ServicoDestino* servicoDestino);
     ~TelaPrincipal();
 
     void mostrar() override;
