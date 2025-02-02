@@ -29,7 +29,7 @@ int main() {
         std::unique_ptr<ServicoAutenticacao> servicoAuth(new ServicoAutenticacao(repAuth.get()));
         std::unique_ptr<ServicoViagem> servicoViagem(new ServicoViagem(repViagem.get(), repDestino.get()));
         std::unique_ptr<ServicoDestino> servicoDestino(new ServicoDestino(repDestino.get()));
-        std::unique_ptr<ServicoAtividade> servicoAtividade(new ServicoAtividade(repAtividade.get()));
+        std::unique_ptr<ServicoAtividade> servicoAtividade(new ServicoAtividade(repAtividade.get(), servicoDestino.get()));
         std::unique_ptr<ServicoHospedagem> servicoHospedagem(new ServicoHospedagem(repHospedagem.get()));
         
         std::unique_ptr<TelaAutenticacao> telaAutenticacao(new TelaAutenticacao(servicoAuth.get()));
