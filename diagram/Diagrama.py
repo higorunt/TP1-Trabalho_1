@@ -139,74 +139,178 @@ plantuml_code = """
 @startuml
 skinparam backgroundColor white
 skinparam componentStyle uml2
-skinparam defaultFontName "Helvetica"
+skinparam defaultFontName Arial
+skinparam linetype ortho
 
-title Arquitetura Orientada a Processos do Sistema de Planejamento de Viagens
+title Sistema de Planejamento de Viagens - Arquitetura Completa
 
-' Definição dos módulos principais
-package "Camada de Apresentação" {
-    [Tela de Login] as Login
-    [Tela Principal] as MainScreen
-    [Gerenciamento de Viagens] as ManageTrips
-    [Gerenciamento de Destinos] as ManageDestinations
-    [Gerenciamento de Atividades] as ManageActivities
-    [Gerenciamento de Hospedagens] as ManageAccommodations
+' Domain Layer
+package "Dom�nios" {
+    class Avaliacao
+    class Codigo
+    class Data
+    class Dinheiro
+    class Duracao
+    class Horario
+    class Nome
+    class Senha
 }
 
-package "Camada de Serviço" {
-    [Serviço de Autenticação] as AuthService
-    [Serviço de Viagens] as TripsService
-    [Serviço de Destinos] as DestinationsService
-    [Serviço de Atividades] as ActivitiesService
-    [Serviço de Hospedagens] as AccommodationsService
+' Entity Layer  
+package "Entidades" {
+    class Viajante {
+        - nome: Nome
+        - conta: Conta
+    }
+    class Viagem {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - conta: Conta
+        - custoTotal: Dinheiro
+    }
+    class Destino {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - dataInicio: Data
+        - dataFim: Data
+    }
+    class Atividade {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - data: Data
+        - horario: Horario
+        - duracao: Duracao
+        - preco: Dinheiro
+    }
+    class Hospedagem {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - diaria: Dinheiro
+    }
+    class Conta {
+        - codigo: Codigo
+        - senha: Senha
+    }
 }
 
-package "Camada de Domínio" {
-    [Autenticação]
-    [Viagem]
-    [Destino]
-    [Atividade]
-    [Hospedagem]
+' Interface Layer
+package "Interfaces" {
+    interface IRepositorio<T,K>
+    interface IRepositorioViagem
 }
 
-package "Aplicação Principal" {
-    [main.cpp]
+' Repository Layer
+package "Reposit�rios" {
+    class RepositorioBase
+    class RepositorioAutenticacao
+    class RepositorioViagem
+    class RepositorioDestino
+    class RepositorioAtividade
+    class RepositorioHospedagem
+    class RepositorioViajante
+    class RepositorioConta
 }
 
-' Relacionamentos entre módulos
-Login --> AuthService : Envia Credenciais
-AuthService --> Autenticação : Valida Credenciais
-Autenticação --> AuthService : Retorna Status
-AuthService --> Login : Retorna Status
-Login --> MainScreen : Navega após Sucesso
+' Service Layer
+package "Servi�os" {
+    class ServicoAutenticacao
+    class ServicoViagem
+    class ServicoDestino
+    class ServicoAtividade  
+    class ServicoHospedagem
+    class ServicoViajante
+    class ServicoConta
+}
 
-MainScreen --> TripsService : Solicita Gerenciamento de Viagens
-MainScreen --> DestinationsService : Solicita Gerenciamento de Destinos
-MainScreen --> ActivitiesService : Solicita Gerenciamento de Atividades
-MainScreen --> AccommodationsService : Solicita Gerenciamento de Hospedagens
+' UI Layer
+package "Telas" {
+    class TelaBase
+    class TelaAutenticacao
+    class TelaCadastro
+    class TelaPrincipal
+    class TelaViagem
+    class TelaDestino
+    class TelaAtividade
+    class TelaHospedagem
+    class TelaViajante
+    class TelaConta
+}
 
-TripsService --> Viagem : Manipula Dados de Viagem
-DestinationsService --> Destino : Manipula Dados de Destino
-ActivitiesService --> Atividade : Manipula Dados de Atividade
-AccommodationsService --> Hospedagem : Manipula Dados de Hospedagem
+' Inheritance
+IRepositorio <|.. RepositorioBase
+IRepositorioViagem <|.. RepositorioViagem
+RepositorioBase <|-- RepositorioAutenticacao
+RepositorioBase <|-- RepositorioViagem 
+RepositorioBase <|-- RepositorioDestino
+RepositorioBase <|-- RepositorioAtividade
+RepositorioBase <|-- RepositorioHospedagem
+RepositorioBase <|-- RepositorioViajante
+RepositorioBase <|-- RepositorioConta
 
-Viagem --> Data : Define
-Viagem --> Dinheiro : Calcula
-Viagem --> Duracao : Define
-Viagem --> Destino : Contém
+TelaBase <|-- TelaAutenticacao
+TelaBase <|-- TelaCadastro
+TelaBase <|-- TelaPrincipal
+TelaBase <|-- TelaViagem
+TelaBase <|-- TelaDestino
+TelaBase <|-- TelaAtividade
+TelaBase <|-- TelaHospedagem
+TelaBase <|-- TelaViajante
+TelaBase <|-- TelaConta
 
-Destino --> Nome : Possui
-Destino --> Atividade : Contém
-Destino --> Hospedagem : Contém
+' Dependencies - Entities
+Viajante --> Nome
+Viajante --> Conta
+Viagem --> Nome
+Viagem --> Codigo
+Viagem --> Avaliacao
+Viagem --> Conta
+Viagem --> Dinheiro
+Destino --> Nome
+Destino --> Codigo
+Destino --> Avaliacao
+Destino --> Data
+Atividade --> Nome
+Atividade --> Codigo
+Atividade --> Avaliacao
+Atividade --> Data
+Atividade --> Horario
+Atividade --> Duracao
+Atividade --> Dinheiro
+Hospedagem --> Nome
+Hospedagem --> Codigo
+Hospedagem --> Avaliacao
+Hospedagem --> Dinheiro
+Conta --> Codigo
+Conta --> Senha
 
-Atividade --> Horario : Agendada em
-Hospedagem --> Avaliacao : Recebe
+' Relationships - Entities
+Conta "1" -- "0..*" Viagem
+Viagem "1" -- "0..*" Destino
+Destino "1" -- "0..*" Atividade
+Destino "1" -- "0..*" Hospedagem
 
-Viajante --> Senha : Possui
+' Dependencies - Services/Repositories
+ServicoAutenticacao --> RepositorioAutenticacao
+ServicoViagem --> RepositorioViagem
+ServicoDestino --> RepositorioDestino
+ServicoAtividade --> RepositorioAtividade
+ServicoHospedagem --> RepositorioHospedagem
+ServicoViajante --> RepositorioViajante
+ServicoConta --> RepositorioConta
 
-main.cpp --> Login : Inicializa Tela de Login
-main.cpp --> MainScreen : Inicializa Tela Principal
-
+' Dependencies - UI/Services
+TelaAutenticacao --> ServicoAutenticacao
+TelaCadastro --> ServicoAutenticacao
+TelaViagem --> ServicoViagem
+TelaDestino --> ServicoDestino
+TelaAtividade --> ServicoAtividade
+TelaHospedagem --> ServicoHospedagem
+TelaViajante --> ServicoViajante
+TelaConta --> ServicoConta
 @enduml
 """
 
