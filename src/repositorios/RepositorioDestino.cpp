@@ -62,7 +62,17 @@ std::vector<Destino> RepositorioDestino::listarPorViagem(const Codigo& codigoVia
     finalizar(stmt);
     return destinos;
 }
-
+std::vector<Destino> RepositorioDestino::listarTodos() {
+    std::vector<Destino> destinos;
+    std::string sql = "SELECT * FROM destinos;";
+    sqlite3_stmt* stmt = prepararSQL(sql);
+    
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        destinos.push_back(mapearParaEntidade(stmt));
+    }
+    finalizar(stmt);
+    return destinos;
+}
 Destino RepositorioDestino::mapearParaEntidade(sqlite3_stmt* stmt) {
     // Coluna 0: codigo do destino
     Codigo codigo(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0)));

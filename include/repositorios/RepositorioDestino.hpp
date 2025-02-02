@@ -18,7 +18,13 @@ public:
     bool atualizar(const Destino& destino);
     bool deletar(const Codigo& codigo);
     std::vector<Destino> listarPorViagem(const Codigo& codigoViagem);
-
+    
+    /**
+     * @brief Lista todos os destinos cadastrados.
+     * @return Vetor com todos os destinos.
+     */
+    std::vector<Destino> listarTodos();
+    
 private:
     void criarTabela() {
         const char* sql = R"(
@@ -34,7 +40,7 @@ private:
         )";
         executarSQL(sql);
     }
-
+    
     Destino mapearParaEntidade(sqlite3_stmt* stmt);
 };
 

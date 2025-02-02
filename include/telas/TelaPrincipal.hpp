@@ -3,7 +3,7 @@
 
 #include "TelaBase.hpp"
 #include "TelaViagem.hpp"
-#include "TelaDestino.hpp"  // Inclusão da nova tela de destinos
+#include "TelaDestino.hpp"  // Inclusão da tela de destinos
 #include "../entidades/Viajante.hpp"
 #include "../servicos/ServicoViagem.hpp"
 #include "../servicos/ServicoDestino.hpp"

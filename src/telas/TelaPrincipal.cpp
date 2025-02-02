@@ -3,8 +3,9 @@
 #include <cstdlib>
 #include <iostream>
 
-TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv, ServicoDestino* sd) 
-    : viajante(v), servicoViagem(sv), servicoDestino(sd), painelMenu(nullptr) {
+TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv, ServicoDestino* sd)
+    : viajante(v), servicoViagem(sv), servicoDestino(sd), painelMenu(nullptr)
+{
     layout.centralX = 0;
     layout.centralY = 0;
     telaViagem = new TelaViagem(servicoViagem, viajante);
@@ -78,12 +79,10 @@ void TelaPrincipal::desenharMenu() {
 void TelaPrincipal::processarOpcao(int opcao) {
     switch (opcao) {
         case 1:
-            telaViagem->mostrar();  // Gerenciar Viagens
+            telaViagem->mostrar();
             break;
         case 2:
-            if (telaDestino->executar()) {
-                mostrarAlerta("Operacao de destino concluida com sucesso!");
-            }
+            telaDestino->executar();
             break;
         case 3:
             mostrarAlerta("Menu Gerenciar Atividades - Em desenvolvimento");
@@ -111,7 +110,7 @@ void TelaPrincipal::processarOpcao(int opcao) {
                 if (viagens.empty()) {
                     mostrarAlerta("Nenhuma viagem encontrada.");
                 } else {
-                    // TODO: Implementar forma de exibir a lista de viagens
+                    // TODO: Implementar exibição da lista de viagens
                     mostrarAlerta("Funcao em desenvolvimento");
                 }
             } catch (const std::exception& e) {

@@ -54,6 +54,12 @@ public:
      * @return Vetor com os destinos encontrados.
      */
     std::vector<Destino> listarPorViagem(const Codigo& codigoViagem);
+
+    /**
+     * @brief Lista todos os destinos cadastrados (independente da viagem).
+     * @return Vetor com todos os destinos.
+     */
+    std::vector<Destino> listarTodos();
 };
 
 #endif // SERVICO_DESTINO_HPP
