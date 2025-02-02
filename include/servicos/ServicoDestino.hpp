@@ -1,23 +1,22 @@
-#ifndef REPOSITORIO_DESTINO_HPP
-#define REPOSITORIO_DESTINO_HPP
+#ifndef SERVICO_DESTINO_HPP
+#define SERVICO_DESTINO_HPP
 
 #include "../entidades/Destino.hpp"
-#include "RepositorioBase.hpp"
-#include <vector>
+#include "../repositorios/RepositorioDestino.hpp"
 
-class RepositorioDestino : public RepositorioBase
+class ServicoDestino
 {
+private:
+    RepositorioDestino repositorio;
+
 public:
-    RepositorioDestino(const std::string &caminhoBD);
+    ServicoDestino(const std::string &caminhoBD);
 
     bool criarDestino(const Destino &destino);
     Destino *lerDestino(const Codigo &codigo);
     bool atualizarDestino(const Destino &destino);
     bool excluirDestino(const Codigo &codigo);
     std::vector<Destino> listarDestinos(const Codigo &viagemCodigo);
-
-private:
-    Destino mapearParaEntidade(sqlite3_stmt *stmt);
 };
 
-#endif // REPOSITORIO_DESTINO_HPP
+#endif // SERVICO_DESTINO_HPP
