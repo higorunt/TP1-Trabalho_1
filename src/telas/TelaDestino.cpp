@@ -296,29 +296,53 @@ bool TelaDestino::processarDestino(const Codigo& codigoViagem) {
 
 // =================== Fluxo para Listar, Editar e Excluir ===================
 
-// Lista TODOS os destinos (independente da viagem)
 void TelaDestino::listarDestinos() {
+    limparTela();
+    box(janela, 0, 0);
+    mvwprintw(janela, 1, 2, "=== Lista de Destinos ===");
+    wrefresh(janela);
+
     try {
         std::vector<Destino> destinos = servicoDestino->listarTodos();
         if (destinos.empty()) {
             mostrarAlerta("Nenhum destino encontrado.");
             return;
         }
-        limparTela();
-        box(janela, 0, 0);
-        int linha = 3;
-        mvwprintw(janela, 1, 2, "=== Lista de Destinos ===");
+
+        int linha = 4;
+        mvwprintw(janela, 2, 2, "%-6s %-20s %-12s %-12s %-5s %-6s", 
+                  "Codigo", "Nome", "Data Inicio", "Data Fim", "Aval", "Viagem");
+        mvwprintw(janela, 3, 2, std::string(70, '-').c_str());
+
         for (const auto& d : destinos) {
-            std::stringstream ss;
-            ss << "Destino: " << d.getNome().getValor()
-               << " | Codigo: " << d.getCodigo().getValor()
-               << " | Data Inicio: " << d.getDataInicio().getValor()
-               << " | Data Fim: " << d.getDataFim().getValor()
-               << " | Avaliacao: " << d.getAvaliacao().getValor()
-               << " | Viagem: " << d.getCodigoViagem().getValor();
-            mvwprintw(janela, linha++, 2, "%s", ss.str().c_str());
+            std::string nome = d.getNome().getValor();
+            if (nome.length() > 20) {
+                nome = nome.substr(0, 17) + "...";
+            }
+
+            mvwprintw(janela, linha++, 2, "%-6s %-20s %-12s %-12s %-5d %-6s",
+                     d.getCodigo().getValor().c_str(),
+                     nome.c_str(),
+                     d.getDataInicio().getValor().c_str(),
+                     d.getDataFim().getValor().c_str(),
+                     d.getAvaliacao().getValor(),
+                     d.getCodigoViagem().getValor().c_str());
+
+            if (linha >= getmaxy(janela) - 3) {
+                mvwprintw(janela, getmaxy(janela) - 2, 2, "Pressione qualquer tecla para continuar...");
+                wrefresh(janela);
+                wgetch(janela);
+                linha = 4;
+                limparTela();
+                box(janela, 0, 0);
+                mvwprintw(janela, 1, 2, "=== Lista de Destinos ===");
+                mvwprintw(janela, 2, 2, "%-6s %-20s %-12s %-12s %-5s %-6s", 
+                         "Codigo", "Nome", "Data Inicio", "Data Fim", "Aval", "Viagem");
+                mvwprintw(janela, 3, 2, std::string(70, '-').c_str());
+            }
         }
-        mvwprintw(janela, linha+1, 2, "Pressione qualquer tecla para voltar...");
+
+        mvwprintw(janela, linha + 1, 2, "Pressione qualquer tecla para continuar...");
         wrefresh(janela);
         wgetch(janela);
     } catch (const std::exception& e) {
@@ -326,68 +350,103 @@ void TelaDestino::listarDestinos() {
     }
 }
 
-
-// Fluxo para editar destino
 void TelaDestino::editarDestino() {
-    limparTela();
-    box(janela, 0, 0);
-    std::string codigoInput = mostrarInput("Digite o codigo do destino a editar:");
-    if (codigoInput.empty()) {
-        mostrarAlerta("Operacao cancelada.");
-        return;
-    }
-    try {
-        Codigo codigoDestino(codigoInput);
-        Destino* destino = servicoDestino->buscarDestino(codigoDestino);
-        if (destino == nullptr) {
-            mostrarAlerta("Destino nao encontrado.");
-            return;
-        }
-        // Exibe os dados atuais e solicita novos valores
-        std::string novoNome = mostrarInput("Novo nome (deixe em branco para manter \"" + destino->getNome().getValor() + "\"):");
-        std::string novaDataInicio = mostrarInput("Nova data inicio (ddmmaa, deixe em branco para manter \"" + destino->getDataInicio().getValor() + "\"):");
-        std::string novaDataFim = mostrarInput("Nova data fim (ddmmaa, deixe em branco para manter \"" + destino->getDataFim().getValor() + "\"):");
-        std::string novaAvaliacao = mostrarInput("Nova avaliacao (1-5, deixe em branco para manter \"" + std::to_string(destino->getAvaliacao().getValor()) + "\"):");
-        
-        // Atualiza somente os campos informados (para simplicidade, se o campo for vazio, mantém o valor atual)
-        Nome nomeAtual = destino->getNome();
-        Data dataInicioAtual = destino->getDataInicio();
-        Data dataFimAtual = destino->getDataFim();
-        Avaliacao avaliacaoAtual = destino->getAvaliacao();
-        
-        if (!novoNome.empty()) {
-            nomeAtual = Nome(novoNome);
-        }
-        if (!novaDataInicio.empty()) {
-            std::string ds = formatarData(novaDataInicio);
-            dataInicioAtual = Data(ds);
-        }
-        if (!novaDataFim.empty()) {
-            std::string ds = formatarData(novaDataFim);
-            dataFimAtual = Data(ds);
-        }
-        if (!novaAvaliacao.empty()) {
-            int av = std::stoi(novaAvaliacao);
-            avaliacaoAtual = Avaliacao(av);
-        }
-        // Validação de datas (simples)
-        time_t inicio = dataToTime(dataInicioAtual);
-        time_t fim = dataToTime(dataFimAtual);
-        if (fim <= inicio) {
-            mostrarAlerta("Data de fim deve ser posterior a data de inicio.");
+    int altura, largura;
+    getmaxyx(janela, altura, largura);
+    keypad(janela, TRUE);
+    noecho();
+    
+    while (true) {
+        limparTela();
+        box(janela, 0, 0);
+        mvwprintw(janela, 1, 2, "=== Editar Destino ===");
+        mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+        wrefresh(janela);
+
+        std::string codigo = lerInput("Digite o codigo do destino: ", 3, 2);
+        if (codigo.empty()) return;
+
+        try {
+            Codigo codigoDestino(codigo);
+            Destino* destino = servicoDestino->buscarDestino(codigoDestino);
+            
+            if (!destino) {
+                mostrarAlerta("Destino nao encontrado.");
+                continue;
+            }
+
+            werase(janela);
+            box(janela, 0, 0);
+            mvwprintw(janela, 1, 2, "=== Editar Destino ===");
+            mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+            wrefresh(janela);
+
+            std::string prompt = "Novo nome (" + destino->getNome().getValor() + "): ";
+            std::string novoNome = lerInput(prompt, 3, 2);
+            if (novoNome.empty()) novoNome = destino->getNome().getValor();
+
+            werase(janela);
+            box(janela, 0, 0);
+            mvwprintw(janela, 1, 2, "=== Editar Destino ===");
+            mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+            wrefresh(janela);
+
+            prompt = "Nova data inicio (" + destino->getDataInicio().getValor() + ") [ddmmaa]: ";
+            std::string novaDataInicio = lerInput(prompt, 3, 2);
+            if (novaDataInicio.empty()) {
+                novaDataInicio = destino->getDataInicio().getValor();
+            } else {
+                novaDataInicio = formatarData(novaDataInicio);
+            }
+
+            werase(janela);
+            box(janela, 0, 0);
+            mvwprintw(janela, 1, 2, "=== Editar Destino ===");
+            mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+            wrefresh(janela);
+
+            prompt = "Nova data fim (" + destino->getDataFim().getValor() + ") [ddmmaa]: ";
+            std::string novaDataFim = lerInput(prompt, 3, 2);
+            if (novaDataFim.empty()) {
+                novaDataFim = destino->getDataFim().getValor();
+            } else {
+                novaDataFim = formatarData(novaDataFim);
+            }
+
+            werase(janela);
+            box(janela, 0, 0);
+            mvwprintw(janela, 1, 2, "=== Editar Destino ===");
+            mvwprintw(janela, altura - 2, 2, "ESC para voltar");
+            wrefresh(janela);
+
+            prompt = "Nova avaliacao (" + std::to_string(destino->getAvaliacao().getValor()) + "): ";
+            std::string novaAvalStr = lerInput(prompt, 3, 2);
+            if (novaAvalStr.empty()) novaAvalStr = std::to_string(destino->getAvaliacao().getValor());
+
+            try {
+                Nome nome(novoNome);
+                Data dataInicio(novaDataInicio);
+                Data dataFim(novaDataFim);
+                Avaliacao avaliacao(std::stoi(novaAvalStr));
+
+                Destino destinoAtualizado(destino->getCodigo(), nome, dataInicio, dataFim, 
+                                        avaliacao, destino->getCodigoViagem());
+
+                if (servicoDestino->atualizarDestino(destinoAtualizado)) {
+                    mostrarAlerta("Destino atualizado com sucesso!");
+                    delete destino;
+                    return;
+                } else {
+                    mostrarAlerta("Erro ao atualizar destino.");
+                }
+            } catch (const std::invalid_argument& e) {
+                mostrarAlerta(e.what());
+            }
+
             delete destino;
-            return;
+        } catch (const std::exception& e) {
+            mostrarAlerta(e.what());
         }
-        // Cria um novo objeto destino com os valores atualizados
-        Destino destinoAtualizado(destino->getCodigo(), nomeAtual, dataInicioAtual, dataFimAtual, avaliacaoAtual, destino->getCodigoViagem());
-        if (servicoDestino->atualizarDestino(destinoAtualizado)) {
-            mostrarAlerta("Destino atualizado com sucesso!");
-        } else {
-            mostrarAlerta("Falha ao atualizar destino.");
-        }
-        delete destino;
-    } catch (const std::exception& e) {
-        mostrarAlerta(e.what());
     }
 }
 
