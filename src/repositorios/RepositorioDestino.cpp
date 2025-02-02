@@ -74,21 +74,39 @@ std::vector<Destino> RepositorioDestino::listarTodos() {
     return destinos;
 }
 Destino RepositorioDestino::mapearParaEntidade(sqlite3_stmt* stmt) {
-    // Coluna 0: codigo do destino
-    Codigo codigo(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0)));
+    std::cout << "\n=== DEBUG: Iniciando mapeamento ===\n";
+    
+    // Coluna 0: código do destino
+    std::string codigoStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+    std::cout << "DEBUG: Codigo lido: " << codigoStr << std::endl;
+    Codigo codigo(codigoStr);
+    
     // Coluna 1: nome
-    Nome nome(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
-    // Coluna 2: data_inicio
-    std::string dataInicioStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
-    Data dataInicio(dataInicioStr);
-    // Coluna 3: data_fim
-    std::string dataFimStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
-    Data dataFim(dataFimStr);
-    // Coluna 4: avaliacao
-    int aval = sqlite3_column_int(stmt, 4);
+    std::string nomeStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+    std::cout << "DEBUG: Nome lido: " << nomeStr << std::endl;
+    Nome nome(nomeStr);
+    
+    // Coluna 2: avaliacao (CORREÇÃO: mudou de posição)
+    int aval = sqlite3_column_int(stmt, 2);
+    std::cout << "DEBUG: Avaliacao: " << aval << std::endl;
     Avaliacao avaliacao(aval);
-    // Coluna 5: codigo_viagem
-    Codigo codigoViagem(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5)));
+    
+    // Coluna 3: data_inicio (CORREÇÃO: mudou de posição)
+    std::string dataInicioStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+    std::cout << "DEBUG: Data inicio (raw): " << dataInicioStr << std::endl;
+    Data dataInicio(dataInicioStr); // A data já vem formatada do banco
+    
+    // Coluna 4: data_fim (CORREÇÃO: mudou de posição)
+    std::string dataFimStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
+    std::cout << "DEBUG: Data fim (raw): " << dataFimStr << std::endl;
+    Data dataFim(dataFimStr); // A data já vem formatada do banco
+    
+    // Coluna 5: código da viagem
+    std::string codigoViagemStr = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
+    std::cout << "DEBUG: Codigo viagem: " << codigoViagemStr << std::endl;
+    Codigo codigoViagem(codigoViagemStr);
+    
+    std::cout << "=== DEBUG: Mapeamento concluído ===\n";
     
     return Destino(codigo, nome, dataInicio, dataFim, avaliacao, codigoViagem);
 }
