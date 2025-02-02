@@ -1,5 +1,3 @@
-//221006440
-
 #ifndef CODIGO_HPP
 #define CODIGO_HPP
 
@@ -16,29 +14,9 @@
 class Codigo
 {
 private:
-    std::string valor;                      ///< Armazena o código validado.
-    static const int TAMANHO = 6;           ///< Comprimento fixo do código.
-    void validar(const std::string &valor); ///< Método para validar o código.
-
+    std::string valor; ///< Armazena o código validado.
 public:
-    /**
-     * @brief Construtor que inicializa e valida o código.
-     * @param valor Código a ser atribuído.
-     * @throw std::invalid_argument Se o código for inválido.
-     */
     explicit Codigo(const std::string &valor);
-
-    /**
-     * @brief Define o valor do código após validação.
-     * @param valor Código a ser atribuído.
-     * @throw std::invalid_argument Se o código for inválido.
-     */
-    void setValor(const std::string &valor);
-
-    /**
-     * @brief Retorna o valor do código.
-     * @return Código armazenado.
-     */
     std::string getValor() const;
 };
 

@@ -47,3 +47,8 @@ std::string Horario::getValor() const
 {
     return horario;
 }
+
+Horario::Horario(const std::string &horario)
+{
+    setValor(horario);
+}

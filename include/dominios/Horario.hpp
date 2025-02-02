@@ -1,5 +1,4 @@
-//221006404
-
+// 221006404
 
 #ifndef HORARIO_HPP
 #define HORARIO_HPP
@@ -33,6 +32,7 @@ public:
      * @return Horário armazenado.
      */
     std::string getValor() const;
+    explicit Horario(const std::string &horario);
 };
 
 #endif // HORARIO_HPP

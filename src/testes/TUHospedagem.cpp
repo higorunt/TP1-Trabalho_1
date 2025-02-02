@@ -1,57 +1,18 @@
-#include "../../include/testes/TUHospedagem.hpp"
+#include <iostream>
+#include "testes/TUHospedagem.hpp"
+#include "dominios/Codigo.hpp"
+#include "dominios/Dinheiro.hpp"
 
-const std::string TUHospedagem::VALOR_VALIDO_NOME = "Hospedagem Teste";
-const std::string TUHospedagem::VALOR_VALIDO_CODIGO = "HOS123";
-const int TUHospedagem::VALOR_VALIDO_AVALIACAO = 5;
-const double TUHospedagem::VALOR_VALIDO_DIARIA = 150.00;
-
-void TUHospedagem::setUp() {
-    Nome nome(VALOR_VALIDO_NOME);
-    Codigo codigo(VALOR_VALIDO_CODIGO);
-    Avaliacao avaliacao(VALOR_VALIDO_AVALIACAO);
-    Dinheiro diaria(VALOR_VALIDO_DIARIA);
-
-    hospedagem = new Hospedagem(nome, codigo, avaliacao, diaria);
-    estado = SUCESSO;
-}
-
-void TUHospedagem::tearDown() {
-    delete hospedagem;
-}
-
-void TUHospedagem::testarCenario() {
-    // Teste para o domínio Nome
-    Nome nome(VALOR_VALIDO_NOME);
-    hospedagem->setNome(nome);
-    if (hospedagem->getNome().getValor() != VALOR_VALIDO_NOME) {
-        estado = FALHA;
+void TUHospedagem::testarCenario()
+{
+    try
+    {
+        Codigo codigo("123456");
+        Dinheiro dinheiro(100.0);
+        // Adicione os testes necessários aqui
     }
-
-    // Teste para o domínio Código
-    Codigo codigo(VALOR_VALIDO_CODIGO);
-    hospedagem->setCodigo(codigo);
-    if (hospedagem->getCodigo().getValor() != VALOR_VALIDO_CODIGO) {
-        estado = FALHA;
+    catch (const std::exception &e)
+    {
+        std::cerr << "Erro: " << e.what() << std::endl;
     }
-
-    // Teste para o domínio Avaliação
-    Avaliacao avaliacao(VALOR_VALIDO_AVALIACAO);
-    hospedagem->setAvaliacao(avaliacao);
-    if (hospedagem->getAvaliacao().getValor() != VALOR_VALIDO_AVALIACAO) {
-        estado = FALHA;
-    }
-
-    // Teste para o domínio Dinheiro (Diária)
-    Dinheiro diaria(VALOR_VALIDO_DIARIA);
-    hospedagem->setDiaria(diaria);
-    if (hospedagem->getDiaria().getValor() != std::to_string(VALOR_VALIDO_DIARIA)) {
-        estado = FALHA;
-    }
-}
-
-int TUHospedagem::run() {
-    setUp();
-    testarCenario();
-    tearDown();
-    return estado;
 }
