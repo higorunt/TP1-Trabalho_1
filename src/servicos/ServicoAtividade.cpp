@@ -11,6 +11,14 @@ bool ServicoAtividade::criarAtividade(const Atividade& atividade) {
             throw std::runtime_error("Data da atividade fora do período do destino");
         }
         
+        // Validar se não há sobreposição de horários
+        if (!validarHorarioAtividade(atividade.getHorario(), 
+                                   atividade.getDuracao(),
+                                   atividade.getData(),
+                                   atividade.getCodigoDestino())) {
+            throw std::runtime_error("Existe conflito de horário com outra atividade");
+        }
+        
         return repositorioAtividade->salvar(atividade);
     } catch (const std::exception& e) {
         throw std::runtime_error("Erro ao criar atividade: " + std::string(e.what()));
@@ -30,6 +38,15 @@ bool ServicoAtividade::atualizarAtividade(const Atividade& atividade) {
         // Validar se a nova data está dentro do período do destino
         if (!validarDataAtividade(atividade.getData(), atividade.getCodigoDestino())) {
             throw std::runtime_error("Data da atividade fora do período do destino");
+        }
+        
+        // Validar se não há sobreposição de horários (excluindo a própria atividade)
+        if (!validarHorarioAtividade(atividade.getHorario(), 
+                                   atividade.getDuracao(),
+                                   atividade.getData(),
+                                   atividade.getCodigoDestino(),
+                                   atividade.getCodigo())) {
+            throw std::runtime_error("Existe conflito de horário com outra atividade");
         }
         
         return repositorioAtividade->atualizar(atividade);
@@ -72,6 +89,46 @@ bool ServicoAtividade::validarDataAtividade(const Data& dataAtividade, const Cod
     } catch (const std::exception& e) {
         throw std::runtime_error("Erro ao validar data: " + std::string(e.what()));
     }
+}
+
+bool ServicoAtividade::validarHorarioAtividade(const Horario& horario, const Duracao& duracao,
+                                              const Data& data, const Codigo& codigoDestino,
+                                              const Codigo& codigoAtividade) {
+    // Buscar todas as atividades do destino na mesma data
+    std::vector<Atividade> atividades = listarPorDestino(codigoDestino);
+    
+    // Converter horário da nova atividade para minutos desde meia-noite
+    time_t inicioNovo = converterHorarioParaMinutos(horario);
+    time_t fimNovo = inicioNovo + duracao.getValor() * 60; // Converter duração para segundos
+    
+    for (const auto& ativ : atividades) {
+        // Ignorar a própria atividade no caso de edição
+        if (ativ.getCodigo().getValor() == codigoAtividade.getValor()) 
+            continue;
+            
+        // Verificar apenas atividades do mesmo dia
+        if (ativ.getData().getValor() != data.getValor())
+            continue;
+            
+        time_t inicioExistente = converterHorarioParaMinutos(ativ.getHorario());
+        time_t fimExistente = inicioExistente + ativ.getDuracao().getValor() * 60;
+        
+        // Verificar sobreposição
+        if ((inicioNovo >= inicioExistente && inicioNovo < fimExistente) || // Início durante outra atividade
+            (fimNovo > inicioExistente && fimNovo <= fimExistente) ||      // Fim durante outra atividade
+            (inicioNovo <= inicioExistente && fimNovo >= fimExistente)) {  // Engloba outra atividade
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+time_t ServicoAtividade::converterHorarioParaMinutos(const Horario& horario) {
+    std::string horarioStr = horario.getValor(); // Formato "HH:MM"
+    int horas = std::stoi(horarioStr.substr(0, 2));
+    int minutos = std::stoi(horarioStr.substr(3, 2));
+    return horas * 3600 + minutos * 60; // Converter para segundos desde meia-noite
 }
 
 time_t ServicoAtividade::converterParaTime(const Data& data) {

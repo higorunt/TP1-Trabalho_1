@@ -279,31 +279,44 @@ void TelaViagem::excluirViagem() {
 }
 
 void TelaViagem::calcularCustoViagem() {
-    int altura, largura;
-    getmaxyx(janela, altura, largura);
-    keypad(janela, TRUE);
-    noecho();
-    
-    while (true) {
-        limparTela();
-        box(janela, 0, 0);
-        mvwprintw(janela, 1, 2, "=== Calcular Custo da Viagem ===");
-        mvwprintw(janela, altura - 2, 2, "ESC para voltar");
-        wrefresh(janela);
+    limparTela();
+    box(janela, 0, 0);
+    mvwprintw(janela, 1, 2, "=== Calcular Custo da Viagem ===");
 
+    try {
         std::string codigo = lerInput("Digite o codigo da viagem: ", 3, 2);
         if (codigo.empty()) return;
 
-        try {
-            Codigo codigoViagem(codigo);
-            double custoTotal = servico->calcularCustoViagem(codigoViagem);
-            
-            std::stringstream ss;
-            ss << "Custo total: R$ " << std::fixed << std::setprecision(2) << custoTotal;
-            mostrarAlerta(ss.str());
+        Codigo codigoViagem(codigo);
+        double custoTotal = servico->calcularCustoViagem(codigoViagem);
+        
+        // Buscar detalhes da viagem
+        Viagem* viagem = servico->buscarViagem(codigoViagem);
+        if (!viagem) {
+            mostrarAlerta("Viagem não encontrada.");
             return;
-        } catch (const std::exception& e) {
-            mostrarAlerta(e.what());
         }
+
+        // Exibir informações detalhadas
+        limparTela();
+        box(janela, 0, 0);
+        mvwprintw(janela, 1, 2, "=== Detalhes de Custo da Viagem ===");
+        
+        int linha = 3;
+        mvwprintw(janela, linha++, 2, "Viagem: %s (%s)", 
+                 viagem->getNome().getValor().c_str(),
+                 viagem->getCodigo().getValor().c_str());
+        
+        mvwprintw(janela, linha++, 2, "----------------------------------------");
+        mvwprintw(janela, linha++, 2, "Custo Total: R$ %.2f", custoTotal);
+        
+        delete viagem;
+        
+        mvwprintw(janela, linha + 2, 2, "Pressione qualquer tecla para continuar...");
+        wrefresh(janela);
+        wgetch(janela);
+
+    } catch (const std::exception& e) {
+        mostrarAlerta(e.what());
     }
 }

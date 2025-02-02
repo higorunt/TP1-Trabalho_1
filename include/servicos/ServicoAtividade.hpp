@@ -21,6 +21,10 @@ private:
     
     bool validarDataAtividade(const Data& dataAtividade, const Codigo& codigoDestino);
     time_t converterParaTime(const Data& data);
+    bool validarHorarioAtividade(const Horario& horario, const Duracao& duracao, 
+                                const Data& data, const Codigo& codigoDestino,
+                                const Codigo& codigoAtividade = Codigo("000000"));
+    time_t converterHorarioParaMinutos(const Horario& horario);
 };
 
 #endif

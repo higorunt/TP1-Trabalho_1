@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <iostream>
+#include <ctime>
 
 
 // Construtor: conecta ao banco e cria a tabela, se necessário
@@ -232,8 +233,104 @@ std::vector<Viagem> RepositorioViagem::listarPorViajante(const Codigo& codigoVia
         throw std::runtime_error("Erro ao listar viagens: " + std::string(e.what()));
     }
 }
+
 double RepositorioViagem::calcularCustoTotal(const Codigo& codigoViagem) {
-    // Implemente a lógica de cálculo conforme a regra de negócio.
-    // Neste exemplo, retornamos 0.0.
-    return 0.0;
+    double custoTotal = 0.0;
+    
+    // 1. Buscar todos os destinos da viagem
+    std::string sqlDestinos = 
+        "SELECT codigo FROM destinos WHERE codigo_viagem = ?";
+    
+    sqlite3_stmt* stmtDestinos = prepararSQL(sqlDestinos);
+    sqlite3_bind_text(stmtDestinos, 1, codigoViagem.getValor().c_str(), -1, SQLITE_STATIC);
+    
+    std::vector<std::string> codigosDestinos;
+    while (sqlite3_step(stmtDestinos) == SQLITE_ROW) {
+        codigosDestinos.push_back(
+            reinterpret_cast<const char*>(sqlite3_column_text(stmtDestinos, 0))
+        );
+    }
+    finalizar(stmtDestinos);
+    
+    // 2. Para cada destino, somar custos das atividades e hospedagem
+    for (const auto& codigoDestino : codigosDestinos) {
+        // Somar custos das atividades
+        std::string sqlAtividades = 
+            "SELECT SUM(CAST(preco AS FLOAT)) FROM atividades WHERE codigo_destino = ?";
+        
+        sqlite3_stmt* stmtAtividades = prepararSQL(sqlAtividades);
+        sqlite3_bind_text(stmtAtividades, 1, codigoDestino.c_str(), -1, SQLITE_STATIC);
+        
+        if (sqlite3_step(stmtAtividades) == SQLITE_ROW) {
+            custoTotal += sqlite3_column_double(stmtAtividades, 0);
+        }
+        finalizar(stmtAtividades);
+        
+        // Somar custos da hospedagem
+        std::string sqlHospedagem = 
+            "SELECT CAST(diaria AS FLOAT) FROM hospedagens WHERE codigo_destino = ?";
+        
+        sqlite3_stmt* stmtHospedagem = prepararSQL(sqlHospedagem);
+        sqlite3_bind_text(stmtHospedagem, 1, codigoDestino.c_str(), -1, SQLITE_STATIC);
+        
+        if (sqlite3_step(stmtHospedagem) == SQLITE_ROW) {
+            // Calcular custo total da hospedagem (diária * número de dias)
+            double diaria = sqlite3_column_double(stmtHospedagem, 0);
+            // Buscar período do destino para calcular número de dias
+            std::string sqlPeriodo = 
+                "SELECT data_inicio, data_fim FROM destinos WHERE codigo = ?";
+            
+            sqlite3_stmt* stmtPeriodo = prepararSQL(sqlPeriodo);
+            sqlite3_bind_text(stmtPeriodo, 1, codigoDestino.c_str(), -1, SQLITE_STATIC);
+            
+            if (sqlite3_step(stmtPeriodo) == SQLITE_ROW) {
+                std::string dataInicio = reinterpret_cast<const char*>(sqlite3_column_text(stmtPeriodo, 0));
+                std::string dataFim = reinterpret_cast<const char*>(sqlite3_column_text(stmtPeriodo, 1));
+                
+                // Converter datas para calcular diferença
+                int dias = calcularDiasEntreDatas(dataInicio, dataFim);
+                custoTotal += (diaria * dias);
+            }
+            finalizar(stmtPeriodo);
+        }
+        finalizar(stmtHospedagem);
+    }
+    
+    // 3. Atualizar o custo total na tabela de viagens
+    std::string sqlUpdate = 
+        "UPDATE viagens SET custo_total = ? WHERE codigo = ?";
+    
+    sqlite3_stmt* stmtUpdate = prepararSQL(sqlUpdate);
+    sqlite3_bind_double(stmtUpdate, 1, custoTotal);
+    sqlite3_bind_text(stmtUpdate, 2, codigoViagem.getValor().c_str(), -1, SQLITE_STATIC);
+    
+    if (sqlite3_step(stmtUpdate) != SQLITE_DONE) {
+        finalizar(stmtUpdate);
+        throw std::runtime_error("Erro ao atualizar custo total da viagem");
+    }
+    finalizar(stmtUpdate);
+    
+    return custoTotal;
+}
+
+int RepositorioViagem::calcularDiasEntreDatas(const std::string& dataInicio, const std::string& dataFim) {
+    // Converter datas do formato "DD-MM-AA" para estrutura tm
+    tm tmInicio = {}, tmFim = {};
+    
+    // Extrair dia, mês e ano da data de início
+    tmInicio.tm_mday = std::stoi(dataInicio.substr(0, 2));
+    tmInicio.tm_mon = std::stoi(dataInicio.substr(3, 2)) - 1;
+    tmInicio.tm_year = std::stoi(dataInicio.substr(6, 2)) + 2000 - 1900;
+    
+    // Extrair dia, mês e ano da data de fim
+    tmFim.tm_mday = std::stoi(dataFim.substr(0, 2));
+    tmFim.tm_mon = std::stoi(dataFim.substr(3, 2)) - 1;
+    tmFim.tm_year = std::stoi(dataFim.substr(6, 2)) + 2000 - 1900;
+    
+    // Converter para time_t e calcular diferença em segundos
+    time_t timeInicio = mktime(&tmInicio);
+    time_t timeFim = mktime(&tmFim);
+    
+    // Converter diferença de segundos para dias
+    return static_cast<int>(difftime(timeFim, timeInicio) / (60 * 60 * 24)) + 1; // +1 para incluir o último dia
 }
