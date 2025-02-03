@@ -6,6 +6,7 @@
 #include "TelaDestino.hpp"  // Inclusão da tela de destinos
 #include "TelaAtividade.hpp"
 #include "TelaHospedagem.hpp"
+#include "TelaRelatorios.hpp"
 #include "../entidades/Viajante.hpp"
 #include "../servicos/ServicoViagem.hpp"
 #include "../servicos/ServicoDestino.hpp"
@@ -23,6 +24,7 @@ private:
     TelaDestino* telaDestino;
     TelaAtividade* telaAtividade;
     TelaHospedagem* telaHospedagem;
+    TelaRelatorios* telaRelatorios;
     WINDOW* painelMenu;
     
     struct {

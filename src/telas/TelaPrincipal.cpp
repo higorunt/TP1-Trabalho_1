@@ -14,6 +14,8 @@ TelaPrincipal::TelaPrincipal(Viajante* v, ServicoViagem* sv, ServicoDestino* sd,
     telaDestino = new TelaDestino(servicoDestino, servicoViagem, viajante);
     telaAtividade = new TelaAtividade(servicoAtividade, servicoDestino, viajante);
     telaHospedagem = new TelaHospedagem(servicoHospedagem, servicoDestino, viajante);
+    telaRelatorios = new TelaRelatorios(servicoViagem, servicoDestino, 
+                                       servicoAtividade, servicoHospedagem, viajante);
 }
 
 TelaPrincipal::~TelaPrincipal() {
@@ -25,6 +27,7 @@ TelaPrincipal::~TelaPrincipal() {
     delete telaDestino;
     delete telaAtividade;
     delete telaHospedagem;
+    delete telaRelatorios;
 }
 
 void TelaPrincipal::mostrar() {
@@ -64,16 +67,12 @@ void TelaPrincipal::desenharMenu() {
         "2. Gerenciar Destinos",
         "3. Gerenciar Atividades",
         "4. Gerenciar Hospedagens",
-        "5. Consultar Custo de Viagem",
-        "6. Listar Minhas Viagens",
-        "7. Listar Destinos da Viagem",
-        "8. Listar Atividades do Destino",
-        "9. Listar Hospedagens do Destino",
+        "5. Relatorios e Custos",
         "0. Sair"
     };
     
-    for (int i = 0; i < 10; i++) {
-        mvwprintw(painelMenu, i + 3, 3, "%s", opcoes[i]);
+    for (int i = 0; i < 6; i++) {
+        mvwprintw(painelMenu, i + 3, 3, "%s", converterParaCP850(opcoes[i]).c_str());
     }
     
     mvwprintw(painelMenu, layout.altura - 2, 2, "Digite o numero da opcao desejada");
@@ -96,52 +95,8 @@ void TelaPrincipal::processarOpcao(int opcao) {
         case 4:
             telaHospedagem->mostrar();
             break;
-        case 5: {
-            try {
-                std::string codigoStr = mostrarInput("Digite o codigo da viagem:");
-                if (!codigoStr.empty()) {
-                    Codigo codigo(codigoStr);
-                    double custo = servicoViagem->calcularCustoViagem(codigo);
-                    std::string msg = "Custo total da viagem: R$ " + std::to_string(custo);
-                    mostrarAlerta(msg);
-                }
-            } catch (const std::exception& e) {
-                mostrarAlerta(e.what());
-            }
-            break;
-        }
-        case 6: {
-            try {
-                std::vector<Viagem> viagens = servicoViagem->listarViagensPorViajante(viajante->getConta().getCodigo());
-                if (viagens.empty()) {
-                    mostrarAlerta("Nenhuma viagem encontrada.");
-                } else {
-                    // TODO: Implementar exibição da lista de viagens
-                    mostrarAlerta("Funcao em desenvolvimento");
-                }
-            } catch (const std::exception& e) {
-                mostrarAlerta(e.what());
-            }
-            break;
-        }
-        case 7: {
-            try {
-                std::string codigoStr = mostrarInput("Digite o codigo da viagem:");
-                if (!codigoStr.empty()) {
-                    Codigo codigo(codigoStr);
-                    // TODO: Implementar listagem de destinos
-                    mostrarAlerta("Funcao em desenvolvimento");
-                }
-            } catch (const std::exception& e) {
-                mostrarAlerta(e.what());
-            }
-            break;
-        }
-        case 8:
-            mostrarAlerta("Atividades do Destino - Em desenvolvimento");
-            break;
-        case 9:
-            mostrarAlerta("Hospedagens do Destino - Em desenvolvimento");
+        case 5:
+            telaRelatorios->mostrar();
             break;
         default:
             break;

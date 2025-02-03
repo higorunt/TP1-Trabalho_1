@@ -33,6 +33,8 @@ private:
         )";
         executarSQL(sql);
     }
+
+    int calcularDiasEntreDatas(const std::string& dataInicio, const std::string& dataFim);
 };
 
 #endif // REPOSITORIO_VIAGEM_HPP
