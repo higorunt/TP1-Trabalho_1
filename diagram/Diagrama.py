@@ -139,74 +139,333 @@ plantuml_code = """
 @startuml
 skinparam backgroundColor white
 skinparam componentStyle uml2
-skinparam defaultFontName "Helvetica"
+skinparam defaultFontName Arial
+skinparam linetype ortho
 
-title Arquitetura Orientada a Processos do Sistema de Planejamento de Viagens
+title Sistema de Planejamento de Viagens - Arquitetura Completa
 
-' Definição dos módulos principais
-package "Camada de Apresentação" {
-    [Tela de Login] as Login
-    [Tela Principal] as MainScreen
-    [Gerenciamento de Viagens] as ManageTrips
-    [Gerenciamento de Destinos] as ManageDestinations
-    [Gerenciamento de Atividades] as ManageActivities
-    [Gerenciamento de Hospedagens] as ManageAccommodations
+' Domain Layer
+package "Dom�nios" {
+    class Avaliacao {
+        + setValor(valor: int)
+        + getValor(): int
+    }
+    class Codigo {
+        + setCodigo(codigo: string)
+        + getCodigo(): string
+        + validarCodigo(): bool
+    }
+    class Data {
+        + setData(data: string)
+        + getData(): string
+        + validarData(): bool
+    }
+    class Dinheiro {
+        + setValor(valor: float)
+        + getValor(): float
+        + validarValor(): bool
+    }
+    class Duracao {
+        + setDuracao(duracao: int)
+        + getDuracao(): int
+        + validarDuracao(): bool
+    }
+    class Horario {
+        + setHorario(horario: string)
+        + getHorario(): string
+        + validarHorario(): bool
+    }
+    class Nome {
+        + setNome(nome: string)
+        + getNome(): string
+        + validarNome(): bool
+    }
+    class Senha {
+        + setSenha(senha: string)
+        + getSenha(): string
+        + validarSenha(): bool
+    }
 }
 
-package "Camada de Serviço" {
-    [Serviço de Autenticação] as AuthService
-    [Serviço de Viagens] as TripsService
-    [Serviço de Destinos] as DestinationsService
-    [Serviço de Atividades] as ActivitiesService
-    [Serviço de Hospedagens] as AccommodationsService
+' Entity Layer  
+package "Entidades" {
+    class Viajante {
+        - nome: Nome
+        - conta: Conta
+    }
+    class Viagem {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - conta: Conta
+        - custoTotal: Dinheiro
+    }
+    class Destino {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - dataInicio: Data
+        - dataFim: Data
+    }
+    class Atividade {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - data: Data
+        - horario: Horario
+        - duracao: Duracao
+        - preco: Dinheiro
+    }
+    class Hospedagem {
+        - nome: Nome
+        - codigo: Codigo
+        - avaliacao: Avaliacao
+        - diaria: Dinheiro
+    }
+    class Conta {
+        - codigo: Codigo
+        - senha: Senha
+    }
 }
 
-package "Camada de Domínio" {
-    [Autenticação]
-    [Viagem]
-    [Destino]
-    [Atividade]
-    [Hospedagem]
+' Interface Layer
+package "Interfaces" {
+    interface IRepositorio<T,K> {
+        + {abstract} salvar(entidade: T&): bool
+        + {abstract} buscar(id: K&): T*
+        + {abstract} atualizar(entidade: T&): bool
+        + {abstract} deletar(id: K&): bool
+    }
+    
+    interface IRepositorioViagem {
+        + {abstract} listarPorViajante(codigoViajante: Codigo&): vector<Viagem>
+        + {abstract} calcularCustoTotal(codigoViagem: Codigo&): double
+        + {abstract} possuiDestinos(codigoViagem: Codigo&): bool
+    }
 }
 
-package "Aplicação Principal" {
-    [main.cpp]
+' Repository Layer
+package "Reposit�rios" {
+    class RepositorioBase {
+        # db: sqlite3*
+        + RepositorioBase(caminho: string)
+        + ~RepositorioBase()
+        # executar(query: string): void
+        # executarSelect(query: string): sqlite3_stmt*
+        # finalizar(): void
+        # inicializar(): void
+    }
+    class RepositorioAutenticacao {
+        + RepositorioAutenticacao(caminho: string)
+        + autenticar(codigo: Codigo&, senha: Senha&): bool
+        + salvar(viajante: Viajante&): bool
+        + buscar(codigo: Codigo&): Viajante*
+        + atualizar(viajante: Viajante&): bool
+        + deletar(codigo: Codigo&): bool
+    }
+    class RepositorioViagem {
+        + RepositorioViagem(caminho: string)
+        + salvar(viagem: Viagem&): bool
+        + buscar(codigo: Codigo&): Viagem*
+        + atualizar(viagem: Viagem&): bool
+        + deletar(codigo: Codigo&): bool
+        + listarPorViajante(codigo: Codigo&): vector<Viagem>
+        + calcularCustoTotal(codigo: Codigo&): double
+        + possuiDestinos(codigo: Codigo&): bool
+    }
+    class RepositorioDestino {
+        + RepositorioDestino(caminho: string)
+        + salvar(destino: Destino&): bool
+        + buscar(codigo: Codigo&): Destino*
+        + atualizar(destino: Destino&): bool
+        + deletar(codigo: Codigo&): bool
+        + listarPorViagem(codigo: Codigo&): vector<Destino>
+    }
+    class RepositorioAtividade {
+        + RepositorioAtividade(caminho: string)
+        + salvar(atividade: Atividade&): bool
+        + buscar(codigo: Codigo&): Atividade*
+        + atualizar(atividade: Atividade&): bool
+        + deletar(codigo: Codigo&): bool
+        + listarPorDestino(codigo: Codigo&): vector<Atividade>
+    }
+    class RepositorioHospedagem {
+        + RepositorioHospedagem(caminho: string)
+        + salvar(hospedagem: Hospedagem&): bool
+        + buscar(codigo: Codigo&): Hospedagem*
+        + atualizar(hospedagem: Hospedagem&): bool
+        + deletar(codigo: Codigo&): bool
+        + listarPorDestino(codigo: Codigo&): vector<Hospedagem>
+    }
+    class RepositorioViajante {
+        + RepositorioViajante(caminho: string)
+        + salvar(viajante: Viajante&): bool
+        + buscar(codigo: Codigo&): Viajante*
+        + atualizar(viajante: Viajante&): bool
+        + deletar(codigo: Codigo&): bool
+    }
+    class RepositorioConta {
+        + RepositorioConta(caminho: string)
+        + salvar(conta: Conta&): bool
+        + buscar(codigo: Codigo&): Conta*
+        + atualizar(conta: Conta&): bool
+        + deletar(codigo: Codigo&): bool
+    }
 }
 
-' Relacionamentos entre módulos
-Login --> AuthService : Envia Credenciais
-AuthService --> Autenticação : Valida Credenciais
-Autenticação --> AuthService : Retorna Status
-AuthService --> Login : Retorna Status
-Login --> MainScreen : Navega após Sucesso
+' Service Layer
+package "Servi�os" {
+    class ServicoAutenticacao {
+        - repositorio: IRepositorio<Viajante,Codigo>*
+        + ServicoAutenticacao(repo: IRepositorio<Viajante,Codigo>*)
+        + ~ServicoAutenticacao()
+        + autenticar(codigo: Codigo&, senha: Senha&): Viajante*
+        + cadastrar(viajante: Viajante&): bool
+    }
+    class ServicoViagem {
+        - repositorio: RepositorioViagem*
+        - repositorioDestino: RepositorioDestino*
+        + ServicoViagem(repoViagem: RepositorioViagem*, repoDestino: RepositorioDestino*)
+        + criarViagem(viagem: Viagem&): bool
+        + buscarViagem(codigo: Codigo&): Viagem*
+        + atualizarViagem(viagem: Viagem&): bool
+        + excluirViagem(codigo: Codigo&): bool
+        + calcularCustoViagem(codigo: Codigo&): double
+        + listarViagensPorViajante(codigo: Codigo&): vector<Viagem>
+        + listarDestinosPorViagem(codigo: Codigo&): vector<Destino>
+        + possuiDestinos(codigo: Codigo&): bool
+    }
+    class ServicoDestino {
+        - repositorio: RepositorioDestino*
+        + ServicoDestino(repo: RepositorioDestino*)
+        + cadastrarDestino(destino: Destino&): bool
+        + buscarDestino(codigo: Codigo&): Destino*
+        + atualizarDestino(destino: Destino&): bool
+        + excluirDestino(codigo: Codigo&): bool
+        + listarPorViagem(codigo: Codigo&): vector<Destino>
+        + listarTodos(): vector<Destino>
+    }
+    class ServicoAtividade {
+        - repositorio: RepositorioAtividade*
+        + ServicoAtividade(repo: RepositorioAtividade*)
+        + cadastrarAtividade(atividade: Atividade&): bool
+        + buscarAtividade(codigo: Codigo&): Atividade*
+        + atualizarAtividade(atividade: Atividade&): bool
+        + excluirAtividade(codigo: Codigo&): bool
+        + listarPorDestino(codigo: Codigo&): vector<Atividade>
+    }
+    class ServicoHospedagem {
+        - repositorio: RepositorioHospedagem*
+        + ServicoHospedagem(repo: RepositorioHospedagem*)
+        + cadastrarHospedagem(hospedagem: Hospedagem&): bool
+        + buscarHospedagem(codigo: Codigo&): Hospedagem*
+        + atualizarHospedagem(hospedagem: Hospedagem&): bool
+        + excluirHospedagem(codigo: Codigo&): bool
+        + listarPorDestino(codigo: Codigo&): vector<Hospedagem>
+    }
+    class ServicoViajante {
+        - repositorio: RepositorioViajante*
+        + ServicoViajante(repo: RepositorioViajante*)
+        + cadastrarViajante(viajante: Viajante&): bool
+        + buscarViajante(codigo: Codigo&): Viajante*
+        + atualizarViajante(viajante: Viajante&): bool
+        + excluirViajante(codigo: Codigo&): bool
+    }
+    class ServicoConta {
+        - repositorio: RepositorioConta*
+        + ServicoConta(repo: RepositorioConta*)
+        + criarConta(conta: Conta&): bool
+        + buscarConta(codigo: Codigo&): Conta*
+        + atualizarConta(conta: Conta&): bool
+        + excluirConta(codigo: Codigo&): bool
+    }
+}
 
-MainScreen --> TripsService : Solicita Gerenciamento de Viagens
-MainScreen --> DestinationsService : Solicita Gerenciamento de Destinos
-MainScreen --> ActivitiesService : Solicita Gerenciamento de Atividades
-MainScreen --> AccommodationsService : Solicita Gerenciamento de Hospedagens
+' UI Layer
+package "Telas" {
+    class TelaBase
+    class TelaAutenticacao
+    class TelaCadastro
+    class TelaPrincipal
+    class TelaViagem
+    class TelaDestino
+    class TelaAtividade
+    class TelaHospedagem
+    class TelaViajante
+    class TelaConta
+}
 
-TripsService --> Viagem : Manipula Dados de Viagem
-DestinationsService --> Destino : Manipula Dados de Destino
-ActivitiesService --> Atividade : Manipula Dados de Atividade
-AccommodationsService --> Hospedagem : Manipula Dados de Hospedagem
+' Inheritance
+IRepositorio <|-- RepositorioBase
+IRepositorioViagem <|-- RepositorioViagem
+RepositorioBase <|-- RepositorioAutenticacao
+RepositorioBase <|-- RepositorioViagem 
+RepositorioBase <|-- RepositorioDestino
+RepositorioBase <|-- RepositorioAtividade
+RepositorioBase <|-- RepositorioHospedagem
+RepositorioBase <|-- RepositorioViajante
+RepositorioBase <|-- RepositorioConta
 
-Viagem --> Data : Define
-Viagem --> Dinheiro : Calcula
-Viagem --> Duracao : Define
-Viagem --> Destino : Contém
+TelaBase <|-- TelaAutenticacao
+TelaBase <|-- TelaCadastro
+TelaBase <|-- TelaPrincipal
+TelaBase <|-- TelaViagem
+TelaBase <|-- TelaDestino
+TelaBase <|-- TelaAtividade
+TelaBase <|-- TelaHospedagem
+TelaBase <|-- TelaViajante
+TelaBase <|-- TelaConta
 
-Destino --> Nome : Possui
-Destino --> Atividade : Contém
-Destino --> Hospedagem : Contém
+' Dependencies - Entities
+Viajante --> Nome
+Viajante --> Conta
+Viagem --> Nome
+Viagem --> Codigo
+Viagem --> Avaliacao
+Viagem --> Conta
+Viagem --> Dinheiro
+Destino --> Nome
+Destino --> Codigo
+Destino --> Avaliacao
+Destino --> Data
+Atividade --> Nome
+Atividade --> Codigo
+Atividade --> Avaliacao
+Atividade --> Data
+Atividade --> Horario
+Atividade --> Duracao
+Atividade --> Dinheiro
+Hospedagem --> Nome
+Hospedagem --> Codigo
+Hospedagem --> Avaliacao
+Hospedagem --> Dinheiro
+Conta --> Codigo
+Conta --> Senha
 
-Atividade --> Horario : Agendada em
-Hospedagem --> Avaliacao : Recebe
+' Relationships - Entities
+Conta "1" -- "0..*" Viagem
+Viagem "1" -- "0..*" Destino
+Destino "1" -- "0..*" Atividade
+Destino "1" -- "0..*" Hospedagem
 
-Viajante --> Senha : Possui
+' Dependencies - Services/Repositories
+ServicoAutenticacao --> RepositorioAutenticacao
+ServicoViagem --> RepositorioViagem
+ServicoDestino --> RepositorioDestino
+ServicoAtividade --> RepositorioAtividade
+ServicoHospedagem --> RepositorioHospedagem
+ServicoViajante --> RepositorioViajante
+ServicoConta --> RepositorioConta
 
-main.cpp --> Login : Inicializa Tela de Login
-main.cpp --> MainScreen : Inicializa Tela Principal
-
+' Dependencies - UI/Services
+TelaAutenticacao --> ServicoAutenticacao
+TelaCadastro --> ServicoAutenticacao
+TelaViagem --> ServicoViagem
+TelaDestino --> ServicoDestino
+TelaAtividade --> ServicoAtividade
+TelaHospedagem --> ServicoHospedagem
+TelaViajante --> ServicoViajante
+TelaConta --> ServicoConta
 @enduml
 """
 
