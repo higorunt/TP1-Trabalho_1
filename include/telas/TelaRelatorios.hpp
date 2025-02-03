@@ -33,12 +33,23 @@ private:
     Viajante* viajante;
     WINDOW* painelRelatorios;
 
+    struct {
+        int altura = 20;
+        int largura = 60;
+        int centralX;
+        int centralY;
+    } layout;
+
     void desenharMenu();
     void processarOpcao(int opcao);
-    void relatorioGeral();
-    void relatorioPorViagem();
-    void relatorioPorDestino();
+    void resumoGeralCustos();
+    void listarMinhasViagens();
+    void detalhesViagem();
+    void relatorioDestino();
+    void relatorioAtividades();
+    void relatorioHospedagens();
     void exibirDetalhesDestino(const Destino& destino);
+    int calcularDias(const std::string& dataInicio, const std::string& dataFim);
 };
 
 #endif

@@ -36,6 +36,7 @@ public:
     // Configurações da tela
     void inicializarCores();
     void configurarTamanho(int altura = 30, int largura = 80);
+    std::string converterParaCP850(const std::string& text);
 };
 
 #endif

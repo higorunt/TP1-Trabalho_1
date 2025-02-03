@@ -362,3 +362,9 @@ std::string TelaBase::mostrarInput(const std::string& prompt) {
     
     return std::string(buffer);
 }
+
+std::string TelaBase::converterParaCP850(const std::string& text) {
+    // Implementação simples: retornar o próprio texto.
+    // Ajustar conforme necessidade real de conversão.
+    return text;
+}
