@@ -1,5 +1,11 @@
 #ifndef TELA_AUTENTICACAO_HPP
 #define TELA_AUTENTICACAO_HPP
+//221006440
+/**
+ * @brief Classe que gerencia a interface de autenticação.
+ * 
+ * Responsável pela tela de login e registro de usuários.
+ */
 
 #include "TelaBase.hpp"
 #include "../servicos/ServicoAutenticacao.hpp"

@@ -1,3 +1,4 @@
+//221006440
 #ifndef REPOSITORIO_VIAGEM_HPP
 #define REPOSITORIO_VIAGEM_HPP
 
@@ -6,10 +7,19 @@
 #include "../entidades/Viagem.hpp"
 #include <vector>
 
+/**
+ * @brief Repositório para gerenciamento de Viagens no sistema.
+ * 
+ * Implementa as operações CRUD e outras operações específicas para a entidade Viagem.
+ */
 class RepositorioViagem : 
     public RepositorioBase,
     public IRepositorioViagem {
 public:
+    /**
+     * @brief Construtor do repositório.
+     * @param caminho Caminho do banco de dados.
+     */
     RepositorioViagem(const std::string& caminho);
     
     bool salvar(const Viagem& viagem) override;
@@ -20,6 +30,9 @@ public:
     double calcularCustoTotal(const Codigo& codigoViagem);
 
 private:
+    /**
+     * @brief Cria a tabela de viagens no banco de dados.
+     */
     void criarTabela() {
         const char* sql = R"(
             CREATE TABLE IF NOT EXISTS viagens (
@@ -34,6 +47,12 @@ private:
         executarSQL(sql);
     }
 
+    /**
+     * @brief Calcula o número de dias entre duas datas.
+     * @param dataInicio Data inicial.
+     * @param dataFim Data final.
+     * @return Número de dias entre as datas.
+     */
     int calcularDiasEntreDatas(const std::string& dataInicio, const std::string& dataFim);
 };
 

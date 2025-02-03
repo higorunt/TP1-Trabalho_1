@@ -1,11 +1,17 @@
 #ifndef TELA_ATIVIDADE_HPP
 #define TELA_ATIVIDADE_HPP
+//221006404
 
 #include "TelaBase.hpp"
 #include "../servicos/ServicoAtividade.hpp"
 #include "../servicos/ServicoDestino.hpp"
 #include "../entidades/Viajante.hpp"
 
+/**
+ * @brief Classe que gerencia a interface de atividades.
+ * 
+ * Permite gerenciar atividades associadas a destinos.
+ */
 class TelaAtividade : public TelaBase {
 public:
     TelaAtividade(ServicoAtividade* srvAtividade, ServicoDestino* srvDestino, Viajante* v)

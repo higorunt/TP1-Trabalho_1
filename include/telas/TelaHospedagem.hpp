@@ -1,11 +1,16 @@
 #ifndef TELA_HOSPEDAGEM_HPP
 #define TELA_HOSPEDAGEM_HPP
-
+//221006440
 #include "TelaBase.hpp"
 #include "../servicos/ServicoHospedagem.hpp"
 #include "../servicos/ServicoDestino.hpp"
 #include "../entidades/Viajante.hpp"
 
+/**
+ * @brief Classe que gerencia a interface de hospedagens.
+ * 
+ * Permite gerenciar hospedagens associadas a destinos.
+ */
 class TelaHospedagem : public TelaBase {
 public:
     TelaHospedagem(ServicoHospedagem* srvHospedagem, ServicoDestino* srvDestino, Viajante* v)

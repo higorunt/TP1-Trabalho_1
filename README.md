@@ -112,6 +112,109 @@ Cada classe de entidade deve:
 ## Estrutura:
 - As pastas 'Entidades', 'Domínio' e 'Testes' com os arquivos .hpp estão localizadas na pasta include. Já as pastas 'Entidades', 'Domínio' e 'Testes' com os arquivos .cpp estão na pasta src.
 
+## Arquitetura do Sistema
+
+### 3. Repositórios
+Os repositórios são responsáveis pela persistência dos dados usando SQLite:
+
+- **RepositorioBase**: Classe base com funcionalidades comuns de banco de dados
+- **RepositorioViagem**: Gerencia dados de viagens
+- **RepositorioDestino**: Gerencia dados de destinos
+- **RepositorioAtividade**: Gerencia dados de atividades
+- **RepositorioHospedagem**: Gerencia dados de hospedagens
+- **RepositorioAutenticacao**: Gerencia dados de autenticação
+
+### 4. Serviços
+Camada que implementa as regras de negócio:
+
+- **ServicoViagem**: Lógica de negócio para viagens
+- **ServicoDestino**: Lógica de negócio para destinos
+- **ServicoAtividade**: Lógica de negócio para atividades
+- **ServicoHospedagem**: Lógica de negócio para hospedagens
+- **ServicoAutenticacao**: Lógica de autenticação e gestão de usuários
+
+### 5. Interface do Usuário
+Interface construída usando PDCurses:
+
+- **TelaBase**: Classe base com funcionalidades comuns de interface
+- **TelaAutenticacao**: Login e registro
+- **TelaPrincipal**: Menu principal do sistema
+- **TelaViagem**: Gestão de viagens
+- **TelaDestino**: Gestão de destinos
+- **TelaAtividade**: Gestão de atividades
+- **TelaHospedagem**: Gestão de hospedagens
+- **TelaRelatorios**: Visualização de relatórios
+
+### Estrutura de Pastas
+```
+projeto/
+├── include/
+│   ├── dominios/      # Headers dos domínios
+│   ├── entidades/     # Headers das entidades
+│   ├── interfaces/    # Headers das interfaces
+│   ├── repositorios/  # Headers dos repositórios
+│   ├── servicos/      # Headers dos serviços
+│   ├── telas/         # Headers das telas
+│   └── testes/        # Headers dos testes
+├── src/
+│   ├── dominios/      # Implementação dos domínios
+│   ├── entidades/     # Implementação das entidades
+│   ├── repositorios/  # Implementação dos repositórios
+│   ├── servicos/      # Implementação dos serviços
+│   ├── telas/         # Implementação das telas
+│   └── testes/        # Implementação dos testes
+└── docs/              # Documentação gerada pelo Doxygen
+```
+
+### Funcionalidades Principais
+
+1. **Gestão de Viagens**
+   - Criar, editar e excluir viagens
+   - Associar destinos a viagens
+   - Calcular custos totais
+
+2. **Gestão de Destinos**
+   - Adicionar/remover destinos em viagens
+   - Definir datas de início/fim
+   - Associar atividades e hospedagens
+
+3. **Gestão de Atividades**
+   - Programar atividades em destinos
+   - Controlar horários e durações
+   - Gerenciar custos de atividades
+
+4. **Gestão de Hospedagens**
+   - Registrar locais de hospedagem
+   - Controlar períodos de estadia
+   - Gerenciar custos de hospedagem
+
+5. **Relatórios**
+   - Resumo geral de custos
+   - Listagem de viagens
+   - Detalhes de destinos
+   - Programação de atividades
+   - Informações de hospedagens
+
+### Tecnologias Utilizadas
+- **C++17**: Linguagem de programação
+- **SQLite3**: Banco de dados
+- **PDCurses**: Interface gráfica em modo texto
+- **Doxygen**: Documentação do código
+- **Make**: Automação de build
+
+### Padrões de Projeto Utilizados
+- **Repository Pattern**: Abstração da camada de dados
+- **Service Layer**: Encapsulamento da lógica de negócio
+- **Factory Method**: Criação de objetos
+- **Singleton**: Conexão com banco de dados
+
+### Documentação
+O projeto utiliza Doxygen para gerar documentação automática. Para gerar:
+```bash
+doxygen Doxyfile
+```
+A documentação será gerada na pasta `docs/`.
+
 ## Colaboradores
 - Evelyn Caroline 221006404
 - Higor Roger 22106440

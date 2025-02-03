@@ -1,3 +1,4 @@
+//221006440
 #ifndef TELA_RELATORIOS_HPP
 #define TELA_RELATORIOS_HPP
 
@@ -8,6 +9,11 @@
 #include "../servicos/ServicoHospedagem.hpp"
 #include "../entidades/Viajante.hpp"
 
+/**
+ * @brief Classe que gerencia a interface de relatórios.
+ * 
+ * Permite visualizar diferentes relatórios do sistema.
+ */
 class TelaRelatorios : public TelaBase {
 public:
     TelaRelatorios(ServicoViagem* srvViagem, 

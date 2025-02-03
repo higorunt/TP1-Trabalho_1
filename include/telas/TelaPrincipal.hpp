@@ -1,3 +1,4 @@
+//221006440
 #ifndef TELA_PRINCIPAL_HPP
 #define TELA_PRINCIPAL_HPP
 
@@ -13,6 +14,11 @@
 #include "../servicos/ServicoAtividade.hpp"
 #include "../servicos/ServicoHospedagem.hpp"
 
+/**
+ * @brief Classe que gerencia a interface principal do sistema.
+ * 
+ * Coordena o acesso às diferentes funcionalidades do sistema.
+ */
 class TelaPrincipal : public TelaBase {
 private:
     Viajante* viajante;

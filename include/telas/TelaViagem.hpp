@@ -1,13 +1,18 @@
 // include/telas/TelaViagem.hpp
 #ifndef TELA_VIAGEM_HPP
 #define TELA_VIAGEM_HPP
-
+//221006404
 #include "TelaBase.hpp"
 #include "../servicos/ServicoViagem.hpp"
 #include "../entidades/Viajante.hpp"
 #include <PDcurses.h>
 #include <vector>
 
+/**
+ * @brief Classe que gerencia a interface de viagens.
+ * 
+ * Permite criar, editar, excluir e visualizar viagens do usuário.
+ */
 class TelaViagem : public TelaBase {
 private:
     ServicoViagem* servico;
